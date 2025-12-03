@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontakt & Beratung – Energie-Tanken</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo" style="color: var(--mint); font-size: 1.3rem; font-weight: 700;">
+    ENERGIE-TANKEN.net
+  </div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="hochfrequenz.html">Hochfrequenz</a>
+    <a href="anwendungen.html">Anwendungen</a>
+    <a href="shop.html">Shop</a>
+    <a href="wissenswertes.html">Wissenswertes</a>
+    <a href="medien.html">Medien</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section">
+    <h2>Kontakt & persönliche Beratung</h2>
+    <p>
+      Du möchtest mehr über Hochfrequenztechnologie, Wasserstrukturierung oder die
+      verfügbaren Geräte erfahren? Trag dich ein – ich melde mich persönlich bei dir.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Kontaktformular</h2>
+    <!-- HINWEIS: action später mit deinem echten Endpoint (z. B. Formspree) ersetzen -->
+    <form action="#" method="POST" style="max-width: 500px; margin: auto;">
+      <label>
+        Name<br>
+        <input type="text" name="name" required
+               style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #333; background:#000; color:#fff;">
+      </label><br><br>
+      <label>
+        E-Mail<br>
+        <input type="email" name="email" required
+               style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #333; background:#000; color:#fff;">
+      </label><br><br>
+      <label>
+        Telefon (optional)<br>
+        <input type="text" name="phone"
+               style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #333; background:#000; color:#fff;">
+      </label><br><br>
+      <label>
+        Anliegen<br>
+        <textarea name="message" rows="5" required
+                  style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #333; background:#000; color:#fff;"></textarea>
+      </label><br><br>
+      <label>
+        Interessensbereich<br>
+        <select name="topic"
+                style="width: 100%; padding: 10px; margin: 5px 0; border-radius: 6px; border: 1px solid #333; background:#000; color:#fff;">
+          <option>Allgemeine Informationen</option>
+          <option>Hochfrequenzgeräte</option>
+          <option>Wasserstrukturierung</option>
+          <option>Sport & Performance</option>
+          <option>Tiere & Pferdeanwendungen</option>
+          <option>Kooperation / Praxis</option>
+        </select>
+      </label><br><br>
+
+      <button type="submit" class="btn">Anfrage senden</button>
+    </form>
+    <p style="margin-top: 20px; color: var(--muted); text-align: center;">
+      Alternativ kannst du direkt per E-Mail Kontakt aufnehmen:
+      <br>
+      <a href="mailto:info@energie-tanken.net">info@energie-tanken.net</a>
+    </p>
+  </div>
+</div>
+
+<footer>
+  © 2025 Energie-TANKEN.net – Kontakt. Klarheit. Austausch.
+</footer>
+
+</body>
+</html>
