@@ -1,0 +1,99 @@
+/* Global Style – Energie-Tanken.net */
+
+/* Farben */
+:root {
+  --bg: #000000;
+  --card: #0d0d0d;
+  --text: #e6e6e6;
+  --muted: #888888;
+  --mint: #00e6da;
+  --mint-light: #66fff3;
+}
+
+/* Body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+  background: #000;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav a {
+  color: var(--mint);
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 600;
+}
+nav a:hover {
+  color: var(--mint-light);
+}
+
+/* Container */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+}
+.hero h1 {
+  font-size: 3rem;
+  color: var(--mint);
+}
+.hero p {
+  max-width: 800px;
+  margin: auto;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border: 2px solid var(--mint);
+  color: var(--mint);
+  border-radius: 50px;
+  margin-top: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: var(--mint);
+  color: #000;
+}
+
+/* Sections */
+.section {
+  background: var(--card);
+  padding: 60px 40px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+.section h2 {
+  color: var(--mint);
+}
+
+/* Footer */
+footer {
+  padding: 40px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border-top: 1px solid #111;
+}
