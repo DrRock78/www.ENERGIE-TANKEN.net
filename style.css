@@ -1,33 +1,25 @@
-/* =========================================================
-   ENERGIE-TANKEN.net — Premium Dark Luxury (Gold Warm)
-   Fixes:
-   - Mobile Nav kleiner & clean
-   - Logo transparent wirkt wirklich "freigestellt"
-   - Headlines/Überschriften: edel statt riesig
-   - Hero-Layout: Premium spacing, keine Klötze
-   ========================================================= */
+/* style.css — Energie-Tanken.net (Premium Dark Gold, Mobile sauber) */
 
 :root{
-  --bg: #060607;
-  --bg-2: #0b0b0c;
+  --bg: #070708;
+  --bg-2:#0B0B0C;
 
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.68);
-  --soft: rgba(255,255,255,0.52);
+  --muted: rgba(255,255,255,0.72);
+  --soft: rgba(255,255,255,0.55);
 
   /* Warmes Premium-Gold */
   --gold: #C8A96A;
-  --gold-2: #B79252;
+  --gold-2:#B79252;
 
-  /* Mint nur als Akzent (optional, nicht dominant) */
+  /* Sehr dezenter Mint-Akzent (nur im Hintergrund) */
   --mint: #7FD3C6;
-  --mint-2: #A6F2E7;
 
   --stroke: rgba(255,255,255,0.10);
-  --card: rgba(255,255,255,0.045);
+  --stroke-gold: rgba(200,169,106,0.24);
 
   --r: 18px;
-  --r2: 26px;
+  --r2: 28px;
 
   --shadow: 0 18px 45px rgba(0,0,0,0.55);
   --shadow-soft: 0 12px 30px rgba(0,0,0,0.40);
@@ -43,214 +35,234 @@ body{
   font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   line-height: 1.65;
-
   background:
-    radial-gradient(1100px 650px at 15% -10%, rgba(200,169,106,0.10), transparent 58%),
-    radial-gradient(900px 600px at 85% 0%, rgba(127,211,198,0.06), transparent 55%),
-    radial-gradient(900px 650px at 50% 115%, rgba(200,169,106,0.06), transparent 58%),
+    radial-gradient(1100px 650px at 20% -10%, rgba(127,211,198,0.08), transparent 55%),
+    radial-gradient(900px 600px at 80% 0%, rgba(200,169,106,0.10), transparent 55%),
+    radial-gradient(900px 700px at 50% 115%, rgba(127,211,198,0.05), transparent 55%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
-::selection{ background: rgba(200,169,106,0.25); color: var(--text); }
+::selection{
+  background: rgba(200,169,106,0.25);
+  color: var(--text);
+}
 
 a{
-  color: rgba(255,255,255,0.82);
-  text-decoration:none;
-  transition: color .2s ease, opacity .2s ease, background .2s ease, border-color .2s ease;
+  color: inherit;
+  text-decoration: none;
 }
-a:hover{ color: var(--text); opacity: 0.96; }
 
+/* Container */
 .container{
   max-width: var(--container);
   margin: 0 auto;
-  padding: 40px 18px;
+  padding: 34px 18px 60px;
 }
 
-/* =========================================================
-   NAV — Premium, aber mobil klein & ruhig
-   ========================================================= */
-nav{
+/* NAV */
+.nav{
   position: sticky;
   top:0;
   z-index:50;
-  background: rgba(6,6,7,0.72);
+  background: rgba(7,7,8,0.72);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-nav .nav-inner{
+.nav-inner{
   max-width: var(--container);
-  margin: 0 auto;
-  padding: 10px 14px;           /* ✅ kleiner */
+  margin:0 auto;
+  padding: 10px 16px; /* kleiner für mobil */
   display:flex;
   align-items:center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
-nav .brand{
+.brand{
+  display:flex;
+  align-items:center;
+  gap: 10px;
   font-weight: 800;
-  letter-spacing: 0.12em;
-  font-size: 0.9rem;            /* ✅ kleiner */
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.90);
-  position: relative;
+  letter-spacing: 0.08em;
+}
+
+.brand-dot{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background: radial-gradient(circle, rgba(200,169,106,1) 0%, rgba(200,169,106,0.35) 70%, transparent 72%);
+  box-shadow: 0 0 18px rgba(200,169,106,0.20);
+}
+
+.links{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items:center;
+}
+
+.links a{
+  color: rgba(255,255,255,0.78);
+  font-weight: 700;
   padding: 8px 10px;
   border-radius: 999px;
-}
-
-nav .brand::after{
-  content:"";
-  position:absolute;
-  left:10px;
-  right:10px;
-  bottom:4px;
-  height:1px;
-  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.55), transparent);
-  opacity: 0.55;
-}
-
-nav .links{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 6px;                      /* ✅ kleiner */
-}
-
-nav .links a{
-  font-weight: 700;
-  font-size: 0.86rem;            /* ✅ kleiner */
-  color: rgba(255,255,255,0.72);
-  padding: 8px 10px;             /* ✅ kleiner */
-  border-radius: 999px;
   border: 1px solid transparent;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
 
-nav .links a:hover{
-  color: rgba(255,255,255,0.92);
+.links a:hover{
+  color: var(--text);
   background: rgba(255,255,255,0.03);
   border-color: rgba(200,169,106,0.18);
 }
 
-/* =========================================================
-   HERO TOP — Logo + Headline + Visual
-   ========================================================= */
+/* Burger */
+.nav-toggle{
+  display:none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: 8px 10px;
+  cursor:pointer;
+}
+
+.nav-toggle-bar{
+  display:block;
+  width: 20px;
+  height: 2px;
+  background: rgba(255,255,255,0.78);
+  margin: 4px 0;
+}
+
+/* HERO */
 .hero-top{
   text-align:center;
-  padding: 32px 14px 10px; /* ✅ weniger Platz, cleaner */
+  padding: 34px 16px 10px;
   position: relative;
 }
 
 .hero-top::before{
   content:"";
   position:absolute;
-  inset: 0;
+  inset: -20px 0 auto 0;
+  height: 260px;
   background:
-    radial-gradient(760px 220px at 50% 0%, rgba(200,169,106,0.12), transparent 60%),
-    radial-gradient(620px 200px at 50% 18%, rgba(127,211,198,0.05), transparent 62%);
+    radial-gradient(closest-side, rgba(200,169,106,0.12), transparent 65%),
+    radial-gradient(closest-side, rgba(127,211,198,0.07), transparent 65%);
   pointer-events:none;
+  filter: blur(2px);
 }
 
-/* Logo oben */
+/* Logo: KEIN harter Schatten, kein Kasten */
 .hero-logo{
   display:flex;
   justify-content:center;
-  margin: 6px 0 10px;
-  /* ✅ kein Hintergrund, kein Rahmen -> transparent wirkt "freigestellt" */
-  background: transparent;
+  margin-top: 6px;
+  margin-bottom: 16px;
 }
 
 .hero-logo img{
-  width: min(520px, 92vw);       /* ✅ responsive */
+  width: min(420px, 78vw);
   height: auto;
   display:block;
-
-  /* ✅ warmes Gold-Glow, aber edel (kein Neon) */
-  filter:
-    drop-shadow(0 12px 26px rgba(200,169,106,0.18))
-    drop-shadow(0 0 22px rgba(200,169,106,0.10));
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.45)); /* weich, kein Kasten */
 }
 
-/* Headline: edel statt riesig */
+/* Headline */
 .hero-headline{
-  margin: 14px auto 14px;
+  margin: 0 auto 10px;
   max-width: 980px;
-
-  font-size: clamp(1.35rem, 2.7vw, 2.25rem); /* ✅ deutlich kleiner */
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  font-weight: 800;
-
-  color: rgba(200,169,106,0.92); /* ✅ gold */
-  text-shadow: 0 18px 50px rgba(0,0,0,0.55);
+  font-size: clamp(2.0rem, 4.2vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 34px rgba(0,0,0,0.6);
 }
 
-/* Signature Hero Visual (Tesla) */
+/* Tesla-Zitat */
+.hero-quote{
+  max-width: 900px;
+  margin: 0 auto 18px;
+  color: rgba(255,255,255,0.80);
+  font-size: clamp(1.00rem, 1.4vw, 1.12rem);
+}
+
+.quote-mark{
+  color: var(--gold);
+  font-weight: 800;
+}
+
+/* Hero Visual */
 .hero-visual{
   max-width: 980px;
-  margin: 10px auto 14px;
-  padding: 14px;
-  border-radius: var(--r2);
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: var(--shadow-soft);
+  margin: 0 auto 18px;
+  padding: 0 6px;
 }
 
 .hero-visual img{
-  width: 100%;
+  width: min(980px, 100%);
   height: auto;
   display:block;
-  border-radius: calc(var(--r2) - 10px);
+  margin: 0 auto;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-soft);
 }
 
-/* =========================================================
-   BUTTONS — premium gold primary
-   ========================================================= */
+/* CTA Buttons */
+.hero-cta{
+  display:flex;
+  justify-content:center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 18px;
+}
+
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap: 10px;
-  padding: 12px 20px;
+  padding: 13px 26px;
   border-radius: 999px;
   font-weight: 900;
-  letter-spacing: 0.03em;
-  text-decoration:none;
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
-  margin: 8px 6px 0;
+  letter-spacing: 0.02em;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  will-change: transform;
 }
 
 .btn-primary{
   color:#0A0A0B;
   background: linear-gradient(180deg, rgba(200,169,106,1) 0%, rgba(183,146,82,1) 100%);
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 18px 45px rgba(200,169,106,0.12), var(--shadow-soft);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 18px 45px rgba(200,169,106,0.14), var(--shadow-soft);
 }
+
 .btn-primary:hover{
   transform: translateY(-2px);
-  box-shadow: 0 22px 55px rgba(200,169,106,0.16), var(--shadow);
+  box-shadow: 0 22px 55px rgba(200,169,106,0.18), var(--shadow);
 }
 
 .btn-secondary{
-  color: rgba(255,255,255,0.90);
+  color: var(--text);
   background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(200,169,106,0.18);
+  border: 1px solid rgba(200,169,106,0.22);
 }
+
 .btn-secondary:hover{
   transform: translateY(-2px);
   background: rgba(255,255,255,0.04);
-  border-color: rgba(200,169,106,0.28);
+  border-color: rgba(200,169,106,0.30);
 }
 
-/* =========================================================
-   SECTIONS — Premium Cards
-   ========================================================= */
+/* Sections / Cards */
 .section{
-  background: linear-gradient(180deg, rgba(255,255,255,0.050), rgba(255,255,255,0.030));
-  border: 1px solid rgba(255,255,255,0.07);
+  background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.035));
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--r2);
-  padding: 46px 30px;
+  padding: 38px 28px;
   margin: 18px 0;
   box-shadow: var(--shadow-soft);
   position: relative;
@@ -262,99 +274,65 @@ nav .links a:hover{
   position:absolute;
   inset:0;
   background:
-    radial-gradient(650px 220px at 20% 0%, rgba(200,169,106,0.10), transparent 60%),
-    radial-gradient(650px 220px at 80% 10%, rgba(127,211,198,0.05), transparent 60%);
+    radial-gradient(680px 220px at 12% 0%, rgba(127,211,198,0.06), transparent 60%),
+    radial-gradient(680px 220px at 88% 10%, rgba(200,169,106,0.08), transparent 60%);
   pointer-events:none;
 }
 
 .section h2{
-  margin: 0 0 10px;
-  font-size: clamp(1.15rem, 2.1vw, 1.65rem); /* ✅ kleiner/edler */
+  margin:0 0 10px;
+  font-size: clamp(1.35rem, 2.2vw, 2.0rem);
   letter-spacing: -0.01em;
-  color: rgba(255,255,255,0.92);
-  font-weight: 900;
 }
 
 .section p{
-  margin: 0 0 10px;
+  margin: 0 0 16px;
   color: var(--muted);
-  font-weight: 600;
 }
 
+/* Divider */
 .hr{
-  height:1px;
+  height: 1px;
   background: linear-gradient(90deg, transparent, rgba(200,169,106,0.35), transparent);
-  margin: 16px 0 18px;
+  margin: 14px 0 18px;
 }
 
-/* Grid (optional) */
-.grid{ display:grid; gap: 16px; }
-.grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.grid-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-.card{
-  background: rgba(255,255,255,0.030);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: var(--r);
-  padding: 18px;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.34);
-}
-.card h3{
-  margin: 0 0 6px;
-  color: rgba(255,255,255,0.90);
-  font-weight: 900;
-  font-size: 1.02rem;
-}
-.card p{
-  margin:0;
-  color: rgba(255,255,255,0.66);
-  font-weight: 600;
-}
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
-footer{
+/* Footer */
+.footer{
+  padding: 30px 18px 50px;
   text-align:center;
-  padding: 30px 16px;
   color: var(--soft);
-  font-weight: 600;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
   background: rgba(0,0,0,0.20);
 }
 
-/* =========================================================
-   MOBILE — Navigation & hero spacing optimieren
-   ========================================================= */
-@media (max-width: 920px){
-  nav .nav-inner{
-    padding: 8px 10px;
+/* Mobile: Burger + Links als Dropdown */
+@media (max-width: 860px){
+  .nav-toggle{ display:block; }
+
+  .links{
+    display:none;
+    width: 100%;
+    padding: 10px 6px 12px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.08);
   }
 
-  nav .brand{
-    font-size: 0.82rem;
-    padding: 7px 8px;
+  .links.open{ display:flex; }
+
+  .links a{
+    width: 100%;
+    justify-content:center;
+    padding: 10px 12px;
   }
 
-  nav .links a{
-    font-size: 0.82rem;
-    padding: 7px 8px;
-  }
-
-  .hero-top{
-    padding: 20px 12px 6px;
-  }
-
-  .hero-visual{
-    padding: 10px;
+  .nav-inner{
+    flex-wrap: wrap;
   }
 
   .section{
-    padding: 34px 18px;
-  }
-
-  .grid-2, .grid-3{
-    grid-template-columns: 1fr;
+    padding: 30px 18px;
   }
 }
 
