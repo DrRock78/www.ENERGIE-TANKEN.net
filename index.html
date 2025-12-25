@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="de">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>ENERGIE-TANKEN.net – Hochfrequenz-Technologie nach Nikola Tesla</title>
-  <meta name="description" content="ENERGIE-TANKEN.net – Hochfrequenz-Technologie nach Nikola Tesla. Anwendungen, Wissen, Setup & Kontakt." />
+  <meta name="description" content="ENERGIE-TANKEN.net – Premium Partner für Hochfrequenz-Technologie nach Nikola Tesla. Anwendungen, Wissen, Wasser & Kontakt." />
 
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +17,20 @@
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav class="nav">
     <div class="nav-inner">
-      <a class="brand" href="index.html" aria-label="Startseite">ENERGIE-TANKEN</a>
+      <a class="brand" href="index.html" aria-label="Startseite">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span class="brand-text">ENERGIE-TANKEN</span>
+      </a>
 
-      <div class="links" aria-label="Hauptnavigation">
+      <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <div class="links" id="navLinks" aria-label="Hauptnavigation">
         <a href="index.html">Home</a>
         <a href="hochfrequenz.html">Hochfrequenz</a>
         <a href="anwendungen.html">Anwendungen</a>
@@ -33,69 +43,117 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero-top">
-    <div class="hero-logo">
+  <header class="hero-top">
+    <div class="hero-logo" aria-label="Logo">
       <img src="logo-energie-tanken-gold.png" alt="www.ENERGIE-TANKEN.net – Hochfrequenz nach Nikola Tesla">
     </div>
 
-    <h1 class="hero-headline">High Class · High Frequency</h1>
+    <h1 class="hero-headline">Gesundheit in die Hand nehmen.</h1>
+
+    <p class="hero-quote">
+      Nikola Tesla wird der Satz zugeschrieben: <span class="quote-mark">„</span>Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen von Energie, Frequenz und Schwingung.<span class="quote-mark">“</span>
+    </p>
 
     <div class="hero-visual">
       <img src="hero-tesla-signature.png" alt="Nikola Tesla – ENERGIE-TANKEN.net Signature">
     </div>
 
-    <a class="btn btn-primary" href="kontakt.html">Kontakt & Setup starten</a>
-    <a class="btn btn-secondary" href="hochfrequenz.html" style="margin-left:10px;">Zur Hochfrequenz</a>
-  </section>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+      <a class="btn btn-secondary" href="hochfrequenz.html">Zur Hochfrequenz</a>
+    </div>
+  </header>
 
   <!-- CONTENT -->
   <main class="container">
 
-    <!-- BRAND STATEMENT -->
-    <section class="section">
-      <h2>Frequenz. Wasser. Verantwortung.</h2>
-      <div class="hr"></div>
-      <p>
-        ENERGIE-TANKEN steht für Hochfrequenz-Technologie nach Nikola Tesla –
-        klar, premium, ohne Show.
-      </p>
-    </section>
-
+    <!-- Kasten 1 -->
     <section class="section">
       <h2>Hochfrequenz</h2>
       <div class="hr"></div>
-      <p>Grundlagen & Prinzipien – auf den Punkt.</p>
-      <a class="btn btn-secondary" href="hochfrequenz.html">Weiter</a>
+      <p>
+        Während die meisten Menschen den Namen Tesla mit dem Elektroauto verbinden, kennen einige ihn auch als den Erfinder,
+        der den Wechselstrom nutzbar machte. Die wenigsten jedoch wissen, dass er sich auch intensiv mit elektromagnetischen
+        Feldern beschäftigte – und in diesem Kontext oft als einer der Vordenker moderner Hochfrequenz-Anwendungen bezeichnet wird.
+      </p>
+      <a class="btn btn-secondary" href="hochfrequenz.html">Zur Hochfrequenz-Seite</a>
     </section>
 
+    <!-- Kasten 2 -->
+    <section class="section">
+      <h2>Hexagonales Wasser</h2>
+      <div class="hr"></div>
+      <p>
+        Betrachtet man Gesundheit auf Zellebene, entwickelt man ein Bewusstsein für die wahre Bedeutung von Wasser.
+        Wasser ist mehr als nur H<sub>2</sub>O. Wasser ist mehr als nur ein Lebensmittel. Wasser ist unser Lebenselixier.
+      </p>
+      <a class="btn btn-secondary" href="wissenswertes.html">Mehr über Wasser</a>
+    </section>
+
+    <!-- Kasten 3 (kompakt, klar) -->
+    <section class="section">
+      <h2>Nikola Tesla</h2>
+      <div class="hr"></div>
+      <p>
+        Während viele Tesla heute nur mit moderner Technik verbinden, liegt sein Vermächtnis viel tiefer:
+        Er erforschte elektrische Felder, Schwingungen und Übertragung – und wird in diesem Zusammenhang
+        oft als Vater der Hochfrequenzmedizin bezeichnet.
+      </p>
+      <a class="btn btn-secondary" href="medien.html">Medien & Inhalte</a>
+    </section>
+
+    <!-- Kasten 4 -->
     <section class="section">
       <h2>Anwendungen</h2>
       <div class="hr"></div>
-      <p>Mensch · Tier · Umfeld – abhängig vom Setup.</p>
+      <p>Für Mensch &amp; Tier.</p>
       <a class="btn btn-secondary" href="anwendungen.html">Weiter</a>
     </section>
 
+    <!-- Kasten 5 -->
     <section class="section">
-      <h2>Wissen & Medien</h2>
+      <h2>Wissenswertes</h2>
       <div class="hr"></div>
-      <p>Quellen, Inhalte, Einblicke.</p>
-      <a class="btn btn-secondary" href="wissenswertes.html">Wissenswertes</a>
+      <p>Hintergründe, Quellen, Bilder &amp; Medien.</p>
+      <a class="btn btn-secondary" href="wissenswertes.html">Weiter</a>
       <a class="btn btn-secondary" href="medien.html" style="margin-left:10px;">Medien</a>
     </section>
 
+    <!-- Kasten 6 (✅) -->
     <section class="section">
       <h2>Kontakt</h2>
       <div class="hr"></div>
-      <p>Einordnung · Fragen · Setup.</p>
+      <p>Lass dich individuell beraten.</p>
       <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
       <a class="btn btn-secondary" href="shop.html" style="margin-left:10px;">Zum Shop</a>
     </section>
 
   </main>
 
-  <footer>
+  <footer class="footer">
     © 2025 ENERGIE-TANKEN.net — Hochfrequenz · Wasser · Verantwortung
   </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Menü schließen nach Klick auf Link (mobil)
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (links.classList.contains('open')) {
+          links.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
