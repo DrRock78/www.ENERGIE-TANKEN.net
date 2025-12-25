@@ -1,365 +1,363 @@
 /* =========================================================
-   Energie-Tanken.net — PREMIUM (2025)
-   Look: Dark Luxury + Warm Gold (Primary) + Mint (Sub-Accent)
-   Goal: Brand-clean, high class, high frequency.
+   ENERGIE-TANKEN.net — Premium Dark Luxury (Gold Warm)
+   Fixes:
+   - Mobile Nav kleiner & clean
+   - Logo transparent wirkt wirklich "freigestellt"
+   - Headlines/Überschriften: edel statt riesig
+   - Hero-Layout: Premium spacing, keine Klötze
    ========================================================= */
 
 :root{
-  /* Base */
-  --bg: #050506;
-  --bg-2: #0A0A0B;
-  --card: rgba(255,255,255,0.045);
-  --card-2: rgba(255,255,255,0.065);
-  --stroke: rgba(255,255,255,0.10);
+  --bg: #060607;
+  --bg-2: #0b0b0c;
 
-  /* Text */
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.70);
-  --soft: rgba(255,255,255,0.55);
+  --muted: rgba(255,255,255,0.68);
+  --soft: rgba(255,255,255,0.52);
 
-  /* PREMIUM GOLD (Primary) */
-  --gold: #C8A96A;     /* Gold A */
-  --gold-2: #B79252;   /* Gold shadow */
-  --gold-glow: rgba(200,169,106,0.16);
+  /* Warmes Premium-Gold */
+  --gold: #C8A96A;
+  --gold-2: #B79252;
 
-  /* Mint Accent (subtle) */
+  /* Mint nur als Akzent (optional, nicht dominant) */
   --mint: #7FD3C6;
   --mint-2: #A6F2E7;
 
-  /* Radius + Shadow */
-  --r: 18px;
-  --r2: 28px;
-  --shadow: 0 18px 45px rgba(0,0,0,0.62);
-  --shadow-soft: 0 12px 30px rgba(0,0,0,0.44);
+  --stroke: rgba(255,255,255,0.10);
+  --card: rgba(255,255,255,0.045);
 
-  /* Layout */
+  --r: 18px;
+  --r2: 26px;
+
+  --shadow: 0 18px 45px rgba(0,0,0,0.55);
+  --shadow-soft: 0 12px 30px rgba(0,0,0,0.40);
+
   --container: 1120px;
 }
 
-/* Base */
-*{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
 
 body{
   margin:0;
-  padding:0;
-  font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   line-height: 1.65;
 
-  /* Background: premium, warm, not noisy */
   background:
-    radial-gradient(1200px 700px at 18% -10%, rgba(200,169,106,0.10), transparent 58%),
-    radial-gradient(900px 650px at 85% 0%, rgba(127,211,198,0.06), transparent 60%),
-    radial-gradient(900px 700px at 50% 120%, rgba(200,169,106,0.08), transparent 60%),
+    radial-gradient(1100px 650px at 15% -10%, rgba(200,169,106,0.10), transparent 58%),
+    radial-gradient(900px 600px at 85% 0%, rgba(127,211,198,0.06), transparent 55%),
+    radial-gradient(900px 650px at 50% 115%, rgba(200,169,106,0.06), transparent 58%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
-/* Selection */
-::selection{
-  background: rgba(200,169,106,0.25);
-  color: var(--text);
-}
+::selection{ background: rgba(200,169,106,0.25); color: var(--text); }
 
-/* Links: Gold primary */
 a{
-  color: rgba(255,255,255,0.86);
-  text-decoration: none;
-  transition: color .25s ease, opacity .25s ease, transform .2s ease;
+  color: rgba(255,255,255,0.82);
+  text-decoration:none;
+  transition: color .2s ease, opacity .2s ease, background .2s ease, border-color .2s ease;
 }
-a:hover{
-  color: var(--text);
-  opacity: 0.98;
-}
+a:hover{ color: var(--text); opacity: 0.96; }
 
-/* Container */
 .container{
   max-width: var(--container);
   margin: 0 auto;
-  padding: 44px 22px;
+  padding: 40px 18px;
 }
 
 /* =========================================================
-   NAV — Glass + Gold hairline
+   NAV — Premium, aber mobil klein & ruhig
    ========================================================= */
 nav{
   position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  top:0;
+  z-index:50;
   background: rgba(6,6,7,0.72);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 14px 22px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 nav .nav-inner{
   max-width: var(--container);
   margin: 0 auto;
+  padding: 10px 14px;           /* ✅ kleiner */
   display:flex;
   align-items:center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 12px;
 }
 
 nav .brand{
-  display:flex;
-  align-items:center;
-  gap: 12px;
-  letter-spacing: 0.18em;
   font-weight: 800;
-  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  font-size: 0.9rem;            /* ✅ kleiner */
   text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.90);
+  position: relative;
+  padding: 8px 10px;
+  border-radius: 999px;
+}
+
+nav .brand::after{
+  content:"";
+  position:absolute;
+  left:10px;
+  right:10px;
+  bottom:4px;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.55), transparent);
+  opacity: 0.55;
 }
 
 nav .links{
   display:flex;
   flex-wrap: wrap;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 6px;                      /* ✅ kleiner */
 }
 
-nav a{
-  color: rgba(255,255,255,0.78);
+nav .links a{
   font-weight: 700;
-  font-size: 0.92rem;
-  padding: 10px 12px;
+  font-size: 0.86rem;            /* ✅ kleiner */
+  color: rgba(255,255,255,0.72);
+  padding: 8px 10px;             /* ✅ kleiner */
   border-radius: 999px;
   border: 1px solid transparent;
 }
 
-nav a:hover{
-  color: rgba(255,255,255,0.94);
-  border-color: rgba(200,169,106,0.24);
+nav .links a:hover{
+  color: rgba(255,255,255,0.92);
   background: rgba(255,255,255,0.03);
+  border-color: rgba(200,169,106,0.18);
 }
 
 /* =========================================================
-   HERO TOP — Brand signature (Logo + Headline + Tesla Hero)
-   Requires:
-   - logo-energie-tanken-gold.png
-   - hero-tesla-signature.png
-   Both in repo root as you have it.
+   HERO TOP — Logo + Headline + Visual
    ========================================================= */
 .hero-top{
   text-align:center;
-  padding: 46px 16px 36px;
+  padding: 32px 14px 10px; /* ✅ weniger Platz, cleaner */
   position: relative;
 }
 
 .hero-top::before{
   content:"";
   position:absolute;
-  inset: -20px -20px auto -20px;
-  height: 260px;
+  inset: 0;
   background:
-    radial-gradient(closest-side, rgba(200,169,106,0.12), transparent 68%),
-    radial-gradient(closest-side, rgba(127,211,198,0.06), transparent 70%);
-  filter: blur(2px);
+    radial-gradient(760px 220px at 50% 0%, rgba(200,169,106,0.12), transparent 60%),
+    radial-gradient(620px 200px at 50% 18%, rgba(127,211,198,0.05), transparent 62%);
   pointer-events:none;
 }
 
+/* Logo oben */
 .hero-logo{
-  position: relative;
-  z-index: 1;
+  display:flex;
+  justify-content:center;
+  margin: 6px 0 10px;
+  /* ✅ kein Hintergrund, kein Rahmen -> transparent wirkt "freigestellt" */
+  background: transparent;
 }
 
 .hero-logo img{
-  max-width: 260px;
-  width: 100%;
+  width: min(520px, 92vw);       /* ✅ responsive */
   height: auto;
   display:block;
-  margin: 0 auto 16px;
-  filter: drop-shadow(0 18px 45px rgba(0,0,0,0.65));
+
+  /* ✅ warmes Gold-Glow, aber edel (kein Neon) */
+  filter:
+    drop-shadow(0 12px 26px rgba(200,169,106,0.18))
+    drop-shadow(0 0 22px rgba(200,169,106,0.10));
 }
 
+/* Headline: edel statt riesig */
 .hero-headline{
-  position: relative;
-  z-index: 1;
-  margin: 0 auto 20px;
+  margin: 14px auto 14px;
   max-width: 980px;
 
-  font-size: clamp(1.35rem, 3.0vw, 2.15rem);
+  font-size: clamp(1.35rem, 2.7vw, 2.25rem); /* ✅ deutlich kleiner */
+  line-height: 1.18;
+  letter-spacing: -0.01em;
   font-weight: 800;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
 
-  color: var(--gold);
-  text-shadow: 0 0 20px rgba(0,0,0,0.55);
+  color: rgba(200,169,106,0.92); /* ✅ gold */
+  text-shadow: 0 18px 50px rgba(0,0,0,0.55);
 }
 
+/* Signature Hero Visual (Tesla) */
 .hero-visual{
-  position: relative;
-  z-index: 1;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 6px;
+  max-width: 980px;
+  margin: 10px auto 14px;
+  padding: 14px;
+  border-radius: var(--r2);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: var(--shadow-soft);
 }
 
 .hero-visual img{
   width: 100%;
   height: auto;
   display:block;
-  border-radius: 16px;
-  box-shadow: 0 48px 110px rgba(0,0,0,0.82);
-  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: calc(var(--r2) - 10px);
 }
 
 /* =========================================================
-   BUTTONS — Premium gold primary
+   BUTTONS — premium gold primary
    ========================================================= */
 .btn{
-  display: inline-flex;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
   gap: 10px;
-
-  padding: 13px 26px;
+  padding: 12px 20px;
   border-radius: 999px;
-
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-
-  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
-  will-change: transform;
-
-  margin-top: 18px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-decoration:none;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  margin: 8px 6px 0;
 }
 
 .btn-primary{
-  color: #0A0A0B;
+  color:#0A0A0B;
   background: linear-gradient(180deg, rgba(200,169,106,1) 0%, rgba(183,146,82,1) 100%);
   border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 18px 45px rgba(200,169,106,0.16), var(--shadow-soft);
+  box-shadow: 0 18px 45px rgba(200,169,106,0.12), var(--shadow-soft);
 }
 .btn-primary:hover{
   transform: translateY(-2px);
-  box-shadow: 0 24px 60px rgba(200,169,106,0.18), var(--shadow);
+  box-shadow: 0 22px 55px rgba(200,169,106,0.16), var(--shadow);
 }
 
 .btn-secondary{
   color: rgba(255,255,255,0.90);
   background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(200,169,106,0.28);
+  border: 1px solid rgba(200,169,106,0.18);
 }
 .btn-secondary:hover{
   transform: translateY(-2px);
   background: rgba(255,255,255,0.04);
-  border-color: rgba(200,169,106,0.40);
-}
-
-/* If HTML uses .btn only */
-.btn:not(.btn-primary):not(.btn-secondary){
-  color: rgba(255,255,255,0.92);
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(200,169,106,0.26);
-}
-.btn:not(.btn-primary):not(.btn-secondary):hover{
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.04);
-  border-color: rgba(200,169,106,0.40);
+  border-color: rgba(200,169,106,0.28);
 }
 
 /* =========================================================
-   SECTIONS / CARDS — Glass cards + warm gold accents
+   SECTIONS — Premium Cards
    ========================================================= */
 .section{
-  background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.032));
-  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.050), rgba(255,255,255,0.030));
+  border: 1px solid rgba(255,255,255,0.07);
   border-radius: var(--r2);
-  padding: 54px 40px;
-  margin-bottom: 28px;
+  padding: 46px 30px;
+  margin: 18px 0;
   box-shadow: var(--shadow-soft);
   position: relative;
-  overflow: hidden;
+  overflow:hidden;
 }
 
 .section::before{
   content:"";
   position:absolute;
-  inset: 0;
+  inset:0;
   background:
-    radial-gradient(700px 240px at 18% 0%, rgba(200,169,106,0.10), transparent 60%),
-    radial-gradient(700px 240px at 85% 10%, rgba(127,211,198,0.05), transparent 60%);
+    radial-gradient(650px 220px at 20% 0%, rgba(200,169,106,0.10), transparent 60%),
+    radial-gradient(650px 220px at 80% 10%, rgba(127,211,198,0.05), transparent 60%);
   pointer-events:none;
 }
 
 .section h2{
   margin: 0 0 10px;
-  font-size: clamp(1.35rem, 2.2vw, 2.05rem);
+  font-size: clamp(1.15rem, 2.1vw, 1.65rem); /* ✅ kleiner/edler */
   letter-spacing: -0.01em;
   color: rgba(255,255,255,0.92);
+  font-weight: 900;
 }
 
 .section p{
+  margin: 0 0 10px;
   color: var(--muted);
-  margin: 0;
+  font-weight: 600;
 }
 
-/* Divider line inside sections */
 .hr{
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.36), transparent);
-  margin: 22px 0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(200,169,106,0.35), transparent);
+  margin: 16px 0 18px;
 }
 
-/* Grid helpers */
-.grid{ display:grid; gap: 18px; }
+/* Grid (optional) */
+.grid{ display:grid; gap: 16px; }
 .grid-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .card{
-  background: rgba(255,255,255,0.032);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.030);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: var(--r);
-  padding: 22px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.38);
+  padding: 18px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.34);
 }
 .card h3{
   margin: 0 0 6px;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.90);
+  font-weight: 900;
+  font-size: 1.02rem;
 }
 .card p{
-  color: var(--muted);
-  margin: 0;
+  margin:0;
+  color: rgba(255,255,255,0.66);
+  font-weight: 600;
 }
 
 /* =========================================================
-   FOOTER — quiet luxury
+   FOOTER
    ========================================================= */
 footer{
-  padding: 40px 22px;
   text-align:center;
+  padding: 30px 16px;
   color: var(--soft);
-  font-size: 0.95rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.16);
+  font-weight: 600;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.20);
 }
 
 /* =========================================================
-   Responsive
+   MOBILE — Navigation & hero spacing optimieren
    ========================================================= */
 @media (max-width: 920px){
-  .section{ padding: 44px 22px; }
-  nav .links{ gap: 6px; }
-  nav a{ padding: 9px 10px; font-size: 0.90rem; }
-  .grid-2, .grid-3{ grid-template-columns: 1fr; }
-}
+  nav .nav-inner{
+    padding: 8px 10px;
+  }
 
-@media (max-width: 520px){
-  nav{
-    padding: 12px 14px;
-  }
   nav .brand{
-    letter-spacing: 0.12em;
-    font-size: 0.90rem;
+    font-size: 0.82rem;
+    padding: 7px 8px;
   }
-  .hero-logo img{
-    max-width: 210px;
+
+  nav .links a{
+    font-size: 0.82rem;
+    padding: 7px 8px;
+  }
+
+  .hero-top{
+    padding: 20px 12px 6px;
+  }
+
+  .hero-visual{
+    padding: 10px;
+  }
+
+  .section{
+    padding: 34px 18px;
+  }
+
+  .grid-2, .grid-3{
+    grid-template-columns: 1fr;
   }
 }
 
 @media (prefers-reduced-motion: reduce){
-  *{ transition: none !important; scroll-behavior: auto !important; }
+  *{ transition:none !important; scroll-behavior:auto !important; }
 }
