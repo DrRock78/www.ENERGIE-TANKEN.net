@@ -1,235 +1,197 @@
-/* =========================
-   ENERGIE-TANKEN.net – style.css (FULL REPLACE)
-   ========================= */
-
-/* ---------- Reset / Base ---------- */
-*,
-*::before,
-*::after { box-sizing: border-box; }
-
-html, body { margin: 0; padding: 0; }
-
-:root{
-  --bg: #070707;
-  --bg2:#0c0c0c;
-  --text:#eaeaea;
-  --muted:#bdbdbd;
-  --gold:#d6b46a;
-  --gold2:#b9924a;
-  --card:#0e0e0e;
-  --border: rgba(214,180,106,.18);
+/* ===============================
+   RESET & BASIS
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: radial-gradient(1200px 600px at 50% -10%, rgba(214,180,106,.10), transparent 60%),
-              linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-  color: var(--text);
-  line-height: 1.5;
-}
-
-/* Make sure images never get a “card” look */
-img{
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background: transparent;
-}
-
-/* ---------- NAV (small, horizontal, NOT sticky) ---------- */
-.topnav{
-  position: static;           /* not sticky */
-  top: auto;
-  z-index: auto;
+html, body {
   width: 100%;
-  background: rgba(0,0,0,.35);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 100%;
+  background: #000;
+  color: #e6e6e6;
+  font-family: 'Montserrat', sans-serif;
 }
 
-.topnav-inner{
-  max-width: 1100px;
+/* ===============================
+   NAVIGATION
+================================ */
+.topnav {
+  width: 100%;
+  background: transparent;
+  padding: 14px 0;
+}
+
+.topnav-inner {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 14px;         /* small height */
+  padding: 0 20px;
+
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
 }
 
-.topnav-brand{
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 800;
-  letter-spacing: .12em;
-  font-size: 14px;            /* small */
-  white-space: nowrap;
-  opacity: .95;
-}
-
-.topnav-links{
-  display: flex;
-  flex-wrap: wrap;            /* wrap on small screens */
-  gap: 10px 14px;
-  justify-content: flex-end;
-}
-
-.topnav-links a{
-  text-decoration: none;
-  color: var(--muted);
+.topnav-brand {
   font-weight: 700;
-  font-size: 14px;            /* small */
-  padding: 6px 8px;
-  border-radius: 10px;
-  transition: 120ms ease;
-}
-
-.topnav-links a:hover{
-  color: var(--text);
-  background: rgba(214,180,106,.10);
-}
-
-/* ---------- HERO ---------- */
-.hero-top{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 26px 14px 10px;
-  text-align: center;
-}
-
-.hero-logo{
-  margin: 10px auto 12px;
-  max-width: 520px;
-  padding: 0;                 /* IMPORTANT: no container padding */
-  background: transparent;     /* IMPORTANT: no background */
-  border: 0;                   /* IMPORTANT: no border */
-  border-radius: 0;            /* IMPORTANT: no rounding */
-  box-shadow: none;            /* IMPORTANT: no shadow */
-}
-
-.hero-logo img{
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  filter: none !important;
-}
-
-.hero-headline{
-  margin: 14px 0 10px;
-  font-size: clamp(26px, 5.6vw, 44px);
-  font-weight: 800;
-  letter-spacing: .06em;
-  color: var(--gold);
-  text-transform: uppercase;
-}
-
-.hero-quote{
-  margin: 0 auto 18px;
-  max-width: 820px;
-  color: var(--muted);
+  letter-spacing: 1px;
+  color: #e6e6e6;
+  text-decoration: none;
   font-size: 16px;
 }
 
-.hero-visual{
-  margin: 12px auto 18px;
-  max-width: 980px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.06);
-  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+.topnav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
-.hero-visual img{
+.topnav-links a {
+  color: #cfcfcf;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.topnav-links a:hover {
+  color: #d4af37;
+}
+
+/* ===============================
+   HERO
+================================ */
+.hero-top {
+  text-align: center;
+  padding: 40px 20px 60px;
+  background: transparent;
+}
+
+/* WICHTIG: KEIN CONTAINER, KEIN HINTERGRUND */
+.hero-logo {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-bottom: 30px;
+}
+
+.hero-logo img {
+  max-width: 320px;
   width: 100%;
   height: auto;
   display: block;
+  margin: 0 auto;
+  background: transparent !important;
 }
 
-/* ---------- Buttons ---------- */
-.hero-cta{
+/* ===============================
+   HEADLINE & TEXT
+================================ */
+.hero-headline {
+  color: #d4af37;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero-quote {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #d0d0d0;
+}
+
+/* ===============================
+   HERO VISUAL
+================================ */
+.hero-visual {
+  background: transparent !important;
+  box-shadow: none !important;
+  margin-bottom: 40px;
+}
+
+.hero-visual img {
+  width: 100%;
+  max-width: 520px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.hero-cta {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin: 16px 0 18px;
 }
 
-.btn{
-  display: inline-block;
+.btn {
+  padding: 12px 22px;
+  font-size: 14px;
+  border-radius: 30px;
   text-decoration: none;
-  font-weight: 800;
-  letter-spacing: .02em;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.10);
-  transition: 140ms ease;
+  transition: all 0.2s ease;
 }
 
-.btn-primary{
-  background: linear-gradient(180deg, rgba(214,180,106,.95), rgba(185,146,74,.95));
-  color: #111;
-  border-color: rgba(214,180,106,.35);
+.btn-primary {
+  background: #d4af37;
+  color: #000;
+  font-weight: 600;
 }
 
-.btn-primary:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.03);
+.btn-primary:hover {
+  background: #b8962e;
 }
 
-.btn-secondary{
-  background: rgba(255,255,255,.04);
-  color: var(--text);
+.btn-secondary {
+  border: 1px solid #d4af37;
+  color: #d4af37;
 }
 
-.btn-secondary:hover{
-  background: rgba(214,180,106,.10);
-  border-color: rgba(214,180,106,.25);
+.btn-secondary:hover {
+  background: #d4af37;
+  color: #000;
 }
 
-/* ---------- Main container / Sections (cards) ---------- */
-.container{
+/* ===============================
+   CONTENT
+================================ */
+.container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 8px 14px 40px;
+  padding: 60px 20px;
+  background: transparent;
 }
 
-.section{
-  margin: 16px 0;
-  padding: 18px 16px;
-  background: rgba(0,0,0,.28);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+.section {
+  margin-bottom: 60px;
 }
 
-.section h2{
-  margin: 0 0 10px;
-  color: var(--gold);
-  font-weight: 800;
-  letter-spacing: .02em;
+.section h2 {
+  color: #d4af37;
+  font-size: 24px;
+  margin-bottom: 14px;
 }
 
-.section p{
-  margin: 0 0 12px;
-  color: var(--muted);
+.section p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #d0d0d0;
 }
 
-/* ---------- Footer ---------- */
-footer{
+/* ===============================
+   FOOTER
+================================ */
+footer {
   text-align: center;
-  padding: 22px 12px 30px;
-  color: rgba(234,234,234,.65);
-  border-top: 1px solid rgba(255,255,255,.06);
-}
-
-/* ---------- Mobile tweaks ---------- */
-@media (max-width: 520px){
-  .topnav-inner{ padding: 8px 12px; }
-  .topnav-brand{ font-size: 13px; letter-spacing: .10em; }
-  .topnav-links a{ font-size: 13px; padding: 6px 7px; }
-  .hero-quote{ font-size: 15px; }
-  .section{ padding: 16px 14px; }
+  padding: 30px 20px;
+  font-size: 13px;
+  color: #888;
+  background: transparent;
 }
