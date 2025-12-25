@@ -22,8 +22,20 @@ body{
   color:var(--text);
 }
 
+/* --- HARTE ANTI-LINIEN / ANTI-UNDERLINE / ANTI-LINE-THROUGH --- */
+a, a:hover, a:visited, a:active,
+p, h1, h2, h3, span, small, strong, em{
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  text-decoration-thickness: 0 !important;
+  text-decoration-color: transparent !important;
+}
+*::before,*::after{
+  text-decoration: none !important;
+}
+
 /* Links */
-a{color:inherit;text-decoration:none}
+a{color:inherit}
 a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
 
 /* NAV – klein, waagerecht, NICHT sticky */
@@ -102,6 +114,7 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   border:0 !important;
   box-shadow:none !important;
   border-radius:0 !important;
+  outline:0 !important;
 }
 
 /* Headlines */
@@ -147,7 +160,10 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   flex-wrap:wrap;
 }
 
+/* FIX: Buttons sind IMMER oben, nichts läuft drüber */
 .btn{
+  position:relative;
+  z-index:5;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -158,8 +174,11 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   font-size:14px;
   letter-spacing:.02em;
   border:1px solid rgba(201,171,88,.45);
+  background:transparent;
+  text-decoration:none !important;
   transition:transform .12s ease, background .12s ease, border-color .12s ease;
 }
+.btn *{text-decoration:none !important}
 
 /* Primär: Gold */
 .btn-primary{
@@ -188,6 +207,7 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
 
 /* Sections – keine “Box”, nur Abstand */
 .section{
+  position:relative;
   padding:18px 0;
   border-top:1px solid rgba(255,255,255,.06);
 }
@@ -200,16 +220,19 @@ h2{
   color:var(--gold);
   font-weight:800;
 }
-p{
-  margin:0 0 12px;
+
+/* FIX: mehr Luft vor Buttons, damit nix "verschmilzt" */
+.section p{
+  margin:0 0 18px;
   color:rgba(255,255,255,.76);
   line-height:1.7;
   font-size:16px;
 }
 
-/* Buttons in Sections NICHT mega-breit */
+/* FIX: Buttons in Sections -> eigene Zeile + sauberer Abstand */
 .section .btn{
-  margin-top:8px;
+  display:inline-flex;
+  margin-top:6px;
 }
 
 /* Footer */
