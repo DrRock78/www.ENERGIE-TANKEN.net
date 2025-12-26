@@ -1,10 +1,6 @@
 /* =========================================================
    ENERGIE-TANKEN.net — Premium Gold (Final)
-   FIXES:
-   - Nav Links klickbar (kein Overlay frisst Klicks)
-   - Nav klein + nicht sticky
-   - Hero/Overlays ohne Pointer-Events
-   - Saubere Abstände (kein Text/Button-Verschmelzen)
+   + Kontaktseite (edel): goldene Labels, schwarze Felder, goldener Button
    ========================================================= */
 
 :root{
@@ -17,6 +13,12 @@
   --border:rgba(255,255,255,.10);
   --shadow:rgba(0,0,0,.55);
   --max:1100px;
+
+  --field-bg: rgba(0,0,0,.55);
+  --field-border: rgba(201,171,88,.28);
+  --field-border2: rgba(201,171,88,.55);
+  --field-text: rgba(255,255,255,.88);
+  --field-placeholder: rgba(255,255,255,.28);
 }
 
 *{box-sizing:border-box}
@@ -42,7 +44,7 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
    --------------------------------------------------------- */
 .topnav{
   position:relative;
-  z-index:9999;                 /* ✅ immer oben */
+  z-index:9999;
   background:rgba(0,0,0,.26);
   border-bottom:1px solid rgba(255,255,255,.08);
   backdrop-filter: blur(8px);
@@ -78,8 +80,8 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
   position:relative;
-  z-index:10000;                /* ✅ Links über allem */
-  pointer-events:auto;          /* ✅ klickbar */
+  z-index:10000;
+  pointer-events:auto;
 }
 .topnav-links::-webkit-scrollbar{display:none}
 
@@ -94,7 +96,7 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  pointer-events:auto;          /* ✅ klickbar */
+  pointer-events:auto;
 }
 
 .topnav-links a:hover{
@@ -114,8 +116,6 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
   z-index:1;
 }
 
-/* Falls irgendwo ::before/::after genutzt wurde:
-   Wir sorgen global dafür, dass Hero-Deko nicht klickt. */
 .hero-top::before,
 .hero-top::after,
 .hero-logo::before,
@@ -181,7 +181,7 @@ a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
 }
 
 /* ---------------------------------------------------------
-   BUTTONS — sauberer Abstand, kein “Verschmelzen”
+   BUTTONS
    --------------------------------------------------------- */
 .btn{
   display:inline-flex;
@@ -250,8 +250,96 @@ p{
   margin-right:auto;
 }
 
-/* Button-Abstand in Sections */
 .section .btn{ margin-top:16px; }
+
+/* ---------------------------------------------------------
+   KONTAKT — edel (Gold + Schwarz)
+   --------------------------------------------------------- */
+.contact-page h2{
+  text-align:left;
+  max-width:var(--max);
+}
+
+.contact-page p{
+  text-align:left;
+  margin-left:0;
+  margin-right:0;
+  max-width:78ch;
+}
+
+.contact-form{
+  max-width:720px;
+  margin:18px auto 0;
+  padding:22px;
+  border-radius:18px;
+  background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+}
+
+.field{ margin:14px 0; }
+
+label{
+  display:block;
+  margin:0 0 8px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:rgba(201,171,88,.95);
+  font-size:13px;
+  text-transform:uppercase;
+}
+
+input, textarea, select{
+  width:100%;
+  border-radius:12px;
+  border:1px solid var(--field-border);
+  background:var(--field-bg);
+  color:var(--field-text);
+  padding:12px 14px;
+  font-size:15px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease, transform .12s ease;
+}
+
+textarea{ resize:vertical; min-height:130px; }
+
+input::placeholder, textarea::placeholder{
+  color:var(--field-placeholder);
+}
+
+input:focus, textarea:focus, select:focus{
+  border-color:var(--field-border2);
+  box-shadow:0 0 0 3px rgba(201,171,88,.12);
+}
+
+select{
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+.btn-submit{
+  width:100%;
+  margin-top:14px;
+  min-height:50px;
+  font-size:16px;
+}
+
+.contact-alt{
+  margin:14px 0 0;
+  color:rgba(255,255,255,.62);
+  font-size:13px;
+  line-height:1.6;
+}
+
+.contact-mail{
+  color:rgba(201,171,88,.95);
+  font-weight:700;
+  text-decoration:none;
+  border-bottom:1px solid rgba(201,171,88,.35);
+}
+.contact-mail:hover{
+  border-bottom-color:rgba(201,171,88,.75);
+}
 
 /* ---------------------------------------------------------
    FOOTER
@@ -289,6 +377,11 @@ footer{
     font-size:14px;
     min-height:44px;
     max-width:92vw;
+  }
+
+  .contact-form{
+    padding:16px;
+    border-radius:16px;
   }
 }
 
