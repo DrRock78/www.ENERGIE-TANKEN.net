@@ -3,309 +3,258 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Energie-Level messen. Klare Fragen. Klare Skala. Energie-Tanken." />
-
-  <link rel="stylesheet" href="style.css?v=11" />
+  <meta name="description" content="Energie-Level messen. 7 Fragen. Klarer Wert. Energie-Tanken." />
+  <link rel="stylesheet" href="style.css?v=12" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    .compass-container{
-      max-width:900px;
-      margin:0 auto;
-      padding:30px 14px 60px;
-    }
-
-    .qblock{display:none}
-    .qblock.active{display:block}
-
-    .qtitle{
-      font-size:22px;
-      font-weight:700;
-      color:var(--gold);
-      margin-bottom:6px;
-    }
-
-    .qhint{
-      color:rgba(255,255,255,.7);
-      margin-bottom:16px;
-    }
-
-    .scale{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:8px;
-    }
-
-    .scale label{
-      border:1px solid rgba(201,171,88,.35);
-      border-radius:999px;
-      padding:10px 6px;
-      text-align:center;
-      cursor:pointer;
-      font-size:14px;
-      transition:all .15s ease;
-    }
-
-    .scale input{display:none}
-
-    .scale input:checked + span{
-      color:#111;
-      background:linear-gradient(180deg,var(--gold),var(--gold2));
-      border-radius:999px;
-      padding:10px 6px;
-      display:block;
-    }
-
-    .nav-actions{
-      display:flex;
-      justify-content:space-between;
-      margin-top:24px;
-    }
-
-    .result-box{
-      text-align:center;
-      margin-top:40px;
-      display:none;
-    }
-
-    .ring-wrap{
-      position:relative;
-      width:220px;
-      height:220px;
-      margin:0 auto 20px;
-    }
-
-    .ring-wrap svg{
-      width:220px;
-      height:220px;
-    }
-
-    .ring-wrap img{
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      width:120px;
-      opacity:.4;
-      pointer-events:none;
-      transition:.3s ease;
-    }
-
-    .ring-wrap.active img{
-      opacity:1;
-      pointer-events:auto;
-      cursor:pointer;
-    }
-
-    .result-text{
-      color:var(--gold);
-      font-size:20px;
-      font-weight:700;
-      margin-top:10px;
-    }
-  </style>
 </head>
 
 <body>
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-    <div class="topnav-links">
-      <a href="index.html">Home</a>
-      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-      <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
-      <a href="kontakt.html">Kontakt</a>
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
+      <div class="topnav-links">
+        <a href="index.html">Home</a>
+        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+        <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<section class="hero-top">
-  <div class="hero-logo">
-    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
-  </div>
-
-  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-
-  <p class="hero-quote">
-    „Wenn du die Geheimnisse des Universums verstehen willst,
-    denke in Begriffen von Energie, Frequenz und Schwingung.“
-    – Nikola Tesla
-  </p>
-
-  <div class="hero-visual">
-    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
-  </div>
-</section>
-
-<main class="compass-container">
-
-<form id="compassForm">
-
-  <!-- FRAGEN -->
-  <div class="qblock active">
-    <div class="qtitle">1) Schlaf</div>
-    <div class="qhint">Wie konstant ist dein Schlaf?</div>
-    <div class="scale">
-      <label><input type="radio" name="q1" value="0"><span>chaotisch</span></label>
-      <label><input type="radio" name="q1" value="1"><span>unruhig</span></label>
-      <label><input type="radio" name="q1" value="2"><span>okay</span></label>
-      <label><input type="radio" name="q1" value="3"><span>gut</span></label>
-      <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
+  <section class="hero-top">
+    <div class="hero-logo">
+      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
     </div>
-  </div>
 
-  <div class="qblock">
-    <div class="qtitle">2) Trinken</div>
-    <div class="qhint">Wie regelmäßig trinkst du Wasser?</div>
-    <div class="scale">
-      <label><input type="radio" name="q2" value="0"><span>selten</span></label>
-      <label><input type="radio" name="q2" value="1"><span>wenig</span></label>
-      <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
-      <label><input type="radio" name="q2" value="3"><span>gut</span></label>
-      <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+
+    <p class="hero-quote">
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen von Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
+    </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
     </div>
-  </div>
+  </section>
 
-  <div class="qblock">
-    <div class="qtitle">3) Softdrinks & Säfte</div>
-    <div class="qhint">Wie selten konsumierst du sie?</div>
-    <div class="scale">
-      <label><input type="radio" name="q3" value="0"><span>oft</span></label>
-      <label><input type="radio" name="q3" value="1"><span>häufig</span></label>
-      <label><input type="radio" name="q3" value="2"><span>manchmal</span></label>
-      <label><input type="radio" name="q3" value="3"><span>selten</span></label>
-      <label><input type="radio" name="q3" value="4"><span>nie</span></label>
-    </div>
-  </div>
+  <main class="container">
+    <section class="section">
+      <h2>Energie-Kompass</h2>
+      <p>7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala.</p>
+    </section>
 
-  <div class="qblock">
-    <div class="qtitle">4) Fastfood</div>
-    <div class="qhint">Wie selten ist Fastfood bei dir?</div>
-    <div class="scale">
-      <label><input type="radio" name="q4" value="0"><span>oft</span></label>
-      <label><input type="radio" name="q4" value="1"><span>häufig</span></label>
-      <label><input type="radio" name="q4" value="2"><span>manchmal</span></label>
-      <label><input type="radio" name="q4" value="3"><span>selten</span></label>
-      <label><input type="radio" name="q4" value="4"><span>nie</span></label>
-    </div>
-  </div>
+    <section class="section">
+      <div class="card" style="max-width:980px;margin:0 auto;">
+        <form id="compassForm" class="compass-form">
 
-  <div class="qblock">
-    <div class="qtitle">5) Bewegung</div>
-    <div class="qhint">Wie regelmäßig bewegst du dich?</div>
-    <div class="scale">
-      <label><input type="radio" name="q5" value="0"><span>kaum</span></label>
-      <label><input type="radio" name="q5" value="1"><span>selten</span></label>
-      <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
-      <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
-      <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
-    </div>
-  </div>
+          <div class="qblock active">
+            <div class="qmeta">Frage 1 von 7</div>
+            <div class="qtitle">Schlaf</div>
+            <div class="qhint">Wie konstant ist dein Schlaf?</div>
+            <div class="scale">
+              <label><input type="radio" name="q1" value="0"><span>chaotisch</span></label>
+              <label><input type="radio" name="q1" value="1"><span>unruhig</span></label>
+              <label><input type="radio" name="q1" value="2"><span>okay</span></label>
+              <label><input type="radio" name="q1" value="3"><span>gut</span></label>
+              <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
+            </div>
+          </div>
 
-  <div class="qblock">
-    <div class="qtitle">6) Stress</div>
-    <div class="qhint">Wie gut kommst du mit Belastung klar?</div>
-    <div class="scale">
-      <label><input type="radio" name="q6" value="0"><span>hoch</span></label>
-      <label><input type="radio" name="q6" value="1"><span>angespannt</span></label>
-      <label><input type="radio" name="q6" value="2"><span>okay</span></label>
-      <label><input type="radio" name="q6" value="3"><span>stabil</span></label>
-      <label><input type="radio" name="q6" value="4"><span>ruhig</span></label>
-    </div>
-  </div>
+          <div class="qblock">
+            <div class="qmeta">Frage 2 von 7</div>
+            <div class="qtitle">Trinken</div>
+            <div class="qhint">Wie regelmäßig trinkst du Wasser?</div>
+            <div class="scale">
+              <label><input type="radio" name="q2" value="0"><span>selten</span></label>
+              <label><input type="radio" name="q2" value="1"><span>wenig</span></label>
+              <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
+              <label><input type="radio" name="q2" value="3"><span>gut</span></label>
+              <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
+            </div>
+          </div>
 
-  <div class="qblock">
-    <div class="qtitle">7) Fokus</div>
-    <div class="qhint">Wie klar fühlst du dich tagsüber?</div>
-    <div class="scale">
-      <label><input type="radio" name="q7" value="0"><span>neblig</span></label>
-      <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
-      <label><input type="radio" name="q7" value="2"><span>okay</span></label>
-      <label><input type="radio" name="q7" value="3"><span>klar</span></label>
-      <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
-    </div>
-  </div>
+          <div class="qblock">
+            <div class="qmeta">Frage 3 von 7</div>
+            <div class="qtitle">Softdrinks & Säfte</div>
+            <div class="qhint">Wie selten konsumierst du sie?</div>
+            <div class="scale">
+              <label><input type="radio" name="q3" value="0"><span>oft</span></label>
+              <label><input type="radio" name="q3" value="1"><span>häufig</span></label>
+              <label><input type="radio" name="q3" value="2"><span>manchmal</span></label>
+              <label><input type="radio" name="q3" value="3"><span>selten</span></label>
+              <label><input type="radio" name="q3" value="4"><span>nie</span></label>
+            </div>
+          </div>
 
-  <div class="nav-actions">
-    <button type="button" class="btn btn-secondary" id="prev">Zurück</button>
-    <button type="button" class="btn btn-primary" id="next">Weiter</button>
-  </div>
+          <div class="qblock">
+            <div class="qmeta">Frage 4 von 7</div>
+            <div class="qtitle">Fastfood</div>
+            <div class="qhint">Wie selten ist Fastfood bei dir?</div>
+            <div class="scale">
+              <label><input type="radio" name="q4" value="0"><span>oft</span></label>
+              <label><input type="radio" name="q4" value="1"><span>häufig</span></label>
+              <label><input type="radio" name="q4" value="2"><span>manchmal</span></label>
+              <label><input type="radio" name="q4" value="3"><span>selten</span></label>
+              <label><input type="radio" name="q4" value="4"><span>nie</span></label>
+            </div>
+          </div>
 
-</form>
+          <div class="qblock">
+            <div class="qmeta">Frage 5 von 7</div>
+            <div class="qtitle">Bewegung</div>
+            <div class="qhint">Wie regelmäßig bewegst du dich?</div>
+            <div class="scale">
+              <label><input type="radio" name="q5" value="0"><span>kaum</span></label>
+              <label><input type="radio" name="q5" value="1"><span>selten</span></label>
+              <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
+              <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
+              <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
+            </div>
+          </div>
 
-<div class="result-box" id="resultBox">
-  <div class="ring-wrap" id="ringWrap">
-    <svg viewBox="0 0 120 120">
-      <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.15)" stroke-width="8" fill="none"/>
-      <circle id="ringBar" cx="60" cy="60" r="46"
-        stroke="url(#goldGrad)" stroke-width="8"
-        fill="none" stroke-linecap="round"
-        stroke-dasharray="0 289" />
-    </svg>
+          <div class="qblock">
+            <div class="qmeta">Frage 6 von 7</div>
+            <div class="qtitle">Stress</div>
+            <div class="qhint">Wie gut kommst du mit Belastung klar?</div>
+            <div class="scale">
+              <label><input type="radio" name="q6" value="0"><span>hoch</span></label>
+              <label><input type="radio" name="q6" value="1"><span>angespannt</span></label>
+              <label><input type="radio" name="q6" value="2"><span>okay</span></label>
+              <label><input type="radio" name="q6" value="3"><span>stabil</span></label>
+              <label><input type="radio" name="q6" value="4"><span>ruhig</span></label>
+            </div>
+          </div>
 
-    <img src="logo-energie-tanken-gold.png" id="logoCta" alt="Kontakt">
-  </div>
+          <div class="qblock">
+            <div class="qmeta">Frage 7 von 7</div>
+            <div class="qtitle">Fokus</div>
+            <div class="qhint">Wie klar fühlst du dich tagsüber?</div>
+            <div class="scale">
+              <label><input type="radio" name="q7" value="0"><span>neblig</span></label>
+              <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
+              <label><input type="radio" name="q7" value="2"><span>okay</span></label>
+              <label><input type="radio" name="q7" value="3"><span>klar</span></label>
+              <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
+            </div>
+          </div>
 
-  <div class="result-text" id="resultText"></div>
-</div>
+          <div class="compass-nav">
+            <button type="button" class="btn btn-secondary" id="prevBtn">Zurück</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">Weiter</button>
+          </div>
 
-</main>
+        </form>
 
-<script>
-(function(){
-  const blocks=[...document.querySelectorAll(".qblock")];
-  let i=0;
+        <div id="resultBox" class="result-box" style="display:none;">
+          <div class="result-ring">
+            <svg viewBox="0 0 140 140" aria-label="Energie-Skala">
+              <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#c9ab58"/>
+                  <stop offset="100%" stop-color="#b8923d"/>
+                </linearGradient>
+              </defs>
+              <circle cx="70" cy="70" r="54" class="ring-track"></circle>
+              <circle id="ringBar" cx="70" cy="70" r="54" class="ring-bar"></circle>
+            </svg>
 
-  const prev=document.getElementById("prev");
-  const next=document.getElementById("next");
-  const form=document.getElementById("compassForm");
-  const resultBox=document.getElementById("resultBox");
-  const resultText=document.getElementById("resultText");
-  const ring=document.getElementById("ringBar");
-  const logo=document.getElementById("logoCta");
-  const wrap=document.getElementById("ringWrap");
+            <a class="ring-cta" href="kontakt.html" aria-label="Kontakt aufnehmen">
+              <img src="logo-energie-tanken-gold.png" alt="Energie-Tanken">
+            </a>
+          </div>
 
-  function show(n){
-    blocks.forEach(b=>b.classList.remove("active"));
-    blocks[n].classList.add("active");
-  }
+          <div class="result-text" id="resultText"></div>
 
-  function calc(){
-    let sum=0;
-    for(let q=1;q<=7;q++){
-      const v=form["q"+q].value;
-      if(v==="") return null;
-      sum+=Number(v);
+          <div class="result-cta-line">
+            Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
+          </div>
+
+          <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 ENERGIE-TANKEN.net</footer>
+
+  <script>
+  (function(){
+    const blocks = Array.from(document.querySelectorAll(".qblock"));
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const form = document.getElementById("compassForm");
+    const resultBox = document.getElementById("resultBox");
+    const resultText = document.getElementById("resultText");
+    const ringBar = document.getElementById("ringBar");
+
+    let idx = 0;
+
+    const r = 54;
+    const circumference = 2 * Math.PI * r;
+    ringBar.style.strokeDasharray = `0 ${circumference}`;
+    ringBar.style.strokeDashoffset = `${circumference * 0.25}`;
+
+    function show(n){
+      blocks.forEach(b => b.classList.remove("active"));
+      blocks[n].classList.add("active");
+      prevBtn.style.visibility = (n === 0) ? "hidden" : "visible";
+      nextBtn.textContent = (n === blocks.length - 1) ? "Auswerten" : "Weiter";
     }
-    return Math.round(sum/28*100);
-  }
 
-  next.onclick=()=>{
-    const checked=blocks[i].querySelector("input:checked");
-    if(!checked) return;
-    if(i<blocks.length-1){ i++; show(i); }
-    else{
-      const p=calc();
-      form.style.display="none";
-      resultBox.style.display="block";
-      resultText.textContent=`Dein Energie-Level liegt bei ${p}%`;
-      ring.style.strokeDasharray=`${p/100*289} 289`;
-      wrap.classList.add("active");
-      logo.onclick=()=>location.href="https://www.energie-tanken.net/kontakt";
+    function setRing(percent){
+      const p = Math.max(0, Math.min(100, percent));
+      const dash = (p / 100) * circumference;
+      ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
     }
-  };
 
-  prev.onclick=()=>{
-    if(i>0){ i--; show(i); }
-  };
+    function currentAnswered(){
+      return !!blocks[idx].querySelector("input:checked");
+    }
 
-})();
-</script>
+    function calcPercent(){
+      let sum = 0;
+      for(let i=1;i<=7;i++){
+        const el = form.querySelector(`input[name="q${i}"]:checked`);
+        if(!el) return null;
+        sum += Number(el.value);
+      }
+      return Math.round((sum / 28) * 100);
+    }
+
+    prevBtn.addEventListener("click", ()=>{
+      if(idx > 0){ idx--; show(idx); }
+    });
+
+    nextBtn.addEventListener("click", ()=>{
+      if(!currentAnswered()) return;
+
+      if(idx < blocks.length - 1){
+        idx++;
+        show(idx);
+        blocks[idx].scrollIntoView({behavior:"smooth", block:"start"});
+        return;
+      }
+
+      const p = calcPercent();
+      if(p === null) return;
+
+      form.style.display = "none";
+      resultBox.style.display = "block";
+      resultText.textContent = `Dein Energie-Level liegt bei ${p}%`;
+      setRing(p);
+      resultBox.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+
+    show(idx);
+  })();
+  </script>
 
 </body>
 </html>
