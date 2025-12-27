@@ -7,7 +7,7 @@
   <title>Kontakt – ENERGIE-TANKEN.net</title>
   <meta name="description" content="Kontakt & persönliche Beratung – Hochfrequenz nach Nikola Tesla. ENERGIE-TANKEN.net" />
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="stylesheet" href="style.css?v=12" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -21,12 +21,8 @@
       <div class="topnav-links">
         <a href="index.html">Home</a>
         <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-        <a href="anwendungen.html">Anwendungen</a>
-        <a href="shop.html">Shop</a>
-        <a href="wissenswertes.html">Wissenswertes</a>
-        <a href="medien.html">Medien</a>
-        <a href="kontakt.html" aria-current="page">Kontakt</a>
         <a href="energie-level-messen.html">Energie-Level messen</a>
+        <a href="kontakt.html" aria-current="page">Kontakt</a>
       </div>
     </div>
   </nav>
@@ -36,66 +32,60 @@
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
     </div>
 
-    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+    <h1 class="hero-headline">KONTAKT & BERATUNG.</h1>
 
     <p class="hero-quote">
-      „Wenn du die Geheimnisse des Universums verstehen willst,
-      denke in Begriffen von Energie, Frequenz und Schwingung.“
-      – Nikola Tesla
+      Trag dich ein – ich melde mich persönlich bei dir.
     </p>
-
-    <div class="hero-visual">
-      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
-    </div>
   </section>
 
   <main class="container">
-
     <section class="section">
-      <h2>Kontakt & persönliche Beratung</h2>
-      <p>
-        Trag dich ein – ich melde mich persönlich bei dir.
-      </p>
+      <div class="card contact-card">
+        <form class="contact-form" action="#" method="post">
+
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" name="name" required>
+          </div>
+
+          <div class="field">
+            <label for="email">E-Mail</label>
+            <input id="email" type="email" name="email" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">Telefon (optional)</label>
+            <input id="phone" type="tel" name="phone" inputmode="tel">
+          </div>
+
+          <div class="field">
+            <label for="message">Anliegen</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="interest">Interessensbereich</label>
+            <select id="interest" name="interest">
+              <option>Allgemeine Informationen</option>
+              <option>Hochfrequenz</option>
+              <option>Wasserstrukturierung</option>
+              <option>Geräte & Anwendungen</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;">Anfrage senden</button>
+
+          <p class="contact-alt">
+            Alternativ per E-Mail: <strong>info@energie-tanken.net</strong>
+          </p>
+
+        </form>
+      </div>
     </section>
-
-    <section class="section">
-      <form class="contact-form" action="#" method="post">
-
-        <label>Name</label>
-        <input type="text" name="name" required>
-
-        <label>E-Mail</label>
-        <input type="email" name="email" required>
-
-        <label>Telefon (optional)</label>
-        <input type="tel" name="phone">
-
-        <label>Anliegen</label>
-        <textarea name="message" rows="4" required></textarea>
-
-        <label>Interessensbereich</label>
-        <select name="interest">
-          <option>Allgemeine Informationen</option>
-          <option>Hochfrequenz</option>
-          <option>Wasserstrukturierung</option>
-          <option>Geräte & Anwendungen</option>
-        </select>
-
-        <button type="submit" class="btn btn-primary">Anfrage senden</button>
-
-        <p style="margin-top:16px;color:rgba(255,255,255,.6)">
-          Alternativ per E-Mail:
-          <strong style="color:#c9ab58">info@energie-tanken.net</strong>
-        </p>
-
-      </form>
-    </section>
-
   </main>
 
-  <footer>
-    © 2025 ENERGIE-TANKEN.net
-  </footer>
+  <footer>© 2025 ENERGIE-TANKEN.net</footer>
 
 </body>
 </html>
