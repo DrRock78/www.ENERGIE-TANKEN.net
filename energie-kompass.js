@@ -1,8 +1,8 @@
 /* =========================================================
-   ENERGIE-TANKEN.net — Energie-Kompass (STEP FLOW)
-   - Fragen erscheinen nacheinander (1 -> 7)
-   - Auswertung am Ende (auto + Button)
-   - CTA als Logo im Ring erst nach Auswertung
+   ENERGIE-TANKEN.net — Energie-Kompass (BUTTON FLOW)
+   - Schrittweise 1 -> 7 mit Zurück/Weiter
+   - Auswerten erscheint erst am Ende
+   - Ring-CTA + Kontaktbutton erst nach Auswertung
    ========================================================= */
 
 (function () {
@@ -11,20 +11,23 @@
   const form = document.getElementById("compassForm");
   if (!form) return;
 
+  const stepNow = document.getElementById("stepNow");
+
   const ringBar = document.getElementById("ringBar");
   const scoreNum = document.getElementById("scoreNum");
   const scoreBadge = document.getElementById("scoreBadge");
   const scoreSub = document.getElementById("scoreSub");
   const resultCopy = document.getElementById("resultCopy");
 
-  const ringCta = document.getElementById("ringCta"); // muss im HTML id="ringCta" haben
+  const ringCta = document.getElementById("ringCta");
+  const contactBtn = document.getElementById("contactBtn");
+
   const actionsRow = document.getElementById("actionsRow");
+  const backBtn = document.getElementById("backBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const evalBtn = document.getElementById("evalBtn");
   const resetBtn = document.getElementById("resetBtn");
   const tinyNote = document.getElementById("tinyNote");
-  const stepNow = document.getElementById("stepNow");
-
-  // OPTIONAL: falls dein Auswerten-Button eine ID hat:
-  const evalBtn = document.getElementById("evalBtn"); // <- im HTML setzen!
 
   const blocks = Array.from(form.querySelectorAll(".qblock[data-step]"))
     .sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
@@ -50,22 +53,19 @@
   }
 
   function hideCTA() {
-    if (!ringCta) return;
-    ringCta.style.display = "none";
-    ringCta.replaceWith(ringCta.cloneNode(true)); // remove old listeners
+    if (ringCta) ringCta.style.display = "none";
+    if (contactBtn) contactBtn.style.display = "none";
   }
 
   function showCTA() {
-    const btn = document.getElementById("ringCta");
-    if (!btn) return;
-    btn.style.display = "flex";
-    btn.addEventListener(
-      "click",
-      () => {
-        window.location.href = "kontakt.html";
-      },
-      { once: true }
-    );
+    // Ring-CTA (Logo)
+    if (ringCta) ringCta.style.display = "flex";
+
+    // Extra Button unten
+    if (contactBtn) {
+      contactBtn.style.display = "inline-flex";
+      contactBtn.onclick = () => (window.location.href = "kontakt.html");
+    }
   }
 
   function bucket(percent) {
@@ -99,6 +99,57 @@
     };
   }
 
+  function getCurrentStep() {
+    return Number(stepNow?.textContent || "1") || 1;
+  }
+
+  function isStepAnswered(step) {
+    const q = form.querySelector(`input[name="q${step}"]:checked`);
+    return !!q;
+  }
+
+  function setButtonsForStep(step) {
+    // Back only from step 2+
+    if (backBtn) backBtn.disabled = step <= 1;
+
+    // Eval only at last step
+    const atEnd = step === QUESTIONS;
+
+    if (evalBtn) evalBtn.style.display = atEnd ? "inline-flex" : "none";
+    if (nextBtn) nextBtn.style.display = atEnd ? "none" : "inline-flex";
+
+    // Next disabled until answered
+    if (nextBtn) nextBtn.disabled = !isStepAnswered(step);
+
+    // Note only at end (optional)
+    if (tinyNote) tinyNote.style.display = atEnd ? "block" : "none";
+  }
+
+  function setStep(step) {
+    const s = Math.max(1, Math.min(QUESTIONS, step));
+
+    blocks.forEach((b) => {
+      const bs = Number(b.dataset.step);
+      b.style.display = bs === s ? "block" : "none";
+    });
+
+    if (stepNow) stepNow.textContent = String(s);
+
+    setButtonsForStep(s);
+
+    if (scoreSub) {
+      scoreSub.textContent =
+        s === QUESTIONS
+          ? "Letzte Frage. Danach bekommst du deine Skala."
+          : "Beantworte die Frage – dann kommt die nächste.";
+    }
+
+    // scroll to the card top
+    try {
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (_) {}
+  }
+
   function readScorePercent() {
     const data = new FormData(form);
     let sum = 0;
@@ -115,61 +166,6 @@
     return Math.round((sum / max) * 100);
   }
 
-  function setStep(n) {
-    const step = Math.max(1, Math.min(QUESTIONS, n));
-
-    blocks.forEach((b) => {
-      const s = Number(b.dataset.step);
-      b.style.display = s === step ? "block" : "none";
-    });
-
-    if (stepNow) stepNow.textContent = String(step);
-
-    const atEnd = step === QUESTIONS;
-    if (actionsRow) actionsRow.style.display = atEnd ? "flex" : "none";
-    if (tinyNote) tinyNote.style.display = atEnd ? "block" : "none";
-
-    if (scoreSub) {
-      scoreSub.textContent = atEnd
-        ? "Letzte Frage. Danach bekommst du deine Skala."
-        : "Beantworte die Frage – dann kommt die nächste.";
-    }
-
-    const firstInput = blocks
-      .find((b) => Number(b.dataset.step) === step)
-      ?.querySelector('input[type="radio"]');
-    if (firstInput) {
-      try {
-        firstInput.focus({ preventScroll: true });
-      } catch (_) {}
-    }
-  }
-
-  function nextStep() {
-    const current = Number(stepNow?.textContent || "1");
-    const n = Math.min(QUESTIONS, current + 1);
-    setStep(n);
-
-    try {
-      form.scrollIntoView({ behavior: "smooth", block: "start" });
-    } catch (_) {}
-  }
-
-  function resetUI() {
-    setRing(0);
-    if (scoreNum) scoreNum.textContent = "—%";
-    if (scoreBadge) scoreBadge.textContent = "bereit";
-    if (resultCopy) {
-      resultCopy.style.display = "none";
-      resultCopy.textContent = "";
-    }
-    hideCTA();
-    if (scoreSub)
-      scoreSub.textContent =
-        "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
-  }
-
-  // 🔥 ZENTRAL: Auswertung garantiert ausführen
   function evaluate() {
     const score = readScorePercent();
     if (score === null) {
@@ -180,6 +176,7 @@
     }
 
     setRing(score);
+
     if (scoreNum) scoreNum.textContent = score + "%";
 
     const b = bucket(score);
@@ -194,6 +191,7 @@
 
     showCTA();
 
+    // scroll to gauge area
     const gaugeCard = document.querySelector(".card.gauge");
     if (gaugeCard) {
       try {
@@ -202,42 +200,69 @@
     }
   }
 
-  // Auto-advance + Auto-evaluate on last answer
+  function resetUI() {
+    setRing(0);
+    if (scoreNum) scoreNum.textContent = "—%";
+    if (scoreBadge) scoreBadge.textContent = "bereit";
+
+    if (resultCopy) {
+      resultCopy.style.display = "none";
+      resultCopy.textContent = "";
+    }
+
+    hideCTA();
+
+    if (scoreSub)
+      scoreSub.textContent =
+        "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
+
+    setButtonsForStep(1);
+  }
+
+  // When a radio is selected: enable Next; optionally auto-advance (not on last step)
   form.addEventListener("change", (e) => {
     const t = e.target;
     if (!(t instanceof HTMLInputElement)) return;
     if (t.type !== "radio") return;
 
-    const name = t.name; // q1..q7
-    const num = Number(name.replace("q", ""));
-    if (!Number.isFinite(num)) return;
+    const step = getCurrentStep();
+    setButtonsForStep(step);
 
-    const current = Number(stepNow?.textContent || "1");
-    if (num !== current) return;
-
-    if (current < QUESTIONS) {
-      nextStep();
+    // Optional: auto-advance for nice flow (but not last step)
+    if (step < QUESTIONS) {
+      // Tiny delay so selection feels responsive
+      setTimeout(() => setStep(step + 1), 120);
     } else {
-      // ✅ Letzte Frage beantwortet: sofort auswerten (damit mobile nicht “hängen” bleibt)
-      if (scoreSub) scoreSub.textContent = "Alles beantwortet. Auswertung läuft…";
-      evaluate();
+      if (scoreSub) scoreSub.textContent = "Alles beantwortet. Jetzt auswerten.";
     }
   });
 
-  // Falls dein Button ein echtes submit ist, passt das trotzdem:
+  // Back / Next buttons
+  if (backBtn) {
+    backBtn.addEventListener("click", () => {
+      const step = getCurrentStep();
+      setStep(step - 1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      const step = getCurrentStep();
+      if (!isStepAnswered(step)) {
+        if (scoreSub) scoreSub.textContent = "Bitte wähle eine Option aus.";
+        return;
+      }
+      setStep(step + 1);
+    });
+  }
+
+  // Submit (Auswerten)
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     evaluate();
   });
 
-  // ✅ Falls dein Auswerten-Button KEIN submit ist, sondern type="button":
-  if (evalBtn) {
-    evalBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      evaluate();
-    });
-  }
-
+  // Reset
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       form.reset();
