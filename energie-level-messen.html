@@ -11,6 +11,241 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ================= FIXES NUR FÜR KOMPASS (kein Style.css anfassen) ================= -->
+  <style id="energy-compass-fix">
+    :root{
+      --gold:#c9ab58;
+      --gold2:#b8923d;
+      --bg:#070707;
+      --panel:rgba(255,255,255,.03);
+      --panel2:rgba(0,0,0,.35);
+      --line:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.86);
+      --muted:rgba(255,255,255,.62);
+    }
+
+    main.container{ padding-top: 40px !important; }
+    .ek-wrap{ max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+    /* Card */
+    .ek-card{
+      border: 1px solid var(--line);
+      background: radial-gradient(1200px 600px at 50% -20%, rgba(201,171,88,.12), transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25));
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      overflow: hidden;
+    }
+
+    .ek-topline{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .ek-title{
+      font-weight: 800;
+      font-size: clamp(28px, 6vw, 46px);
+      line-height: 1.05;
+      margin: 8px 0 10px;
+      color: var(--gold);
+      letter-spacing: .2px;
+    }
+    .ek-sub{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.4;
+      max-width: 60ch;
+    }
+
+    /* Options grid */
+    .ek-options{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0 12px;
+    }
+    .ek-options .ek-opt:last-child{
+      grid-column: 1 / -1;
+    }
+
+    .ek-opt input{ position:absolute; opacity:0; pointer-events:none; }
+
+    .ek-opt label{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 54px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,171,88,.35);
+      background: rgba(0,0,0,.20);
+      color: rgba(255,255,255,.86);
+      font-weight: 700;
+      letter-spacing: .1px;
+      text-align:center;
+      user-select:none;
+      cursor:pointer;
+      transition: transform .08s ease, background .18s ease, border-color .18s ease, color .18s ease;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      white-space: normal;
+      word-break: break-word;
+      line-height: 1.15;
+      font-size: 18px;
+    }
+    .ek-opt label:active{ transform: scale(.99); }
+    .ek-opt input:checked + label{
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      color: #0b0b0b;
+      border-color: rgba(201,171,88,.90);
+      box-shadow: 0 10px 30px rgba(201,171,88,.12);
+    }
+
+    /* Nav buttons */
+    .ek-actions{
+      display:flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .ek-btn{
+      flex: 1;
+      min-height: 52px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,171,88,.35);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.86);
+      font-weight: 800;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform .08s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .ek-btn:active{ transform: scale(.99); }
+    .ek-btn-primary{
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      color: #0b0b0b;
+      border-color: rgba(201,171,88,.90);
+    }
+    .ek-btn[disabled]{
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .ek-note{
+      margin-top: 10px;
+      color: rgba(255,255,255,.52);
+      font-size: 13px;
+    }
+
+    /* Gauge / Result */
+    .ek-gauge-wrap{
+      margin-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 18px;
+      background: transparent; /* verhindert den Schatten-„Übergang“ */
+    }
+    .card.gauge{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius: 22px;
+      padding: 16px;
+      overflow: hidden;
+    }
+    .ek-gauge-top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      margin-bottom: 10px;
+    }
+    .ek-gauge-head{
+      margin:0;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .ek-gauge-sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.35;
+      max-width: 65ch;
+    }
+
+    .ek-ring{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding: 10px 0 8px;
+    }
+    .ek-ring svg{ width: min(360px, 90vw); height: auto; }
+
+    .ring-cta{
+      position:absolute;
+      inset:auto;
+      width: 78px;
+      height: 78px;
+      border-radius: 999px;
+      display:none; /* JS schaltet frei */
+      align-items:center;
+      justify-content:center;
+      border: 1px solid rgba(201,171,88,.55);
+      background: rgba(0,0,0,.22);
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+      transform: translateY(-2px);
+    }
+    .ring-cta img{ width: 52px; height: 52px; object-fit: contain; }
+
+    .ek-score{
+      text-align:center;
+      margin-top: 4px;
+      font-weight: 900;
+      font-size: clamp(30px, 7vw, 54px);
+      color: var(--gold);
+      letter-spacing: .2px;
+    }
+    .ek-badge{
+      display:flex;
+      justify-content:center;
+      margin-top: 8px;
+      color: rgba(255,255,255,.70);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-size: 12px;
+    }
+    .ek-copy{
+      margin: 12px auto 0;
+      color: rgba(255,255,255,.72);
+      font-size: 16px;
+      line-height: 1.45;
+      max-width: 70ch;
+      text-align:center;
+      display:none; /* JS */
+    }
+
+    .ek-result-actions{
+      display:flex;
+      gap:12px;
+      margin-top: 14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .ek-result-actions .ek-btn{
+      flex: 0 1 220px;
+      min-height: 48px;
+      font-size: 16px;
+    }
+
+    /* Mobile tuning */
+    @media (max-width: 420px){
+      .ek-card{ padding: 16px; }
+      .ek-sub{ font-size: 16px; }
+      .ek-opt label{ font-size: 16px; min-height: 50px; padding: 10px 12px; }
+      .ek-btn{ font-size: 16px; min-height: 48px; }
+      .ring-cta{ width: 70px; height: 70px; }
+      .ring-cta img{ width: 46px; height: 46px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -52,59 +287,288 @@
 </section>
 
 <!-- ================= KOMPASS ================= -->
-<main class="container" style="padding-top:48px;">
+<main class="container">
+  <div class="ek-wrap">
 
-<section class="section">
+    <section class="section">
+      <div class="ek-card">
 
-  <div class="result-box">
+        <!-- ====== FORM / FLOW ====== -->
+        <form id="compassForm" novalidate>
 
-    <!-- GOLD RING -->
-    <div class="result-ring">
-      <svg viewBox="0 0 120 120">
-        <defs>
-          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#c9ab58"/>
-            <stop offset="100%" stop-color="#b8923d"/>
-          </linearGradient>
-        </defs>
-        <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="10" fill="none"/>
-        <circle id="ringBar" cx="60" cy="60" r="46" stroke="url(#goldGrad)" stroke-width="10"
-                stroke-linecap="round" fill="none"
-                stroke-dasharray="0 289" transform="rotate(-90 60 60)"/>
-      </svg>
+          <div class="ek-topline">
+            <div>Energie-Kompass</div>
+            <div>Frage <span id="stepNow">1</span> von 7</div>
+          </div>
 
-      <!-- LOGO CTA -->
-      <a href="kontakt.html" class="ring-cta" aria-label="Kontakt aufnehmen">
-        <img src="logo-energie-tanken-gold.png" alt="Kontakt aufnehmen">
-      </a>
-    </div>
+          <!-- ===== Frage 1 ===== -->
+          <div class="qblock" data-step="1">
+            <h2 class="ek-title">Wie erholt fühlst du dich nach dem Aufwachen?</h2>
+            <p class="ek-sub">Kurz und ehrlich – dein erster Eindruck zählt.</p>
 
-    <div class="result-text" id="scoreText">Energie-Tanken</div>
-    <div class="result-cta-line">
-      Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
-    </div>
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q1_0" type="radio" name="q1" value="0" required>
+                <label for="q1_0">gar nicht</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q1_1" type="radio" name="q1" value="1">
+                <label for="q1_1">selten</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q1_2" type="radio" name="q1" value="2">
+                <label for="q1_2">mittel</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q1_3" type="radio" name="q1" value="3">
+                <label for="q1_3">gut</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q1_4" type="radio" name="q1" value="4">
+                <label for="q1_4">sehr gut</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 2 ===== -->
+          <div class="qblock" data-step="2" style="display:none;">
+            <h2 class="ek-title">Wie stabil ist dein Schlaf in den letzten 7 Tagen?</h2>
+            <p class="ek-sub">Rhythmus schlägt „perfekt“.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q2_0" type="radio" name="q2" value="0" required>
+                <label for="q2_0">chaotisch</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q2_1" type="radio" name="q2" value="1">
+                <label for="q2_1">eher schlecht</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q2_2" type="radio" name="q2" value="2">
+                <label for="q2_2">okay</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q2_3" type="radio" name="q2" value="3">
+                <label for="q2_3">stabil</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q2_4" type="radio" name="q2" value="4">
+                <label for="q2_4">sehr stabil</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 3 ===== -->
+          <div class="qblock" data-step="3" style="display:none;">
+            <h2 class="ek-title">Wie viel Wasser trinkst du am Tag?</h2>
+            <p class="ek-sub">Nicht perfekt – nur realistisch.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q3_0" type="radio" name="q3" value="0" required>
+                <label for="q3_0">sehr wenig</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q3_1" type="radio" name="q3" value="1">
+                <label for="q3_1">zu wenig</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q3_2" type="radio" name="q3" value="2">
+                <label for="q3_2">mittel</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q3_3" type="radio" name="q3" value="3">
+                <label for="q3_3">gut</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q3_4" type="radio" name="q3" value="4">
+                <label for="q3_4">sehr gut</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 4 ===== -->
+          <div class="qblock" data-step="4" style="display:none;">
+            <h2 class="ek-title">Wie selten sind Softdrinks / süße Säfte bei dir?</h2>
+            <p class="ek-sub">Je seltener, desto besser – ganz simpel.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q4_0" type="radio" name="q4" value="0" required>
+                <label for="q4_0">oft</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q4_1" type="radio" name="q4" value="1">
+                <label for="q4_1">öfter</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q4_2" type="radio" name="q4" value="2">
+                <label for="q4_2">gelegentlich</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q4_3" type="radio" name="q4" value="3">
+                <label for="q4_3">selten</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q4_4" type="radio" name="q4" value="4">
+                <label for="q4_4">fast nie</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 5 ===== -->
+          <div class="qblock" data-step="5" style="display:none;">
+            <h2 class="ek-title">Wie selten ist Fastfood bei dir?</h2>
+            <p class="ek-sub">Es geht nicht um Verbote – nur um Frequenz.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q5_0" type="radio" name="q5" value="0" required>
+                <label for="q5_0">oft</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q5_1" type="radio" name="q5" value="1">
+                <label for="q5_1">öfter</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q5_2" type="radio" name="q5" value="2">
+                <label for="q5_2">gelegentlich</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q5_3" type="radio" name="q5" value="3">
+                <label for="q5_3">selten</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q5_4" type="radio" name="q5" value="4">
+                <label for="q5_4">fast nie</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 6 ===== -->
+          <div class="qblock" data-step="6" style="display:none;">
+            <h2 class="ek-title">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</h2>
+            <p class="ek-sub">Regelmäßig schlägt extrem – immer.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q6_0" type="radio" name="q6" value="0" required>
+                <label for="q6_0">kaum</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q6_1" type="radio" name="q6" value="1">
+                <label for="q6_1">selten</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q6_2" type="radio" name="q6" value="2">
+                <label for="q6_2">wechselnd</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q6_3" type="radio" name="q6" value="3">
+                <label for="q6_3">regelmäßig</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q6_4" type="radio" name="q6" value="4">
+                <label for="q6_4">konstant</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Frage 7 ===== -->
+          <div class="qblock" data-step="7" style="display:none;">
+            <h2 class="ek-title">Wie gut kommst du aktuell mit Belastung klar?</h2>
+            <p class="ek-sub">Dein System zählt – nicht nur dein Kalender.</p>
+
+            <div class="ek-options">
+              <div class="ek-opt">
+                <input id="q7_0" type="radio" name="q7" value="0" required>
+                <label for="q7_0">überlastet</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q7_1" type="radio" name="q7" value="1">
+                <label for="q7_1">angespannt</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q7_2" type="radio" name="q7" value="2">
+                <label for="q7_2">okay</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q7_3" type="radio" name="q7" value="3">
+                <label for="q7_3">stabil</label>
+              </div>
+              <div class="ek-opt">
+                <input id="q7_4" type="radio" name="q7" value="4">
+                <label for="q7_4">sehr stabil</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Actions (immer sichtbar) ===== -->
+          <div class="ek-actions" id="actionsRow">
+            <button type="button" class="ek-btn" id="backBtn">Zurück</button>
+            <button type="button" class="ek-btn ek-btn-primary" id="nextBtn">Weiter</button>
+            <button type="submit" class="ek-btn ek-btn-primary" id="evalBtn" style="display:none;">Auswerten</button>
+          </div>
+
+          <div class="ek-note" id="tinyNote">
+            Tipp: Du kannst jederzeit zurück. Auswerten geht erst nach der letzten Frage.
+          </div>
+
+        </form>
+
+        <!-- ====== GAUGE / RESULT ====== -->
+        <div class="ek-gauge-wrap">
+          <div class="card gauge">
+            <div class="ek-gauge-top">
+              <div>
+                <h3 class="ek-gauge-head">Dein Energie-Kompass</h3>
+                <p class="ek-gauge-sub" id="scoreSub">Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.</p>
+              </div>
+            </div>
+
+            <div class="ek-ring" style="position:relative;">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#c9ab58"/>
+                    <stop offset="100%" stop-color="#b8923d"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="10" fill="none"/>
+                <circle id="ringBar" cx="60" cy="60" r="46" stroke="url(#goldGrad)" stroke-width="10"
+                        stroke-linecap="round" fill="none"
+                        stroke-dasharray="0 289" transform="rotate(-90 60 60)"/>
+              </svg>
+
+              <!-- CTA IM RING (wird erst nach Auswertung eingeblendet) -->
+              <a id="ringCta" href="kontakt.html" class="ring-cta" aria-label="Kontakt aufnehmen">
+                <img src="logo-energie-tanken-gold.png" alt="Kontakt aufnehmen">
+              </a>
+            </div>
+
+            <div class="ek-score"><span id="scoreNum">—%</span></div>
+            <div class="ek-badge"><span id="scoreBadge">bereit</span></div>
+            <div class="ek-copy" id="resultCopy"></div>
+
+            <div class="ek-result-actions">
+              <button type="button" class="ek-btn" id="resetBtn">Reset</button>
+              <button type="button" class="ek-btn ek-btn-primary" id="contactBtn" style="display:none;">Kontakt aufnehmen</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
 
   </div>
-
-</section>
-
 </main>
 
 <footer>
   © 2025 ENERGIE-TANKEN.net
 </footer>
 
-<script>
-(function(){
-  const ring = document.getElementById("ringBar");
-  const text = document.getElementById("scoreText");
-  const percent = 78; // Beispielwert – kommt später aus echter Auswertung
-
-  const circumference = 2 * Math.PI * 46;
-  ring.style.strokeDasharray = `${(percent/100)*circumference} ${circumference}`;
-  text.textContent = `Dein Energie-Level liegt bei ${percent}%`;
-})();
-</script>
-
+<script src="energie-kompass.js?v=13"></script>
 </body>
 </html>
