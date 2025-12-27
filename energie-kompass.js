@@ -1,7 +1,7 @@
 /* =========================================================
    ENERGIE-TANKEN.net — Energie-Kompass (STEP FLOW)
    - Fragen erscheinen nacheinander (1 -> 7)
-   - Auswerten erst am Ende
+   - Auswertung am Ende (auto + Button)
    - CTA als Logo im Ring erst nach Auswertung
    ========================================================= */
 
@@ -17,13 +17,14 @@
   const scoreSub = document.getElementById("scoreSub");
   const resultCopy = document.getElementById("resultCopy");
 
-  const ringCta = document.getElementById("ringCta");
-
+  const ringCta = document.getElementById("ringCta"); // muss im HTML id="ringCta" haben
   const actionsRow = document.getElementById("actionsRow");
   const resetBtn = document.getElementById("resetBtn");
   const tinyNote = document.getElementById("tinyNote");
-
   const stepNow = document.getElementById("stepNow");
+
+  // OPTIONAL: falls dein Auswerten-Button eine ID hat:
+  const evalBtn = document.getElementById("evalBtn"); // <- im HTML setzen!
 
   const blocks = Array.from(form.querySelectorAll(".qblock[data-step]"))
     .sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
@@ -51,8 +52,7 @@
   function hideCTA() {
     if (!ringCta) return;
     ringCta.style.display = "none";
-    // remove old listeners
-    ringCta.replaceWith(ringCta.cloneNode(true));
+    ringCta.replaceWith(ringCta.cloneNode(true)); // remove old listeners
   }
 
   function showCTA() {
@@ -125,19 +125,16 @@
 
     if (stepNow) stepNow.textContent = String(step);
 
-    // Buttons only at end
     const atEnd = step === QUESTIONS;
     if (actionsRow) actionsRow.style.display = atEnd ? "flex" : "none";
     if (tinyNote) tinyNote.style.display = atEnd ? "block" : "none";
 
-    // small guidance
     if (scoreSub) {
       scoreSub.textContent = atEnd
         ? "Letzte Frage. Danach bekommst du deine Skala."
         : "Beantworte die Frage – dann kommt die nächste.";
     }
 
-    // focus first option for accessibility
     const firstInput = blocks
       .find((b) => Number(b.dataset.step) === step)
       ?.querySelector('input[type="radio"]');
@@ -153,7 +150,6 @@
     const n = Math.min(QUESTIONS, current + 1);
     setStep(n);
 
-    // scroll to top of form card smoothly
     try {
       form.scrollIntoView({ behavior: "smooth", block: "start" });
     } catch (_) {}
@@ -161,50 +157,20 @@
 
   function resetUI() {
     setRing(0);
-
     if (scoreNum) scoreNum.textContent = "—%";
     if (scoreBadge) scoreBadge.textContent = "bereit";
-
     if (resultCopy) {
       resultCopy.style.display = "none";
       resultCopy.textContent = "";
     }
-
     hideCTA();
-
-    // IMPORTANT: After reset we are not at end -> hide actionsRow again (setStep will do it),
-    // but if you want reset available after result, we re-hide here and rely on setStep(1).
     if (scoreSub)
       scoreSub.textContent =
         "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
   }
 
-  // Auto-advance when a radio is chosen
-  form.addEventListener("change", (e) => {
-    const t = e.target;
-    if (!(t instanceof HTMLInputElement)) return;
-    if (t.type !== "radio") return;
-
-    const name = t.name; // q1..q7
-    const num = Number(name.replace("q", ""));
-    if (!Number.isFinite(num)) return;
-
-    // Only advance if current step answered
-    const current = Number(stepNow?.textContent || "1");
-    if (num !== current) return;
-
-    // If not last step, advance
-    if (current < QUESTIONS) {
-      nextStep();
-    } else {
-      // last step answered -> show buttons (already shown by setStep)
-      if (scoreSub) scoreSub.textContent = "Alles beantwortet. Jetzt auswerten.";
-    }
-  });
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
+  // 🔥 ZENTRAL: Auswertung garantiert ausführen
+  function evaluate() {
     const score = readScorePercent();
     if (score === null) {
       if (scoreSub)
@@ -228,33 +194,55 @@
 
     showCTA();
 
-    // FIX #1: Nach Auswertung soll Reset/Actions erreichbar bleiben (auch mobil)
-    // -> actionsRow + tinyNote einblenden (damit du nicht "festhängst").
-    if (actionsRow) actionsRow.style.display = "flex";
-    if (tinyNote) tinyNote.style.display = "block";
-
-    // scroll to gauge
     const gaugeCard = document.querySelector(".card.gauge");
     if (gaugeCard) {
       try {
         gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" });
       } catch (_) {}
     }
+  }
+
+  // Auto-advance + Auto-evaluate on last answer
+  form.addEventListener("change", (e) => {
+    const t = e.target;
+    if (!(t instanceof HTMLInputElement)) return;
+    if (t.type !== "radio") return;
+
+    const name = t.name; // q1..q7
+    const num = Number(name.replace("q", ""));
+    if (!Number.isFinite(num)) return;
+
+    const current = Number(stepNow?.textContent || "1");
+    if (num !== current) return;
+
+    if (current < QUESTIONS) {
+      nextStep();
+    } else {
+      // ✅ Letzte Frage beantwortet: sofort auswerten (damit mobile nicht “hängen” bleibt)
+      if (scoreSub) scoreSub.textContent = "Alles beantwortet. Auswertung läuft…";
+      evaluate();
+    }
   });
 
-  if (resetBtn) {
-    resetBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+  // Falls dein Button ein echtes submit ist, passt das trotzdem:
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    evaluate();
+  });
 
-      // FIX #2: "Harter" Reset: Form, UI und Stepflow 100% zurücksetzen
+  // ✅ Falls dein Auswerten-Button KEIN submit ist, sondern type="button":
+  if (evalBtn) {
+    evalBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      evaluate();
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
       form.reset();
       resetUI();
       setStep(1);
-
-      // FIX #3: Nach Reset zuverlässig zurück zur ersten Frage scrollen (mobil!)
-      try {
-        form.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch (_) {}
     });
   }
 
