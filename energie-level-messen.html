@@ -13,7 +13,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.energie-tanken.net/energie-level-messen" />
 
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=12" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,6 @@
 
 <body>
 
-  <!-- NAV (identisch) -->
   <nav class="topnav">
     <div class="topnav-inner">
       <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
@@ -38,7 +37,6 @@
     </div>
   </nav>
 
-  <!-- HERO (identisch) -->
   <section class="hero-top">
     <div class="hero-logo">
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
@@ -59,14 +57,11 @@
     <a class="btn btn-primary" href="#kompass">Energie-Level messen</a>
   </section>
 
-  <!-- CONTENT -->
   <main class="container" id="kompass">
 
     <section class="section">
       <h2>Energie-Kompass</h2>
-      <p class="lede">
-        Beantworte 7 kurze Fragen. Danach siehst du dein aktuelles Energie-Level als Prozent und Gold-Skala.
-      </p>
+      <p class="lede">7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala.</p>
     </section>
 
     <section class="section">
@@ -85,12 +80,10 @@
                     <stop offset="100%" stop-color="#b8923d"/>
                   </linearGradient>
                 </defs>
-
                 <circle class="track" cx="60" cy="60" r="46"></circle>
                 <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
               </svg>
 
-              <!-- CTA erscheint erst nach Auswertung -->
               <button class="ring-cta" id="ringCta" type="button" aria-label="Kontakt aufnehmen" title="Kontakt aufnehmen" style="display:none;">
                 <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
                 <span>Kontakt aufnehmen</span>
@@ -103,17 +96,23 @@
             </div>
 
             <div class="gauge-sub" id="scoreSub">
-              Beantworte die Fragen – danach erscheint deine Skala.
+              Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.
             </div>
 
             <div class="result-copy" id="resultCopy" style="display:none;"></div>
           </div>
 
-          <!-- RIGHT: QUESTIONS -->
+          <!-- RIGHT: QUESTIONS (STEP FLOW) -->
           <div class="card">
             <form class="compass-form" id="compassForm" novalidate>
 
-              <div class="qblock">
+              <!-- Progress -->
+              <div id="stepTop" style="margin-bottom:10px;color:rgba(255,255,255,.65);font-weight:700;">
+                Frage <span id="stepNow">1</span> von 7
+              </div>
+
+              <!-- NOTE: qblock bekommen data-step -->
+              <div class="qblock" data-step="1">
                 <div class="qhead">
                   <div class="qnum">1</div>
                   <div class="qmeta">
@@ -130,7 +129,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="2">
                 <div class="qhead">
                   <div class="qnum">2</div>
                   <div class="qmeta">
@@ -147,7 +146,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="3">
                 <div class="qhead">
                   <div class="qnum">3</div>
                   <div class="qmeta">
@@ -164,7 +163,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="4">
                 <div class="qhead">
                   <div class="qnum">4</div>
                   <div class="qmeta">
@@ -181,7 +180,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="5">
                 <div class="qhead">
                   <div class="qnum">5</div>
                   <div class="qmeta">
@@ -198,7 +197,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="6">
                 <div class="qhead">
                   <div class="qnum">6</div>
                   <div class="qmeta">
@@ -215,7 +214,7 @@
                 </div>
               </div>
 
-              <div class="qblock">
+              <div class="qblock" data-step="7">
                 <div class="qhead">
                   <div class="qnum">7</div>
                   <div class="qmeta">
@@ -232,12 +231,13 @@
                 </div>
               </div>
 
-              <div class="compass-actions">
+              <!-- Buttons: erst sichtbar, wenn Step 7 beantwortet -->
+              <div class="compass-actions" id="actionsRow" style="display:none;">
                 <button class="btn btn-primary" type="submit" id="evalBtn">Auswerten</button>
                 <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
               </div>
 
-              <p class="tiny-note">
+              <p class="tiny-note" id="tinyNote" style="display:none;">
                 Ergebnis ist ein Orientierungswert – kein Diagnose-Tool.
               </p>
 
@@ -254,6 +254,6 @@
     © 2025 ENERGIE-TANKEN.net
   </footer>
 
-  <script src="energie-kompass.js?v=3" defer></script>
+  <script src="energie-kompass.js?v=4" defer></script>
 </body>
 </html>
