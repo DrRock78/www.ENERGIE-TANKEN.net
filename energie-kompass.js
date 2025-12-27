@@ -1,8 +1,9 @@
 /* =========================================================
-   ENERGIE-TANKEN.net — Energie-Kompass (BUTTON FLOW)
-   - Schrittweise 1 -> 7 mit Zurück/Weiter
-   - Auswerten erscheint erst am Ende
-   - Ring-CTA + Kontaktbutton erst nach Auswertung
+   ENERGIE-TANKEN.net — Energie-Kompass (HARDENED)
+   Fixes:
+   - Score wird zuverlässig aus :checked gelesen (kein FormData-Zicken)
+   - CTA im Ring wirklich erst nach Auswertung
+   - Buttons/Flow stabil
    ========================================================= */
 
 (function () {
@@ -22,18 +23,18 @@
   const ringCta = document.getElementById("ringCta");
   const contactBtn = document.getElementById("contactBtn");
 
-  const actionsRow = document.getElementById("actionsRow");
   const backBtn = document.getElementById("backBtn");
   const nextBtn = document.getElementById("nextBtn");
   const evalBtn = document.getElementById("evalBtn");
   const resetBtn = document.getElementById("resetBtn");
+
   const tinyNote = document.getElementById("tinyNote");
 
   const blocks = Array.from(form.querySelectorAll(".qblock[data-step]"))
     .sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
 
   const QUESTIONS = blocks.length; // 7
-  const MAX_PER_Q = 4;
+  const MAX_PER_Q = 4; // Werte 0..4
 
   // Ring geometry
   const r = 46;
@@ -58,10 +59,7 @@
   }
 
   function showCTA() {
-    // Ring-CTA (Logo)
     if (ringCta) ringCta.style.display = "flex";
-
-    // Extra Button unten
     if (contactBtn) {
       contactBtn.style.display = "inline-flex";
       contactBtn.onclick = () => (window.location.href = "kontakt.html");
@@ -69,34 +67,11 @@
   }
 
   function bucket(percent) {
-    if (percent < 30) {
-      return {
-        badge: "niedrig",
-        text: "Im Moment wirkt dein Akku eher leer. Wenn du Schlaf und Trinken stabilisierst, kippt das schnell ins Positive.",
-      };
-    }
-    if (percent < 55) {
-      return {
-        badge: "stabil",
-        text: "Du hast eine Basis. Zwei kleine Gewohnheiten konsequent – und du merkst den Unterschied in wenigen Tagen.",
-      };
-    }
-    if (percent < 75) {
-      return {
-        badge: "gut",
-        text: "Du bist gut unterwegs. Mit Rhythmus und Bewegung wird daraus zuverlässig Energie, die bleibt.",
-      };
-    }
-    if (percent < 90) {
-      return {
-        badge: "sehr gut",
-        text: "Sehr solide. Jetzt entscheidet Konstanz: Timing, Pausen, echte Regeneration.",
-      };
-    }
-    return {
-      badge: "top",
-      text: "Starke Reserve. Du hast ein Energie-Level, das viele nicht stabil halten – bleib bei deinem System.",
-    };
+    if (percent < 30) return { badge: "niedrig", text: "Im Moment wirkt dein Akku eher leer. Wenn du Schlaf und Trinken stabilisierst, kippt das schnell ins Positive." };
+    if (percent < 55) return { badge: "stabil",  text: "Du hast eine Basis. Zwei kleine Gewohnheiten konsequent – und du merkst den Unterschied in wenigen Tagen." };
+    if (percent < 75) return { badge: "gut",     text: "Du bist gut unterwegs. Mit Rhythmus und Bewegung wird daraus zuverlässig Energie, die bleibt." };
+    if (percent < 90) return { badge: "sehr gut",text: "Sehr solide. Jetzt entscheidet Konstanz: Timing, Pausen, echte Regeneration." };
+    return { badge: "top", text: "Starke Reserve. Du hast ein Energie-Level, das viele nicht stabil halten – bleib bei deinem System." };
   }
 
   function getCurrentStep() {
@@ -104,24 +79,19 @@
   }
 
   function isStepAnswered(step) {
-    const q = form.querySelector(`input[name="q${step}"]:checked`);
-    return !!q;
+    return !!form.querySelector(`input[name="q${step}"]:checked`);
   }
 
   function setButtonsForStep(step) {
-    // Back only from step 2+
-    if (backBtn) backBtn.disabled = step <= 1;
-
-    // Eval only at last step
     const atEnd = step === QUESTIONS;
+
+    if (backBtn) backBtn.disabled = step <= 1;
 
     if (evalBtn) evalBtn.style.display = atEnd ? "inline-flex" : "none";
     if (nextBtn) nextBtn.style.display = atEnd ? "none" : "inline-flex";
 
-    // Next disabled until answered
     if (nextBtn) nextBtn.disabled = !isStepAnswered(step);
 
-    // Note only at end (optional)
     if (tinyNote) tinyNote.style.display = atEnd ? "block" : "none";
   }
 
@@ -144,22 +114,23 @@
           : "Beantworte die Frage – dann kommt die nächste.";
     }
 
-    // scroll to the card top
-    try {
-      form.scrollIntoView({ behavior: "smooth", block: "start" });
-    } catch (_) {}
+    // scroll to top of form
+    try { form.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
   }
 
+  // ✅ Robust score: read checked values directly
   function readScorePercent() {
-    const data = new FormData(form);
     let sum = 0;
 
     for (let i = 1; i <= QUESTIONS; i++) {
-      const v = data.get("q" + i);
-      if (v === null) return null;
-      const n = Number(v);
+      const checked = form.querySelector(`input[name="q${i}"]:checked`);
+      if (!checked) return null;
+
+      const n = Number(checked.value);
       if (!Number.isFinite(n)) return null;
-      sum += n;
+
+      // Clamp to 0..MAX_PER_Q so no surprises
+      sum += Math.max(0, Math.min(MAX_PER_Q, n));
     }
 
     const max = QUESTIONS * MAX_PER_Q;
@@ -169,9 +140,7 @@
   function evaluate() {
     const score = readScorePercent();
     if (score === null) {
-      if (scoreSub)
-        scoreSub.textContent =
-          "Bitte beantworte alle Fragen, dann bekommst du deine Skala.";
+      if (scoreSub) scoreSub.textContent = "Bitte beantworte alle Fragen, dann bekommst du deine Skala.";
       return;
     }
 
@@ -184,24 +153,20 @@
 
     if (resultCopy) {
       resultCopy.style.display = "block";
-      resultCopy.textContent =
-        b.text +
-        " Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.";
+      resultCopy.textContent = b.text + " Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.";
     }
 
     showCTA();
 
-    // scroll to gauge area
     const gaugeCard = document.querySelector(".card.gauge");
     if (gaugeCard) {
-      try {
-        gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch (_) {}
+      try { gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
     }
   }
 
   function resetUI() {
     setRing(0);
+
     if (scoreNum) scoreNum.textContent = "—%";
     if (scoreBadge) scoreBadge.textContent = "bereit";
 
@@ -212,14 +177,12 @@
 
     hideCTA();
 
-    if (scoreSub)
-      scoreSub.textContent =
-        "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
+    if (scoreSub) scoreSub.textContent = "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
 
     setButtonsForStep(1);
   }
 
-  // When a radio is selected: enable Next; optionally auto-advance (not on last step)
+  // Change -> enable next; optional auto-advance
   form.addEventListener("change", (e) => {
     const t = e.target;
     if (!(t instanceof HTMLInputElement)) return;
@@ -228,21 +191,18 @@
     const step = getCurrentStep();
     setButtonsForStep(step);
 
-    // Optional: auto-advance for nice flow (but not last step)
     if (step < QUESTIONS) {
-      // Tiny delay so selection feels responsive
       setTimeout(() => setStep(step + 1), 120);
     } else {
       if (scoreSub) scoreSub.textContent = "Alles beantwortet. Jetzt auswerten.";
+      // Ensure next disabled/hidden and eval shown
+      setButtonsForStep(step);
     }
   });
 
-  // Back / Next buttons
+  // Back/Next
   if (backBtn) {
-    backBtn.addEventListener("click", () => {
-      const step = getCurrentStep();
-      setStep(step - 1);
-    });
+    backBtn.addEventListener("click", () => setStep(getCurrentStep() - 1));
   }
 
   if (nextBtn) {
@@ -256,7 +216,7 @@
     });
   }
 
-  // Submit (Auswerten)
+  // Submit = Auswerten
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     evaluate();
@@ -273,6 +233,7 @@
 
   // init
   initRing();
+  hideCTA();     // ✅ hard-hide CTA at start
   resetUI();
   setStep(1);
 })();
