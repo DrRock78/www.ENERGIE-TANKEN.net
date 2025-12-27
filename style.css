@@ -1,8 +1,298 @@
+/* =========================================================
+   ENERGIE-TANKEN.net — Premium Gold (Final)
+   FIXES:
+   - Nav Links klickbar (kein Overlay frisst Klicks)
+   - Nav klein + nicht sticky
+   - Hero/Overlays ohne Pointer-Events
+   - Saubere Abstände (kein Text/Button-Verschmelzen)
+   - Energie-Kompass (Step-by-Step Fragen + Gold Ring CTA)
+   - Kontaktformular edel (Gold, sauber, readable)
+   ========================================================= */
+
+/* ----------------------------
+   GLOBAL TOKENS
+---------------------------- */
 :root{
+  --bg:#060607;
+  --bg2:#0b0b0d;
+  --text:#d7d7d9;
+  --muted:#a7a7aa;
   --gold:#c9ab58;
   --gold2:#b8923d;
+  --border:rgba(255,255,255,.10);
+  --shadow:rgba(0,0,0,.55);
+  --max:1100px;
 }
 
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  font-family:"Montserrat",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(900px 500px at 50% -120px, rgba(201,171,88,.14), transparent 62%),
+    radial-gradient(700px 420px at 20% 20%, rgba(255,255,255,.06), transparent 58%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  color:var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a{color:inherit;text-decoration:none}
+a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
+
+/* ---------------------------------------------------------
+   NAV — klein, waagerecht, NICHT sticky + klickbar FIX
+   --------------------------------------------------------- */
+.topnav{
+  position:relative;
+  z-index:9999;
+  background:rgba(0,0,0,.26);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.topnav-inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.topnav-brand{
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:14px;
+  color:rgba(255,255,255,.90);
+  white-space:nowrap;
+  flex:0 0 auto;
+}
+
+.topnav-links{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:nowrap;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  position:relative;
+  z-index:10000;
+  pointer-events:auto;
+}
+.topnav-links::-webkit-scrollbar{display:none}
+
+.topnav-links a{
+  font-size:13px;
+  font-weight:600;
+  color:rgba(255,255,255,.78);
+  padding:7px 10px;
+  border-radius:999px;
+  white-space:nowrap;
+  transition:background .15s ease, color .15s ease;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+}
+
+.topnav-links a:hover{
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.92);
+}
+
+/* ---------------------------------------------------------
+   HERO — Overlays dürfen KEINE Klicks fressen
+   --------------------------------------------------------- */
+.hero-top{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:22px 14px 14px;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+
+.hero-top::before,
+.hero-top::after,
+.hero-logo::before,
+.hero-logo::after,
+.hero-visual::before,
+.hero-visual::after{
+  pointer-events:none !important;
+}
+
+.hero-logo{
+  margin:6px auto 14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  z-index:2;
+}
+
+.hero-logo img{
+  display:block;
+  width:min(560px, 88vw);
+  height:auto;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+  filter:none !important;
+}
+
+.hero-headline{
+  margin:16px 0 10px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  line-height:1.06;
+  color:var(--gold);
+  font-size:clamp(30px, 6.5vw, 58px);
+}
+
+.hero-quote{
+  margin:0 auto 18px;
+  max-width:860px;
+  font-size:clamp(15px, 3.8vw, 20px);
+  color:rgba(255,255,255,.74);
+  line-height:1.75;
+}
+
+.hero-visual{
+  margin:16px auto 12px;
+  display:flex;
+  justify-content:center;
+  position:relative;
+  z-index:2;
+}
+
+.hero-visual img{
+  width:min(920px, 94vw);
+  height:auto;
+  display:block;
+  border-radius:18px;
+  box-shadow: 0 18px 60px var(--shadow);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+/* ---------------------------------------------------------
+   BUTTONS — sauberer Abstand
+   --------------------------------------------------------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  padding:14px 22px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.02em;
+  border:1px solid rgba(201,171,88,.45);
+  line-height:1;
+  white-space:nowrap;
+  min-height:46px;
+  margin:14px 0 0;
+  transition:transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(180deg, var(--gold), var(--gold2));
+  color:#111;
+  border-color:transparent;
+}
+.btn-primary:hover{transform:translateY(-1px)}
+
+.btn-secondary{
+  background:transparent;
+  color:var(--gold);
+}
+.btn-secondary:hover{
+  background:rgba(201,171,88,.08);
+  transform:translateY(-1px);
+}
+
+/* ---------------------------------------------------------
+   CONTENT
+   --------------------------------------------------------- */
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:18px 14px 44px;
+}
+
+.section{
+  padding:22px 0;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.section:first-child{border-top:0}
+
+h2{
+  margin:0 0 10px;
+  font-size:30px;
+  color:var(--gold);
+  font-weight:800;
+  line-height:1.15;
+}
+
+p{
+  margin:0 0 14px;
+  color:rgba(255,255,255,.76);
+  line-height:1.78;
+  font-size:16px;
+  max-width:78ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.section .btn{ margin-top:16px; }
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+footer{
+  text-align:center;
+  padding:22px 16px 34px;
+  color:rgba(255,255,255,.45);
+  font-size:13px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+
+/* =========================================================
+   ENERGIE-KOMPASS (energie-level-messen.html)
+   - Fragen nacheinander (qblock active)
+   - Gold Ring Ergebnis + Logo CTA
+   ========================================================= */
+
+/* Container/Card Look (nur genutzt wenn vorhanden) */
+.compass-wrap{
+  max-width:980px;
+  margin:0 auto;
+}
+
+.compass-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:18px;
+}
+
+.card{
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.22);
+  box-shadow:0 18px 60px rgba(0,0,0,.35);
+  border-radius:18px;
+  padding:18px;
+}
+
+/* Step-by-step Frage-Blocks */
 .qblock{display:none}
 .qblock.active{display:block}
 
@@ -24,6 +314,7 @@
   margin:0 0 18px 0;
 }
 
+/* 5er Skala */
 .scale{
   display:grid;
   grid-template-columns:repeat(5, 1fr);
@@ -39,31 +330,35 @@
   font-size:15px;
   transition:transform .12s ease, background .12s ease;
   user-select:none;
+  color:rgba(255,255,255,.86);
 }
 
 .scale label:active{transform:scale(.98)}
-
 .scale input{display:none}
 
+/* selected state: Gold pill inside */
 .scale input:checked + span{
   display:block;
   color:#111;
-  font-weight:700;
+  font-weight:800;
   background:linear-gradient(180deg,var(--gold),var(--gold2));
   border-radius:999px;
   padding:14px 10px;
 }
 
+/* Navigation unter der Frage */
 .compass-nav{
   display:flex;
   justify-content:space-between;
   gap:12px;
   margin-top:26px;
+  flex-wrap:wrap;
 }
 
+/* Ergebnis */
 .result-box{
   text-align:center;
-  padding:26px 10px 6px;
+  padding:22px 10px 6px;
 }
 
 .result-ring{
@@ -107,7 +402,6 @@
   filter:drop-shadow(0 0 18px rgba(201,171,88,.18));
   transition:transform .15s ease;
 }
-
 .ring-cta:active img{transform:scale(.98)}
 
 .result-text{
@@ -123,6 +417,13 @@
   max-width:520px;
   color:rgba(255,255,255,.75);
 }
+
+/* =========================================================
+   KONTAKTFORMULAR (kontakt.html)
+   - goldene Schrift
+   - edle Felder
+   - Cursor & Markierung gold
+   ========================================================= */
 
 .contact-card{
   max-width:720px;
@@ -140,8 +441,8 @@
 }
 
 .contact-form label{
-  color:rgba(255,255,255,.75);
-  font-weight:600;
+  color:rgba(255,255,255,.78);
+  font-weight:700;
 }
 
 .contact-form input,
@@ -151,18 +452,79 @@
   box-sizing:border-box;
   padding:14px 14px;
   border-radius:14px;
-  border:1px solid rgba(201,171,88,.18);
+  border:1px solid rgba(201,171,88,.22);
   background:rgba(0,0,0,.35);
-  color:#fff;
+  color:rgba(255,255,255,.92);
   outline:none;
+  transition:border-color .15s ease, background .15s ease;
+}
+
+/* Cursor + Markierung gold */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus{
+  border-color:rgba(201,171,88,.55);
+  background:rgba(0,0,0,.45);
 }
 
 .contact-form textarea{resize:vertical}
 
+/* Selection gold */
+::selection{
+  background: rgba(201,171,88,.35);
+  color:#111;
+}
+
+/* Contact footer line */
 .contact-alt{
   margin-top:10px;
   color:rgba(255,255,255,.6);
   text-align:center;
 }
 
-.contact-alt strong{color:var(--gold)}
+.contact-alt strong{
+  color:var(--gold);
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+@media (max-width:520px){
+  .topnav-inner{padding:8px 10px}
+  .topnav-brand{font-size:12.5px}
+  .topnav-links a{padding:6px 9px; font-size:12px}
+
+  .hero-top{padding:18px 12px 12px}
+  .hero-logo img{width:min(520px, 86vw)}
+
+  h2{font-size:26px}
+
+  p{
+    font-size:16px;
+    max-width:unset;
+    margin-left:0;
+    margin-right:0;
+  }
+
+  .btn{
+    padding:13px 18px;
+    font-size:14px;
+    min-height:44px;
+    max-width:92vw;
+  }
+
+  .scale{
+    grid-template-columns:1fr;
+  }
+}
+
+/* DESKTOP */
+@media (min-width:980px){
+  .hero-top{padding:40px 16px 26px}
+  .hero-visual img{border-radius:22px}
+  .container{padding-top:34px}
+
+  .compass-grid{
+    grid-template-columns: 1fr;
+  }
+}
