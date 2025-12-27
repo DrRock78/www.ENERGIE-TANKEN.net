@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Energie-Kompass: kurze Fragen, klare Skala, edles Ergebnis. Finde heraus, wo du aktuell stehst – und was als Nächstes sinnvoll ist." />
+  <meta name="description" content="Energie-Kompass: kurze Fragen, klare Skala, edles Ergebnis. Finde heraus, wo du aktuell stehst – und teste Hochfrequenzenergie am eigenen Körper." />
 
-  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="canonical" href="https://www.energie-tanken.net/energie-level-messen" />
+  <meta property="og:title" content="Energie-Level messen – ENERGIE-TANKEN.net" />
+  <meta property="og:description" content="Kurze Fragen. Klare Skala. Edles Ergebnis. Danach: Hochfrequenzenergie erleben." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.energie-tanken.net/energie-level-messen" />
+
+  <link rel="stylesheet" href="style.css?v=11" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -19,7 +25,7 @@
   <nav class="topnav">
     <div class="topnav-inner">
       <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-      <div class="topnav-links">
+      <div class="topnav-links" aria-label="Hauptnavigation">
         <a href="index.html">Home</a>
         <a href="hochfrequenz-2026.html">Hochfrequenz</a>
         <a href="anwendungen.html">Anwendungen</a>
@@ -32,7 +38,7 @@
     </div>
   </nav>
 
-  <!-- HERO (identisch wie Startseite) -->
+  <!-- HERO (identisch) -->
   <section class="hero-top">
     <div class="hero-logo">
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
@@ -58,9 +64,8 @@
 
     <section class="section">
       <h2>Energie-Kompass</h2>
-      <p>
-        Kurze Fragen. Klare Skala. Edles Ergebnis.
-        Du bekommst am Ende eine Prozent-Anzeige und eine Gold-Kreis-Skala.
+      <p class="lede">
+        Beantworte 7 kurze Fragen. Danach siehst du dein aktuelles Energie-Level als Prozent und Gold-Skala.
       </p>
     </section>
 
@@ -72,130 +77,169 @@
           <div class="card gauge">
             <div class="gauge-title">Dein aktuelles Energie-Level</div>
 
-            <!-- Ring: bleibt SVG (dein Design), JS steuert die Bar -->
-            <svg class="ring ring-glow" viewBox="0 0 120 120" aria-label="Energie-Skala">
-              <defs>
-                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#c9ab58"/>
-                  <stop offset="100%" stop-color="#b8923d"/>
-                </linearGradient>
-              </defs>
+            <div class="gauge-ring" aria-label="Energie-Skala">
+              <svg class="ring" viewBox="0 0 120 120" role="img" aria-label="Goldene Skala">
+                <defs>
+                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#c9ab58"/>
+                    <stop offset="100%" stop-color="#b8923d"/>
+                  </linearGradient>
+                </defs>
 
-              <circle class="track" cx="60" cy="60" r="46"></circle>
-              <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
-            </svg>
+                <circle class="track" cx="60" cy="60" r="46"></circle>
+                <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
+              </svg>
 
-            <!-- Diese IDs nutzt JS -->
-            <div class="gauge-number energy-percent" id="scoreNum">—%</div>
-            <div class="badge energy-status" id="scoreBadge">bereit</div>
-            <div class="gauge-sub energy-result-text" id="scoreSub">
+              <!-- CTA erscheint erst nach Auswertung -->
+              <button class="ring-cta" id="ringCta" type="button" aria-label="Kontakt aufnehmen" title="Kontakt aufnehmen" style="display:none;">
+                <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
+                <span>Kontakt aufnehmen</span>
+              </button>
+            </div>
+
+            <div class="gauge-row">
+              <div class="gauge-number" id="scoreNum">—%</div>
+              <div class="badge" id="scoreBadge">bereit</div>
+            </div>
+
+            <div class="gauge-sub" id="scoreSub">
               Beantworte die Fragen – danach erscheint deine Skala.
             </div>
 
-            <!-- CTA: bleibt hidden bis Auswertung -->
-            <div class="cta-box cta-section" id="ctaBox" style="display:none;">
-              <div class="result-text" style="margin-bottom:10px;" id="ctaText"></div>
-              <a class="btn btn-primary cta-contact" href="kontakt.html">Kontakt aufnehmen</a>
-            </div>
+            <div class="result-copy" id="resultCopy" style="display:none;"></div>
           </div>
 
           <!-- RIGHT: QUESTIONS -->
           <div class="card">
-            <form class="compass-form" id="compassForm">
-
-              <!-- WICHTIG:
-                   Werte bleiben 0..4 (wie du es gebaut hast).
-                   Das ist perfekt: JS kann daraus % rechnen. -->
+            <form class="compass-form" id="compassForm" novalidate>
 
               <div class="qblock">
-                <p class="qtitle">1) Schlaf</p>
-                <p class="qhint">Wie konstant ist dein Schlaf über die letzten 14 Tage?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q1" value="0" required><span>chaotisch</span></label>
-                  <label><input type="radio" name="q1" value="1"><span>unruhig</span></label>
-                  <label><input type="radio" name="q1" value="2"><span>okay</span></label>
-                  <label><input type="radio" name="q1" value="3"><span>gut</span></label>
-                  <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
+                <div class="qhead">
+                  <div class="qnum">1</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Schlaf</div>
+                    <div class="qhint">Wie konstant ist dein Schlaf über die letzten 14 Tage?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Schlaf">
+                  <label class="pill"><input type="radio" name="q1" value="0" required><span>chaotisch</span></label>
+                  <label class="pill"><input type="radio" name="q1" value="1"><span>unruhig</span></label>
+                  <label class="pill"><input type="radio" name="q1" value="2"><span>okay</span></label>
+                  <label class="pill"><input type="radio" name="q1" value="3"><span>gut</span></label>
+                  <label class="pill"><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">2) Trinken</p>
-                <p class="qhint">Wie regelmäßig trinkst du über den Tag verteilt?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q2" value="0" required><span>selten</span></label>
-                  <label><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
-                  <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
-                  <label><input type="radio" name="q2" value="3"><span>gut</span></label>
-                  <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
+                <div class="qhead">
+                  <div class="qnum">2</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Trinken</div>
+                    <div class="qhint">Wie regelmäßig trinkst du über den Tag verteilt?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Trinken">
+                  <label class="pill"><input type="radio" name="q2" value="0" required><span>selten</span></label>
+                  <label class="pill"><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
+                  <label class="pill"><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
+                  <label class="pill"><input type="radio" name="q2" value="3"><span>gut</span></label>
+                  <label class="pill"><input type="radio" name="q2" value="4"><span>konstant</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">3) Softdrinks & Säfte</p>
-                <p class="qhint">Wie selten sind Softdrinks / süße Säfte bei dir?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q3" value="0" required><span>oft</span></label>
-                  <label><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
-                  <label><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
-                  <label><input type="radio" name="q3" value="3"><span>selten</span></label>
-                  <label><input type="radio" name="q3" value="4"><span>fast nie</span></label>
+                <div class="qhead">
+                  <div class="qnum">3</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Softdrinks & Säfte</div>
+                    <div class="qhint">Wie selten sind Softdrinks / süße Säfte bei dir?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Softdrinks und Säfte">
+                  <label class="pill"><input type="radio" name="q3" value="0" required><span>oft</span></label>
+                  <label class="pill"><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
+                  <label class="pill"><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
+                  <label class="pill"><input type="radio" name="q3" value="3"><span>selten</span></label>
+                  <label class="pill"><input type="radio" name="q3" value="4"><span>fast nie</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">4) Fastfood</p>
-                <p class="qhint">Wie selten ist Fastfood bei dir?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q4" value="0" required><span>oft</span></label>
-                  <label><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
-                  <label><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
-                  <label><input type="radio" name="q4" value="3"><span>selten</span></label>
-                  <label><input type="radio" name="q4" value="4"><span>fast nie</span></label>
+                <div class="qhead">
+                  <div class="qnum">4</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Fastfood</div>
+                    <div class="qhint">Wie selten ist Fastfood bei dir?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Fastfood">
+                  <label class="pill"><input type="radio" name="q4" value="0" required><span>oft</span></label>
+                  <label class="pill"><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
+                  <label class="pill"><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
+                  <label class="pill"><input type="radio" name="q4" value="3"><span>selten</span></label>
+                  <label class="pill"><input type="radio" name="q4" value="4"><span>fast nie</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">5) Bewegung</p>
-                <p class="qhint">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q5" value="0" required><span>kaum</span></label>
-                  <label><input type="radio" name="q5" value="1"><span>selten</span></label>
-                  <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
-                  <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
-                  <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
+                <div class="qhead">
+                  <div class="qnum">5</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Bewegung</div>
+                    <div class="qhint">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Bewegung">
+                  <label class="pill"><input type="radio" name="q5" value="0" required><span>kaum</span></label>
+                  <label class="pill"><input type="radio" name="q5" value="1"><span>selten</span></label>
+                  <label class="pill"><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
+                  <label class="pill"><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
+                  <label class="pill"><input type="radio" name="q5" value="4"><span>konstant</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">6) Stress-Last</p>
-                <p class="qhint">Wie gut kommst du aktuell mit Belastung klar?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q6" value="0" required><span>überlastet</span></label>
-                  <label><input type="radio" name="q6" value="1"><span>angespannt</span></label>
-                  <label><input type="radio" name="q6" value="2"><span>okay</span></label>
-                  <label><input type="radio" name="q6" value="3"><span>stabil</span></label>
-                  <label><input type="radio" name="q6" value="4"><span>sehr stabil</span></label>
+                <div class="qhead">
+                  <div class="qnum">6</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Stress-Last</div>
+                    <div class="qhint">Wie gut kommst du aktuell mit Belastung klar?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Stress-Last">
+                  <label class="pill"><input type="radio" name="q6" value="0" required><span>überlastet</span></label>
+                  <label class="pill"><input type="radio" name="q6" value="1"><span>angespannt</span></label>
+                  <label class="pill"><input type="radio" name="q6" value="2"><span>okay</span></label>
+                  <label class="pill"><input type="radio" name="q6" value="3"><span>stabil</span></label>
+                  <label class="pill"><input type="radio" name="q6" value="4"><span>sehr stabil</span></label>
                 </div>
               </div>
 
               <div class="qblock">
-                <p class="qtitle">7) Fokus & Klarheit</p>
-                <p class="qhint">Wie klar und fokussiert fühlst du dich tagsüber?</p>
-                <div class="scale">
-                  <label><input type="radio" name="q7" value="0" required><span>neblig</span></label>
-                  <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
-                  <label><input type="radio" name="q7" value="2"><span>okay</span></label>
-                  <label><input type="radio" name="q7" value="3"><span>klar</span></label>
-                  <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
+                <div class="qhead">
+                  <div class="qnum">7</div>
+                  <div class="qmeta">
+                    <div class="qtitle">Fokus & Klarheit</div>
+                    <div class="qhint">Wie klar und fokussiert fühlst du dich tagsüber?</div>
+                  </div>
+                </div>
+                <div class="pillset" role="radiogroup" aria-label="Fokus und Klarheit">
+                  <label class="pill"><input type="radio" name="q7" value="0" required><span>neblig</span></label>
+                  <label class="pill"><input type="radio" name="q7" value="1"><span>schwankend</span></label>
+                  <label class="pill"><input type="radio" name="q7" value="2"><span>okay</span></label>
+                  <label class="pill"><input type="radio" name="q7" value="3"><span>klar</span></label>
+                  <label class="pill"><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
                 </div>
               </div>
 
               <div class="compass-actions">
-                <!-- WICHTIG: submit bleibt submit, JS fängt es ab -->
                 <button class="btn btn-primary" type="submit" id="evalBtn">Auswerten</button>
                 <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
               </div>
+
+              <p class="tiny-note">
+                Ergebnis ist ein Orientierungswert – kein Diagnose-Tool.
+              </p>
 
             </form>
           </div>
@@ -204,22 +248,12 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>Weiter</h2>
-      <p>
-        Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
-      </p>
-      <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
-    </section>
-
   </main>
 
   <footer>
     © 2025 ENERGIE-TANKEN.net
   </footer>
 
-  <!-- ✅ NUR NOCH externe JS (Inline-Script ist entfernt) -->
-  <script src="energie-kompass.js" defer></script>
-
+  <script src="energie-kompass.js?v=3" defer></script>
 </body>
 </html>
