@@ -7,7 +7,6 @@
   <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
   <meta name="description" content="Energie-Kompass: 7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala." />
 
-  <!-- dein bestehendes Design bleibt -->
   <link rel="stylesheet" href="style.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +28,6 @@
       margin-bottom: 22px;
     }
 
-    /* wir starten den Kompass “edler” etwas tiefer */
     #ekompass .compass-shell{
       margin-top: 26px;
     }
@@ -69,7 +67,7 @@
       font-size: 18px;
     }
 
-    /* Antwort-Buttons wie “Pills”, sauber auf Mobil */
+    /* Answer pills */
     #ekompass .choices{
       display: grid;
       gap: 14px;
@@ -92,7 +90,6 @@
       font-weight: 600;
       font-size: 18px;
     }
-
     #ekompass .choice:active{ transform: scale(.985); }
 
     #ekompass .choice.is-selected{
@@ -102,12 +99,11 @@
       box-shadow: 0 10px 24px rgba(201,171,88,.12);
     }
 
-    /* letzte Zeile = 1 Button über volle Breite */
     #ekompass .choices.five .choice:last-child{
       grid-column: 1 / -1;
     }
 
-    /* Navigation: mobil kleiner, gleichmäßig, nicht “zu groß rechts” */
+    /* Navigation for questions */
     #ekompass .nav-row{
       display:flex;
       gap: 12px;
@@ -133,14 +129,14 @@
     /* Result */
     #ekompass .result-wrap{
       text-align: center;
-      padding: 18px 0 6px;
+      padding: 22px 0 6px;
     }
 
     #ekompass .ring{
       position: relative;
       width: 300px;
       height: 300px;
-      margin: 14px auto 18px;
+      margin: 10px auto 18px;
     }
 
     #ekompass .ring svg{
@@ -157,12 +153,13 @@
       stroke-width: 14;
     }
 
+    /* WICHTIG: Glow reduziert -> kein "Schatten-Beißer" am Ring-Start */
     #ekompass .ring-bar{
       fill: none;
       stroke: url(#ekompassGoldGrad);
       stroke-width: 14;
       stroke-linecap: round;
-      filter: drop-shadow(0 0 12px rgba(201,171,88,.12));
+      filter: drop-shadow(0 0 6px rgba(201,171,88,.08));
     }
 
     #ekompass .ring-cta{
@@ -179,9 +176,8 @@
       width: 150px;
       height: auto;
       transition: transform .12s ease;
-      filter: drop-shadow(0 0 16px rgba(201,171,88,.16));
+      filter: drop-shadow(0 0 12px rgba(201,171,88,.12));
     }
-
     #ekompass .ring-cta:active img{ transform: scale(.985); }
 
     #ekompass .result-text{
@@ -193,13 +189,6 @@
       letter-spacing: .2px;
     }
 
-    #ekompass .result-line{
-      color: var(--textSoft);
-      margin: 0 auto 6px;
-      max-width: 520px;
-      font-size: 16px;
-    }
-
     #ekompass .result-cta-line{
       margin: 14px auto 0;
       max-width: 520px;
@@ -209,24 +198,65 @@
 
     #ekompass .hidden{ display:none !important; }
 
+    /* RESULT ACTIONS: Reset klein, CTA groß – kein Clash */
+    #ekompass .result-actions{
+      display:flex;
+      gap: 12px;
+      margin-top: 16px;
+      align-items:center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
+
+    #ekompass .btn-reset{
+      flex: 0 0 auto;
+      padding: 10px 14px !important;
+      font-size: 14px !important;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid rgba(201,171,88,.28);
+      color: rgba(201,171,88,.95);
+      font-weight: 700;
+      min-width: 92px;
+    }
+
+    #ekompass .btn-cta{
+      flex: 1 1 auto;
+      padding: 14px 18px !important;
+      border-radius: 999px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
     /* Mobil-Finetune */
     @media (max-width: 520px){
       #ekompass .card-inner{ padding: 18px 14px 16px; }
       #ekompass .qtitle{ font-size: 34px; }
       #ekompass .qhint{ font-size: 18px; }
       #ekompass .choice{ font-size: 18px; padding: 18px 14px; }
+
       #ekompass .nav-row .btn{ padding: 13px 14px; font-size: 16px; }
+
       #ekompass .ring{ width: 280px; height: 280px; }
       #ekompass .ring svg{ width: 280px; height: 280px; }
       #ekompass .ring-cta img{ width: 140px; }
+
       #ekompass .result-text{ font-size: 40px; }
+
+      /* Result Actions: Reset bleibt klein, CTA bleibt groß, keine Überlappung */
+      #ekompass .btn-reset{
+        min-width: 84px;
+        padding: 10px 12px !important;
+      }
+      #ekompass .btn-cta{
+        padding: 14px 16px !important;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV (wie bei dir) -->
   <nav class="topnav">
     <div class="topnav-inner">
       <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
@@ -243,7 +273,6 @@
     </div>
   </nav>
 
-  <!-- HERO (wie Startseite) -->
   <section class="hero-top">
     <div class="hero-logo">
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
@@ -264,7 +293,6 @@
     <a class="btn btn-primary" href="#ekompass">Energie-Level messen</a>
   </section>
 
-  <!-- CONTENT -->
   <main class="container" id="ekompass">
 
     <section class="section section-intro">
@@ -276,7 +304,6 @@
       <div class="card-compass">
         <div class="card-inner">
 
-          <!-- QUESTION VIEW -->
           <div id="qView">
             <div class="qmeta" id="qMeta">Frage 1 von 7</div>
             <h3 class="qtitle" id="qTitle">Wie konstant ist dein Schlaf?</h3>
@@ -290,7 +317,6 @@
             </div>
           </div>
 
-          <!-- RESULT VIEW -->
           <div id="rView" class="hidden">
             <div class="result-wrap">
               <div class="ring" aria-label="Energie-Ring">
@@ -305,7 +331,6 @@
                   <circle class="ring-bar" id="ringBar" cx="60" cy="60" r="46"></circle>
                 </svg>
 
-                <!-- CTA im Zentrum: Logo klickbar -->
                 <a class="ring-cta" id="logoCta" href="kontakt.html" aria-label="Kontakt aufnehmen">
                   <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
                 </a>
@@ -315,10 +340,12 @@
               <p class="result-cta-line">Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</p>
             </div>
 
-            <div class="nav-row" style="margin-top:16px;">
-              <button class="btn btn-secondary" id="btnRestart" type="button">Reset</button>
-              <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+            <!-- HIER ist der Fix: Reset klein, CTA groß -->
+            <div class="result-actions">
+              <button class="btn btn-reset" id="btnRestart" type="button">Reset</button>
+              <a class="btn btn-primary btn-cta" href="kontakt.html">Kontakt aufnehmen</a>
             </div>
+
           </div>
 
         </div>
@@ -333,7 +360,6 @@
 
   <script>
     (function(){
-      // ===== DATA =====
       const questions = [
         {
           title: "Wie konstant ist dein Schlaf?",
@@ -414,7 +440,6 @@
         }
       ];
 
-      // ===== ELEMENTS =====
       const qView = document.getElementById("qView");
       const rView = document.getElementById("rView");
       const qMeta = document.getElementById("qMeta");
@@ -428,11 +453,9 @@
       const ringBar = document.getElementById("ringBar");
       const resultText = document.getElementById("resultText");
 
-      // ===== STATE =====
       let step = 0;
       const answers = new Array(questions.length).fill(null);
 
-      // ===== RING =====
       const r = 46;
       const circumference = 2 * Math.PI * r;
       ringBar.style.strokeDasharray = `0 ${circumference}`;
@@ -443,10 +466,14 @@
         ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
       }
 
-      // ===== RENDER =====
+      function scrollCardTop(){
+        try{
+          document.querySelector("#ekompass .card-compass").scrollIntoView({behavior:"smooth", block:"start"});
+        }catch(_){}
+      }
+
       function renderStep(){
         const q = questions[step];
-
         qMeta.textContent = `Frage ${step+1} von ${questions.length}`;
         qTitle.textContent = q.title;
         qHint.textContent = q.hint;
@@ -465,11 +492,9 @@
           btn.addEventListener("click", () => {
             answers[step] = opt.value;
 
-            // Auswahl optisch setzen
             [...qChoices.querySelectorAll(".choice")].forEach(x => x.classList.remove("is-selected"));
             btn.classList.add("is-selected");
 
-            // Auto-Weiter (sanft)
             setTimeout(() => {
               if (step < questions.length - 1){
                 step++;
@@ -484,15 +509,8 @@
           qChoices.appendChild(btn);
         });
 
-        // Back deaktivieren auf Schritt 0
         btnBack.disabled = (step === 0);
         btnBack.style.opacity = btnBack.disabled ? ".55" : "1";
-      }
-
-      function scrollCardTop(){
-        try{
-          document.querySelector("#ekompass .card-compass").scrollIntoView({behavior:"smooth", block:"start"});
-        }catch(_){}
       }
 
       function canProceed(){
@@ -500,7 +518,7 @@
       }
 
       btnNext.addEventListener("click", () => {
-        if (!canProceed()) return; // nix ausgewählt -> nix passiert
+        if (!canProceed()) return;
         if (step < questions.length - 1){
           step++;
           renderStep();
@@ -519,10 +537,8 @@
       });
 
       function showResult(){
-        // Sicherheit: alle beantwortet?
         const filled = answers.every(v => v !== null);
         if (!filled){
-          // spring zur ersten offenen Frage
           step = answers.findIndex(v => v === null);
           renderStep();
           scrollCardTop();
@@ -554,10 +570,8 @@
 
       btnRestart.addEventListener("click", resetAll);
 
-      // ===== INIT =====
       setRing(0);
       renderStep();
-
     })();
   </script>
 
