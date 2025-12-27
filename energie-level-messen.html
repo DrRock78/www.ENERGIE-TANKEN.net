@@ -2,714 +2,109 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Energie-Level messen | ENERGIE-TANKEN.net</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Falls du eine globale style.css hast, lass sie drin -->
-  <link rel="stylesheet" href="style.css">
+  <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
+  <meta name="description" content="Energie-Level messen. Klarer Kompass, ruhige Skala, sauberes Ergebnis. ENERGIE-TANKEN.net" />
 
-  <style>
-    :root{
-      --gold:#c9ab58;
-      --gold2:#b8923d;
-      --bg:#0b0b0b;
-      --card: rgba(0,0,0,.46);
-      --line: rgba(201,171,88,.22);
-      --text: rgba(255,255,255,.82);
-      --muted: rgba(255,255,255,.60);
-      --radius: 22px;
-    }
-
-    /* ---------- PAGE BASE (scoped) ---------- */
-    body{
-      margin:0;
-      background: radial-gradient(1100px 700px at 50% 10%, rgba(201,171,88,.08), transparent 55%),
-                  radial-gradient(900px 600px at 30% 70%, rgba(201,171,88,.06), transparent 55%),
-                  var(--bg);
-      color:#fff;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    /* Nur den Contentbereich dieser Seite stylen – Header/Nav nicht kaputt machen */
-    .energy-page{
-      min-height: calc(100dvh - 0px);
-      padding: 18px 14px 30px;
-    }
-
-    .wrap{
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero{
-      text-align:left;
-      padding: 6px 6px 14px;
-    }
-
-    .hero h1{
-      margin:0 0 8px 0;
-      font-size: clamp(26px, 5vw, 42px);
-      letter-spacing:.2px;
-      color: var(--gold);
-      font-weight: 900;
-    }
-    .hero p{
-      margin:0;
-      max-width: 680px;
-      line-height:1.55;
-      color: var(--muted);
-      font-size: clamp(14px, 2.7vw, 18px);
-    }
-
-    /* ---------- CARD ---------- */
-    .card{
-      margin-top: 14px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25));
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 24px 60px rgba(0,0,0,.55);
-      overflow: hidden; /* wichtig gegen Shadow-Übergreifen */
-    }
-
-    /* oberer „Glow“ – darf nicht in Ergebnis fressen */
-    .card-top-glow{
-      height: 64px;
-      background: radial-gradient(500px 140px at 50% 0%, rgba(201,171,88,.14), transparent 65%);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-
-    .card-inner{
-      padding: 18px 18px 20px;
-    }
-
-    /* ---------- PROGRESS META ---------- */
-    .qmeta{
-      color: rgba(255,255,255,.55);
-      font-size: 13px;
-      margin-bottom: 10px;
-      letter-spacing:.2px;
-    }
-
-    .qtitle{
-      font-size: clamp(22px, 4.2vw, 34px);
-      font-weight: 900;
-      color: var(--gold);
-      margin: 0 0 6px 0;
-      line-height: 1.08;
-    }
-
-    .qhint{
-      color: rgba(255,255,255,.66);
-      margin: 0 0 16px 0;
-      line-height: 1.5;
-      font-size: 16px;
-    }
-
-    /* ---------- QUESTIONS ---------- */
-    .qblock{ display:none; }
-    .qblock.active{ display:block; }
-
-    /* Antwortbuttons Grid */
-    .scale{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    .scale label{
-      border: 1px solid rgba(201,171,88,.26);
-      border-radius: 999px;
-      padding: 14px 12px;
-      text-align:center;
-      cursor:pointer;
-      user-select:none;
-      background: rgba(0,0,0,.18);
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      overflow:hidden;
-      min-width:0;
-    }
-    .scale label:active{ transform: scale(.985); }
-
-    .scale input{ display:none; }
-
-    .scale label span{
-      display:block;
-      font-weight: 800;
-      color: rgba(255,255,255,.86);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-size: clamp(13px, 3.5vw, 16px);
-      letter-spacing:.1px;
-    }
-
-    .scale input:checked + span{
-      color:#141414;
-      background: linear-gradient(180deg, var(--gold), var(--gold2));
-      border-radius:999px;
-      padding: 14px 12px;
-      box-shadow: 0 10px 26px rgba(201,171,88,.16);
-    }
-
-    /* letzte Option volle Breite */
-    .scale label.wide{ grid-column: 1 / -1; }
-
-    /* ---------- NAV BUTTONS ---------- */
-    .compass-nav{
-      display:flex;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .btn{
-      appearance:none;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.22);
-      color: rgba(255,255,255,.86);
-      padding: 14px 14px;
-      border-radius: 999px;
-      font-weight: 900;
-      letter-spacing:.2px;
-      cursor:pointer;
-      flex: 1;
-      min-width:0;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-
-    .btn:active{ transform: scale(.985); }
-
-    .btn.back{
-      flex: .88;
-      opacity: .92;
-      border-color: rgba(201,171,88,.18);
-    }
-
-    .btn.primary{
-      background: linear-gradient(180deg, var(--gold), var(--gold2));
-      border-color: rgba(201,171,88,.28);
-      color:#141414;
-      box-shadow: 0 14px 34px rgba(201,171,88,.12);
-    }
-
-    /* ---------- RESULT ---------- */
-    .result-box{
-      text-align:center;
-      padding: 4px 6px 0;
-    }
-
-    .result-ring{
-      position:relative;
-      width: 270px;
-      height: 270px;
-      margin: 10px auto 12px;
-      isolation:isolate;
-    }
-
-    .result-ring svg{
-      width: 270px;
-      height: 270px;
-      transform: rotate(-90deg);
-    }
-
-    .ring-track{
-      fill:none;
-      stroke: rgba(255,255,255,.12);
-      stroke-width: 12;
-    }
-    .ring-bar{
-      fill:none;
-      stroke: url(#goldGrad);
-      stroke-width: 12;
-      stroke-linecap: round;
-    }
-
-    .ring-cta{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-decoration:none;
-    }
-    .ring-cta img{
-      width: 140px;
-      height:auto;
-      filter: drop-shadow(0 0 18px rgba(201,171,88,.16));
-    }
-
-    .result-text{
-      margin: 8px 0 8px;
-      font-size: clamp(26px, 6vw, 40px);
-      font-weight: 1000;
-      color: var(--gold);
-      line-height: 1.06;
-    }
-
-    .result-cta-line{
-      margin: 8px auto 14px;
-      max-width: 520px;
-      color: rgba(255,255,255,.72);
-      line-height:1.55;
-      font-size: 16px;
-    }
-
-    .result-actions{
-      display:flex;
-      gap: 12px;
-      justify-content:center;
-      align-items:center;
-    }
-
-    .btn-reset{
-      flex: .55;
-      padding: 12px 12px;
-      font-size: 14px;
-      border-color: rgba(201,171,88,.20);
-    }
-    .btn-contact{
-      flex: 1.45;
-      padding: 14px 14px;
-      font-size: 15px;
-    }
-
-    /* ---------- CONTACT ---------- */
-    .contact-head{
-      text-align:center;
-      padding: 10px 10px 0;
-    }
-
-    .contact-head img{
-      width: 120px;
-      height:auto;
-      opacity:.95;
-      margin: 0 auto 8px;
-      display:block;
-    }
-
-    .contact-head h2{
-      margin: 4px 0 6px;
-      color: var(--gold);
-      font-weight: 1000;
-      font-size: clamp(22px, 5vw, 36px);
-      letter-spacing:.2px;
-    }
-    .contact-head p{
-      margin: 0 0 6px;
-      color: rgba(255,255,255,.68);
-      line-height:1.55;
-    }
-
-    .contact-card{
-      max-width: 760px;
-      margin: 0 auto;
-    }
-
-    .contact-form{
-      display:grid;
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .field{ display:grid; gap: 8px; }
-
-    .contact-form label{
-      color: rgba(201,171,88,.92);
-      font-weight: 900;
-      letter-spacing:.2px;
-    }
-
-    .contact-form input,
-    .contact-form textarea{
-      width:100%;
-      box-sizing:border-box;
-      padding: 14px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(201,171,88,.22);
-      background: rgba(0,0,0,.32);
-      color: var(--gold);
-      outline:none;
-    }
-
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder{
-      color: rgba(201,171,88,.40);
-    }
-
-    .contact-form textarea{ resize: vertical; min-height: 120px; }
-
-    .contact-submit{
-      display:flex;
-      justify-content:flex-end;
-      margin-top: 4px;
-    }
-
-    .contact-submit .btn{
-      max-width: 320px;
-      width: 100%;
-    }
-
-    .footer-note{
-      text-align:center;
-      color: rgba(255,255,255,.40);
-      font-size: 13px;
-      margin-top: 18px;
-    }
-
-    /* ---------- MOBILE TUNING ---------- */
-    @media (max-width: 420px){
-      .energy-page{ padding: 14px 12px 26px; }
-      .card-inner{ padding: 16px 14px 18px; }
-      .scale{ gap: 10px; }
-      .scale label{ padding: 12px 10px; }
-      .compass-nav{ gap: 10px; }
-      .btn{ padding: 12px 12px; font-size: 15px; }
-      .btn-reset{ padding: 10px 10px; font-size: 13px; }
-      .btn-contact{ padding: 12px 12px; font-size: 15px; }
-      .result-ring{ width: 255px; height: 255px; }
-      .result-ring svg{ width: 255px; height: 255px; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Deine bestehende Navbar/Header bleibt unberührt (kommt aus style.css / deinem Layout).
-       Diese Seite zerstört sie nicht, weil alles in .energy-page gekapselt ist. -->
-
-  <main class="energy-page">
-    <div class="wrap">
-
-      <section class="hero">
-        <h1>Energie-Kompass</h1>
-        <p>7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala.</p>
-      </section>
-
-      <section class="card" id="compassCard" aria-live="polite">
-        <div class="card-top-glow"></div>
-        <div class="card-inner">
-
-          <!-- QUESTIONS -->
-          <div id="q1" class="qblock active" data-q="1">
-            <div class="qmeta">Frage 1 von 7</div>
-            <h2 class="qtitle">Wie erholt fühlst du dich nach dem Aufwachen?</h2>
-            <p class="qhint">Kurz und ehrlich – dein erster Eindruck zählt.</p>
-            <div class="scale">
-              <label><input type="radio" name="q1" value="1"><span>gar nicht</span></label>
-              <label><input type="radio" name="q1" value="2"><span>selten</span></label>
-              <label><input type="radio" name="q1" value="3"><span>mittel</span></label>
-              <label><input type="radio" name="q1" value="4"><span>gut</span></label>
-              <label class="wide"><input type="radio" name="q1" value="5"><span>sehr gut</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back disabled>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q2" class="qblock" data-q="2">
-            <div class="qmeta">Frage 2 von 7</div>
-            <h2 class="qtitle">Wie oft trinkst du Wasser über den Tag verteilt?</h2>
-            <p class="qhint">Nicht „perfekt“ – nur realistisch.</p>
-            <div class="scale">
-              <label><input type="radio" name="q2" value="1"><span>fast nie</span></label>
-              <label><input type="radio" name="q2" value="2"><span>selten</span></label>
-              <label><input type="radio" name="q2" value="3"><span>manchmal</span></label>
-              <label><input type="radio" name="q2" value="4"><span>oft</span></label>
-              <label class="wide"><input type="radio" name="q2" value="5"><span>sehr oft</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q3" class="qblock" data-q="3">
-            <div class="qmeta">Frage 3 von 7</div>
-            <h2 class="qtitle">Wie regelmäßig isst du frische, echte Nahrung?</h2>
-            <p class="qhint">Dein Körper merkt’s – ohne Drama.</p>
-            <div class="scale">
-              <label><input type="radio" name="q3" value="1"><span>kaum</span></label>
-              <label><input type="radio" name="q3" value="2"><span>selten</span></label>
-              <label><input type="radio" name="q3" value="3"><span>wechselnd</span></label>
-              <label><input type="radio" name="q3" value="4"><span>regelmäßig</span></label>
-              <label class="wide"><input type="radio" name="q3" value="5"><span>konstant</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q4" class="qblock" data-q="4">
-            <div class="qmeta">Frage 4 von 7</div>
-            <h2 class="qtitle">Wie selten sind Softdrinks / süße Säfte bei dir?</h2>
-            <p class="qhint">Je seltener, desto besser – ganz simpel.</p>
-            <div class="scale">
-              <label><input type="radio" name="q4" value="1"><span>oft</span></label>
-              <label><input type="radio" name="q4" value="2"><span>öfter</span></label>
-              <label><input type="radio" name="q4" value="3"><span>gelegentlich</span></label>
-              <label><input type="radio" name="q4" value="4"><span>selten</span></label>
-              <label class="wide"><input type="radio" name="q4" value="5"><span>fast nie</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q5" class="qblock" data-q="5">
-            <div class="qmeta">Frage 5 von 7</div>
-            <h2 class="qtitle">Wie selten ist Fastfood bei dir?</h2>
-            <p class="qhint">Es geht nicht um Verbote – nur um Frequenz.</p>
-            <div class="scale">
-              <label><input type="radio" name="q5" value="1"><span>oft</span></label>
-              <label><input type="radio" name="q5" value="2"><span>öfter</span></label>
-              <label><input type="radio" name="q5" value="3"><span>gelegentlich</span></label>
-              <label><input type="radio" name="q5" value="4"><span>selten</span></label>
-              <label class="wide"><input type="radio" name="q5" value="5"><span>fast nie</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q6" class="qblock" data-q="6">
-            <div class="qmeta">Frage 6 von 7</div>
-            <h2 class="qtitle">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</h2>
-            <p class="qhint">Regelmäßig schlägt extrem – immer.</p>
-            <div class="scale">
-              <label><input type="radio" name="q6" value="1"><span>kaum</span></label>
-              <label><input type="radio" name="q6" value="2"><span>selten</span></label>
-              <label><input type="radio" name="q6" value="3"><span>wechselnd</span></label>
-              <label><input type="radio" name="q6" value="4"><span>regelmäßig</span></label>
-              <label class="wide"><input type="radio" name="q6" value="5"><span>konstant</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" data-next>Weiter</button>
-            </div>
-          </div>
-
-          <div id="q7" class="qblock" data-q="7">
-            <div class="qmeta">Frage 7 von 7</div>
-            <h2 class="qtitle">Wie gut kommst du aktuell mit Belastung klar?</h2>
-            <p class="qhint">Dein System zählt – nicht nur dein Kalender.</p>
-            <div class="scale">
-              <label><input type="radio" name="q7" value="1"><span>überlastet</span></label>
-              <label><input type="radio" name="q7" value="2"><span>angespannt</span></label>
-              <label><input type="radio" name="q7" value="3"><span>okay</span></label>
-              <label><input type="radio" name="q7" value="4"><span>stabil</span></label>
-              <label class="wide"><input type="radio" name="q7" value="5"><span>sehr stabil</span></label>
-            </div>
-            <div class="compass-nav">
-              <button class="btn back" type="button" data-back>Zurück</button>
-              <button class="btn primary" type="button" id="btnEvaluate">Auswerten</button>
-            </div>
-          </div>
-
-          <!-- RESULT -->
-          <div id="result" class="qblock" data-q="result">
-            <div class="result-box">
-              <div class="qmeta">Dein Ergebnis</div>
-
-              <div class="result-ring" aria-label="Energie-Level Ring">
-                <svg viewBox="0 0 120 120" role="img">
-                  <defs>
-                    <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0" stop-color="#c9ab58"></stop>
-                      <stop offset="1" stop-color="#b8923d"></stop>
-                    </linearGradient>
-                  </defs>
-                  <circle class="ring-track" cx="60" cy="60" r="46"></circle>
-                  <circle class="ring-bar" id="ringBar" cx="60" cy="60" r="46" stroke-dasharray="289" stroke-dashoffset="289"></circle>
-                </svg>
-
-                <!-- Logo in der Mitte -->
-                <a class="ring-cta" href="index.html" title="Zur Startseite">
-                  <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net Logo">
-                </a>
-              </div>
-
-              <div class="result-text" id="resultText">Dein Energie-Level liegt bei 0%</div>
-              <div class="result-cta-line">
-                Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
-              </div>
-
-              <div class="result-actions">
-                <button class="btn btn-reset" type="button" id="btnReset">Reset</button>
-                <button class="btn primary btn-contact" type="button" id="btnContact">Kontakt aufnehmen</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- CONTACT SECTION -->
-      <section class="card contact-card" id="contactSection" style="display:none; margin-top:18px;">
-        <div class="card-top-glow"></div>
-        <div class="card-inner">
-
-          <div class="contact-head">
-            <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN Logo">
-            <h2>KONTAKT &amp; BERATUNG.</h2>
-            <p>Trag dich ein – ich melde mich persönlich bei dir.</p>
-          </div>
-
-          <form class="contact-form" action="https://formspree.io/f/DEIN_FORM_ID" method="POST">
-            <div class="field">
-              <label for="name">Name</label>
-              <input id="name" name="name" type="text" placeholder="Dein Name" required>
-            </div>
-
-            <div class="field">
-              <label for="email">E-Mail</label>
-              <input id="email" name="email" type="email" placeholder="dein@email.de" required>
-            </div>
-
-            <div class="field">
-              <label for="phone">Telefon (optional)</label>
-              <input id="phone" name="phone" type="tel" placeholder="+49 …">
-            </div>
-
-            <div class="field">
-              <label for="msg">Anliegen</label>
-              <textarea id="msg" name="message" placeholder="Worum geht’s – kurz und klar?"></textarea>
-            </div>
-
-            <div class="contact-submit">
-              <button class="btn primary" type="submit">Absenden</button>
-            </div>
-          </form>
-
-          <div class="footer-note">© 2025 ENERGIE-TANKEN.net</div>
-        </div>
-      </section>
-
+<!-- ================= NAV ================= -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
+    <div class="topnav-links">
+      <a href="index.html">Home</a>
+      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+      <a href="anwendungen.html">Anwendungen</a>
+      <a href="shop.html">Shop</a>
+      <a href="wissenswertes.html">Wissenswertes</a>
+      <a href="medien.html">Medien</a>
+      <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
+      <a href="kontakt.html">Kontakt</a>
     </div>
-  </main>
+  </div>
+</nav>
 
-  <script>
-    (function(){
-      const blocks = Array.from(document.querySelectorAll('.qblock'));
-      const byId = (id)=>document.getElementById(id);
+<!-- ================= HERO (IDENTISCH) ================= -->
+<section class="hero-top">
+  <div class="hero-logo">
+    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
+  </div>
 
-      const order = ['q1','q2','q3','q4','q5','q6','q7','result'];
-      let idx = 0;
+  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
 
-      function show(id){
-        blocks.forEach(b=>b.classList.remove('active'));
-        const el = byId(id);
-        if(el) el.classList.add('active');
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      }
+  <p class="hero-quote">
+    „Wenn du die Geheimnisse des Universums verstehen willst,
+    denke in Begriffen von Energie, Frequenz und Schwingung.“
+    – Nikola Tesla
+  </p>
 
-      function currentId(){ return order[idx]; }
+  <div class="hero-visual">
+    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
+  </div>
+</section>
 
-      function getAnswer(qName){
-        const checked = document.querySelector('input[name="'+qName+'"]:checked');
-        return checked ? Number(checked.value) : null;
-      }
+<!-- ================= KOMPASS ================= -->
+<main class="container" style="padding-top:48px;">
 
-      function goNext(){
-        const qName = currentId();
-        if(qName.startsWith('q')){
-          const val = getAnswer(qName);
-          if(!val){
-            // kleine, klare Validierung (ohne Popups)
-            const block = byId(qName);
-            block.querySelector('.qhint').textContent = "Bitte eine Antwort wählen – dann geht’s weiter.";
-            return;
-          }
-        }
-        idx = Math.min(idx + 1, order.length - 1);
-        show(currentId());
-      }
+<section class="section">
 
-      function goBack(){
-        idx = Math.max(idx - 1, 0);
-        show(currentId());
-      }
+  <div class="result-box">
 
-      // Klicks auf Next/Back
-      document.addEventListener('click', (e)=>{
-        const t = e.target;
-        if(t && t.matches('[data-next]')) goNext();
-        if(t && t.matches('[data-back]') && !t.disabled) goBack();
-      });
+    <!-- GOLD RING -->
+    <div class="result-ring">
+      <svg viewBox="0 0 120 120">
+        <defs>
+          <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#c9ab58"/>
+            <stop offset="100%" stop-color="#b8923d"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,.12)" stroke-width="10" fill="none"/>
+        <circle id="ringBar" cx="60" cy="60" r="46" stroke="url(#goldGrad)" stroke-width="10"
+                stroke-linecap="round" fill="none"
+                stroke-dasharray="0 289" transform="rotate(-90 60 60)"/>
+      </svg>
 
-      // Auswerten
-      const btnEvaluate = byId('btnEvaluate');
-      if(btnEvaluate){
-        btnEvaluate.addEventListener('click', ()=>{
-          // Validate last answer
-          if(getAnswer('q7') == null){
-            byId('q7').querySelector('.qhint').textContent = "Bitte eine Antwort wählen – dann auswerten.";
-            return;
-          }
+      <!-- LOGO CTA -->
+      <a href="kontakt.html" class="ring-cta" aria-label="Kontakt aufnehmen">
+        <img src="logo-energie-tanken-gold.png" alt="Kontakt aufnehmen">
+      </a>
+    </div>
 
-          // Score: 7 Fragen, je 1..5 → Summe 7..35 → Prozent 0..100
-          let sum = 0;
-          for(let i=1;i<=7;i++){
-            sum += getAnswer('q'+i) || 0;
-          }
-          const min = 7, max = 35;
-          const pct = Math.round(((sum - min) / (max - min)) * 100);
+    <div class="result-text" id="scoreText">Energie-Tanken</div>
+    <div class="result-cta-line">
+      Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
+    </div>
 
-          // Ring
-          const ring = byId('ringBar');
-          const C = 289; // ca. 2*pi*r (r=46)
-          const offset = Math.round(C - (C * pct / 100));
-          ring.style.strokeDasharray = C;
-          ring.style.strokeDashoffset = offset;
+  </div>
 
-          byId('resultText').textContent = "Dein Energie-Level liegt bei " + pct + "%";
+</section>
 
-          idx = order.indexOf('result');
-          show('result');
-        });
-      }
+</main>
 
-      // Reset
-      const btnReset = byId('btnReset');
-      if(btnReset){
-        btnReset.addEventListener('click', ()=>{
-          for(let i=1;i<=7;i++){
-            const inputs = document.querySelectorAll('input[name="q'+i+'"]');
-            inputs.forEach(x=>x.checked=false);
-          }
-          // Reset hints (optional)
-          for(let i=1;i<=7;i++){
-            const b = byId('q'+i);
-            if(b){
-              const hint = b.querySelector('.qhint');
-              // nicht originaltext rekonstruieren – nur keine Fehlmeldung stehen lassen
-              if(hint && hint.textContent.includes("Bitte")) {
-                // leave as is? -> set a neutral hint:
-                hint.textContent = hint.getAttribute('data-default') || hint.textContent.replace("Bitte eine Antwort wählen – dann geht’s weiter.","");
-              }
-            }
-          }
-          idx = 0;
-          show('q1');
-        });
-      }
+<footer>
+  © 2025 ENERGIE-TANKEN.net
+</footer>
 
-      // Kontakt
-      const btnContact = byId('btnContact');
-      if(btnContact){
-        btnContact.addEventListener('click', ()=>{
-          const contact = byId('contactSection');
-          contact.style.display = 'block';
-          contact.scrollIntoView({behavior:'smooth', block:'start'});
-        });
-      }
+<script>
+(function(){
+  const ring = document.getElementById("ringBar");
+  const text = document.getElementById("scoreText");
+  const percent = 78; // Beispielwert – kommt später aus echter Auswertung
 
-      // Erste Ansicht
-      show('q1');
-    })();
-  </script>
+  const circumference = 2 * Math.PI * 46;
+  ring.style.strokeDasharray = `${(percent/100)*circumference} ${circumference}`;
+  text.textContent = `Dein Energie-Level liegt bei ${percent}%`;
+})();
+</script>
+
 </body>
 </html>
