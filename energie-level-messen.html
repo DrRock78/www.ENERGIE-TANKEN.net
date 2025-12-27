@@ -72,6 +72,7 @@
           <div class="card gauge">
             <div class="gauge-title">Dein aktuelles Energie-Level</div>
 
+            <!-- Ring: bleibt SVG (dein Design), JS steuert die Bar -->
             <svg class="ring ring-glow" viewBox="0 0 120 120" aria-label="Energie-Skala">
               <defs>
                 <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -84,15 +85,17 @@
               <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
             </svg>
 
-            <div class="gauge-number" id="scoreNum">—%</div>
-            <div class="badge" id="scoreBadge">bereit</div>
-            <div class="gauge-sub" id="scoreSub">
+            <!-- Diese IDs nutzt JS -->
+            <div class="gauge-number energy-percent" id="scoreNum">—%</div>
+            <div class="badge energy-status" id="scoreBadge">bereit</div>
+            <div class="gauge-sub energy-result-text" id="scoreSub">
               Beantworte die Fragen – danach erscheint deine Skala.
             </div>
 
-            <div class="cta-box" id="ctaBox" style="display:none;">
+            <!-- CTA: bleibt hidden bis Auswertung -->
+            <div class="cta-box cta-section" id="ctaBox" style="display:none;">
               <div class="result-text" style="margin-bottom:10px;" id="ctaText"></div>
-              <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+              <a class="btn btn-primary cta-contact" href="kontakt.html">Kontakt aufnehmen</a>
             </div>
           </div>
 
@@ -100,8 +103,10 @@
           <div class="card">
             <form class="compass-form" id="compassForm">
 
-              <!-- Skala Text: 0..4 -->
-              <!-- 0 = trifft gar nicht zu / 4 = trifft voll zu -->
+              <!-- WICHTIG:
+                   Werte bleiben 0..4 (wie du es gebaut hast).
+                   Das ist perfekt: JS kann daraus % rechnen. -->
+
               <div class="qblock">
                 <p class="qtitle">1) Schlaf</p>
                 <p class="qhint">Wie konstant ist dein Schlaf über die letzten 14 Tage?</p>
@@ -187,7 +192,8 @@
               </div>
 
               <div class="compass-actions">
-                <button class="btn btn-primary" type="submit">Auswerten</button>
+                <!-- WICHTIG: submit bleibt submit, JS fängt es ab -->
+                <button class="btn btn-primary" type="submit" id="evalBtn">Auswerten</button>
                 <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
               </div>
 
@@ -212,116 +218,8 @@
     © 2025 ENERGIE-TANKEN.net
   </footer>
 
-  <script>
-    (function(){
-      const form = document.getElementById("compassForm");
-      const ringBar = document.getElementById("ringBar");
-      const scoreNum = document.getElementById("scoreNum");
-      const scoreBadge = document.getElementById("scoreBadge");
-      const scoreSub = document.getElementById("scoreSub");
-      const resetBtn = document.getElementById("resetBtn");
-
-      const ctaBox = document.getElementById("ctaBox");
-      const ctaText = document.getElementById("ctaText");
-
-      // Ring geometry
-      const r = 46;
-      const circumference = 2 * Math.PI * r;
-      ringBar.style.strokeDasharray = `0 ${circumference}`;
-
-      function setRing(percent){
-        const p = Math.max(0, Math.min(100, percent));
-        const dash = (p / 100) * circumference;
-        ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
-      }
-
-      function bucket(percent){
-        // Ergebnistext bewusst ruhig, nicht belehrend, nicht “verkaufy”
-        if (percent < 30){
-          return {
-            badge: "niedrig",
-            sub: "Dein System wirkt aktuell eher leer. Fokus: Schlaf, Trinken, Rhythmus.",
-            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
-          };
-        }
-        if (percent < 55){
-          return {
-            badge: "stabil",
-            sub: "Du hast Basis-Stabilität. Kleine Korrekturen machen spürbar viel aus.",
-            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
-          };
-        }
-        if (percent < 75){
-          return {
-            badge: "gut",
-            sub: "Gute Reserve. Leistung und Erholung greifen bereits sauber ineinander.",
-            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
-          };
-        }
-        if (percent < 90){
-          return {
-            badge: "sehr gut",
-            sub: "Sehr solide Energie-Basis. Jetzt zählt Feinschliff und Konstanz.",
-            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
-          };
-        }
-        return {
-          badge: "top",
-          sub: "Starke Reserve. Du bist auf einem Level, das die meisten gar nicht erreichen.",
-          cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
-        };
-      }
-
-      function calcScore(){
-        // 7 Fragen à 0..4 => max 28
-        const data = new FormData(form);
-        let sum = 0;
-        let count = 0;
-        for (let i=1;i<=7;i++){
-          const v = data.get("q"+i);
-          if (v === null) return null;
-          sum += Number(v);
-          count++;
-        }
-        const max = count * 4;
-        const percent = Math.round((sum / max) * 100);
-        return percent;
-      }
-
-      form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        const score = calcScore();
-        if (score === null) return;
-
-        setRing(score);
-        scoreNum.textContent = score + "%";
-
-        const b = bucket(score);
-        scoreBadge.textContent = b.badge;
-        scoreSub.textContent = b.sub;
-
-        ctaText.textContent = b.cta;
-        ctaBox.style.display = "block";
-
-        // Scroll slightly to left card on mobile
-        try{
-          document.querySelector(".card.gauge").scrollIntoView({behavior:"smooth", block:"start"});
-        }catch(_){}
-      });
-
-      resetBtn.addEventListener("click", ()=>{
-        form.reset();
-        setRing(0);
-        scoreNum.textContent = "—%";
-        scoreBadge.textContent = "bereit";
-        scoreSub.textContent = "Beantworte die Fragen – danach erscheint deine Skala.";
-        ctaBox.style.display = "none";
-      });
-
-      // Initialize ring at 0
-      setRing(0);
-    })();
-  </script>
+  <!-- ✅ NUR NOCH externe JS (Inline-Script ist entfernt) -->
+  <script src="energie-kompass.js" defer></script>
 
 </body>
 </html>
