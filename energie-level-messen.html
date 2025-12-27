@@ -5,192 +5,228 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Energie-Kompass: 7 kurze Fragen. Danach siehst du dein Energie-Level als Prozent und Gold-Skala." />
+  <meta name="description" content="Energie-Kompass: 7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala." />
 
+  <!-- dein bestehendes Design bleibt -->
   <link rel="stylesheet" href="style.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- PAGE-ONLY CSS (scoped): überschreibt NICHT deinen Header/hero -->
   <style>
-    .ekompass{
+    /* ====== PAGE ONLY (greift nur hier) ====== */
+    #ekompass{
       --gold:#c9ab58;
       --gold2:#b8923d;
+      --card: rgba(10,10,10,.55);
+      --stroke: rgba(201,171,88,.28);
+      --textSoft: rgba(255,255,255,.75);
+      --textDim: rgba(255,255,255,.55);
     }
 
-    /* Frage-Card: sauberer Container, aber NUR in .ekompass */
-    .ekompass .card{
-      position:relative;
-      overflow:hidden;
+    #ekompass .section-intro{
+      margin-top: 12px;
+      margin-bottom: 22px;
     }
 
-    .ekompass .intro{
-      margin-bottom:14px;
+    /* wir starten den Kompass “edler” etwas tiefer */
+    #ekompass .compass-shell{
+      margin-top: 26px;
     }
 
-    .ekompass .intro p{
-      margin:0;
-      color:rgba(255,255,255,.78);
-      line-height:1.6;
+    #ekompass .card-compass{
+      max-width: 860px;
+      margin: 0 auto;
+      border-radius: 22px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      overflow: hidden;
     }
 
-    /* Frageblöcke: nur einer sichtbar */
-    .ekompass .qblock{ display:none; }
-    .ekompass .qblock.active{ display:block; }
-
-    .ekompass .qmeta{
-      color:rgba(255,255,255,.55);
-      font-size:13px;
-      margin:0 0 10px 0;
+    #ekompass .card-inner{
+      padding: 22px 18px 18px;
     }
 
-    .ekompass .qtitle{
-      font-size:28px;
-      font-weight:800;
-      color:var(--gold);
-      margin:0 0 8px 0;
-      letter-spacing:.2px;
+    #ekompass .qmeta{
+      color: var(--textDim);
+      font-size: 13px;
+      margin: 0 0 10px 0;
     }
 
-    .ekompass .qhint{
-      color:rgba(255,255,255,.75);
-      margin:0 0 18px 0;
-      line-height:1.45;
+    #ekompass .qtitle{
+      font-size: 34px;
+      line-height: 1.05;
+      font-weight: 800;
+      color: var(--gold);
+      margin: 0 0 10px 0;
+      letter-spacing: .2px;
     }
 
-    /* Buttons (Antwort-Pills): schöner, symmetrisch, mobil-tauglich */
-    .ekompass .scale{
+    #ekompass .qhint{
+      color: var(--textSoft);
+      margin: 0 0 18px 0;
+      font-size: 18px;
+    }
+
+    /* Antwort-Buttons wie “Pills”, sauber auf Mobil */
+    #ekompass .choices{
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 8px;
+    }
+
+    #ekompass .choice{
+      display: block;
+      width: 100%;
+      padding: 18px 16px;
+      text-align: center;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.85);
+      cursor: pointer;
+      user-select: none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    #ekompass .choice:active{ transform: scale(.985); }
+
+    #ekompass .choice.is-selected{
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      color: #111;
+      border-color: rgba(0,0,0,.12);
+      box-shadow: 0 10px 24px rgba(201,171,88,.12);
+    }
+
+    /* letzte Zeile = 1 Button über volle Breite */
+    #ekompass .choices.five .choice:last-child{
+      grid-column: 1 / -1;
+    }
+
+    /* Navigation: mobil kleiner, gleichmäßig, nicht “zu groß rechts” */
+    #ekompass .nav-row{
       display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
-      align-items:stretch;
+      gap: 12px;
+      margin-top: 18px;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .ekompass .scale label{
-      flex: 1 1 calc(50% - 12px);
-      max-width: 220px;
-      border:1px solid rgba(201,171,88,.35);
-      border-radius:999px;
-      padding:14px 14px;
-      text-align:center;
-      cursor:pointer;
-      font-size:16px;
-      color:rgba(255,255,255,.88);
-      user-select:none;
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
-      background:rgba(0,0,0,.18);
+    #ekompass .nav-row .btn{
+      flex: 1;
+      min-width: 0;
+      padding: 14px 16px;
+      border-radius: 999px;
+      font-weight: 700;
     }
 
-    /* 5 Optionen sollen sich sauber verteilen: ab ca. 520px 5 nebeneinander */
-    @media (min-width: 520px){
-      .ekompass .scale label{
-        flex: 1 1 calc(20% - 12px);
-        max-width:none;
-      }
+    #ekompass .nav-row .btn-secondary{
+      background: transparent;
+      border: 1px solid rgba(201,171,88,.35);
+      color: var(--gold);
     }
 
-    .ekompass .scale label:active{ transform:scale(.98); }
-    .ekompass .scale input{ display:none; }
+    /* Result */
+    #ekompass .result-wrap{
+      text-align: center;
+      padding: 18px 0 6px;
+    }
 
-    .ekompass .scale input:checked + span{
+    #ekompass .ring{
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 14px auto 18px;
+    }
+
+    #ekompass .ring svg{
+      width: 300px;
+      height: 300px;
+      transform: rotate(-90deg);
       display:block;
-      color:#111;
-      font-weight:800;
-      background:linear-gradient(180deg,var(--gold),var(--gold2));
-      border-radius:999px;
-      padding:14px 14px;
-      box-shadow:0 0 0 1px rgba(0,0,0,.2) inset;
+      margin:0 auto;
     }
 
-    /* Navigations-Buttons unten */
-    .ekompass .navrow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-top:22px;
-    }
-    .ekompass .navrow .btn{
-      min-width:140px;
-    }
-    .ekompass .navrow .btn[disabled]{
-      opacity:.45;
-      pointer-events:none;
+    #ekompass .ring-track{
+      fill: none;
+      stroke: rgba(255,255,255,.14);
+      stroke-width: 14;
     }
 
-    /* Ergebnis-Box */
-    .ekompass .result{
-      display:none;
-      text-align:center;
-      padding:18px 6px 6px;
+    #ekompass .ring-bar{
+      fill: none;
+      stroke: url(#ekompassGoldGrad);
+      stroke-width: 14;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 12px rgba(201,171,88,.12));
     }
 
-    .ekompass .result-ring{
-      position:relative;
-      width:280px;
-      height:280px;
-      margin:0 auto 18px;
-    }
-
-    .ekompass .result-ring svg{
-      width:280px;
-      height:280px;
-      transform:rotate(-90deg);
-    }
-
-    .ekompass .ring-track{
-      fill:none;
-      stroke:rgba(255,255,255,.12);
-      stroke-width:12;
-    }
-
-    .ekompass .ring-bar{
-      fill:none;
-      stroke:url(#goldGrad);
-      stroke-width:12;
-      stroke-linecap:round;
-    }
-
-    /* Logo klickbar in der Mitte = CTA */
-    .ekompass .ring-cta{
+    #ekompass .ring-cta{
       position:absolute;
       inset:0;
       display:flex;
       align-items:center;
       justify-content:center;
       text-decoration:none;
+      border-radius: 999px;
     }
 
-    .ekompass .ring-cta img{
-      width:150px;
-      height:auto;
-      filter:drop-shadow(0 0 18px rgba(201,171,88,.20));
-      transition:transform .15s ease;
-    }
-    .ekompass .ring-cta:active img{ transform:scale(.98); }
-
-    .ekompass .result-text{
-      font-size:36px;
-      font-weight:900;
-      color:var(--gold);
-      line-height:1.1;
-      margin:8px 0 0;
+    #ekompass .ring-cta img{
+      width: 150px;
+      height: auto;
+      transition: transform .12s ease;
+      filter: drop-shadow(0 0 16px rgba(201,171,88,.16));
     }
 
-    .ekompass .result-cta-line{
-      margin:14px auto 0;
-      max-width:560px;
-      color:rgba(255,255,255,.78);
-      line-height:1.55;
+    #ekompass .ring-cta:active img{ transform: scale(.985); }
+
+    #ekompass .result-text{
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1.05;
+      margin: 4px 0 10px 0;
+      letter-spacing: .2px;
+    }
+
+    #ekompass .result-line{
+      color: var(--textSoft);
+      margin: 0 auto 6px;
+      max-width: 520px;
+      font-size: 16px;
+    }
+
+    #ekompass .result-cta-line{
+      margin: 14px auto 0;
+      max-width: 520px;
+      color: rgba(255,255,255,.78);
+      font-size: 16px;
+    }
+
+    #ekompass .hidden{ display:none !important; }
+
+    /* Mobil-Finetune */
+    @media (max-width: 520px){
+      #ekompass .card-inner{ padding: 18px 14px 16px; }
+      #ekompass .qtitle{ font-size: 34px; }
+      #ekompass .qhint{ font-size: 18px; }
+      #ekompass .choice{ font-size: 18px; padding: 18px 14px; }
+      #ekompass .nav-row .btn{ padding: 13px 14px; font-size: 16px; }
+      #ekompass .ring{ width: 280px; height: 280px; }
+      #ekompass .ring svg{ width: 280px; height: 280px; }
+      #ekompass .ring-cta img{ width: 140px; }
+      #ekompass .result-text{ font-size: 40px; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- NAV (identisch) -->
+  <!-- NAV (wie bei dir) -->
   <nav class="topnav">
     <div class="topnav-inner">
       <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
@@ -207,7 +243,7 @@
     </div>
   </nav>
 
-  <!-- HERO (identisch wie Startseite) -->
+  <!-- HERO (wie Startseite) -->
   <section class="hero-top">
     <div class="hero-logo">
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
@@ -225,153 +261,70 @@
       <img src="hero-tesla-signature.png" alt="Nikola Tesla">
     </div>
 
-    <a class="btn btn-primary" href="#kompass">Energie-Level messen</a>
+    <a class="btn btn-primary" href="#ekompass">Energie-Level messen</a>
   </section>
 
   <!-- CONTENT -->
-  <main class="container ekompass" id="kompass">
+  <main class="container" id="ekompass">
 
-    <section class="section intro">
+    <section class="section section-intro">
       <h2>Energie-Kompass</h2>
-      <p>Beantworte ein paar kurze Fragen. Du bekommst am Ende dein Energie-Level als Prozent und Gold-Skala.</p>
+      <p>7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala.</p>
     </section>
 
-    <section class="section">
-      <div class="card">
+    <section class="section compass-shell">
+      <div class="card-compass">
+        <div class="card-inner">
 
-        <!-- RESULT (erscheint erst am Ende) -->
-        <div class="result" id="resultBox" aria-live="polite">
-          <div class="result-ring" aria-label="Energie-Level Skala">
-            <svg viewBox="0 0 120 120" role="img">
-              <defs>
-                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stop-color="#c9ab58"/>
-                  <stop offset="100%" stop-color="#b8923d"/>
-                </linearGradient>
-              </defs>
-              <circle class="ring-track" cx="60" cy="60" r="46"></circle>
-              <circle class="ring-bar" id="ringBar" cx="60" cy="60" r="46"></circle>
-            </svg>
+          <!-- QUESTION VIEW -->
+          <div id="qView">
+            <div class="qmeta" id="qMeta">Frage 1 von 7</div>
+            <h3 class="qtitle" id="qTitle">Wie konstant ist dein Schlaf?</h3>
+            <p class="qhint" id="qHint">Kurz und ehrlich – dein erster Eindruck zählt.</p>
 
-            <!-- Klick aufs Logo = CTA -->
-            <a class="ring-cta" href="kontakt.html" aria-label="Kontakt aufnehmen">
-              <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN – Kontakt">
-            </a>
+            <div class="choices five" id="qChoices"></div>
+
+            <div class="nav-row">
+              <button class="btn btn-secondary" id="btnBack" type="button">Zurück</button>
+              <button class="btn btn-primary" id="btnNext" type="button">Weiter</button>
+            </div>
           </div>
 
-          <div class="result-text" id="resultText">Dein Energie-Level liegt bei —%</div>
-          <div class="result-cta-line">Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</div>
+          <!-- RESULT VIEW -->
+          <div id="rView" class="hidden">
+            <div class="result-wrap">
+              <div class="ring" aria-label="Energie-Ring">
+                <svg viewBox="0 0 120 120" role="img" aria-label="Energie-Level Ring">
+                  <defs>
+                    <linearGradient id="ekompassGoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#c9ab58"/>
+                      <stop offset="100%" stop-color="#b8923d"/>
+                    </linearGradient>
+                  </defs>
+                  <circle class="ring-track" cx="60" cy="60" r="46"></circle>
+                  <circle class="ring-bar" id="ringBar" cx="60" cy="60" r="46"></circle>
+                </svg>
+
+                <!-- CTA im Zentrum: Logo klickbar -->
+                <a class="ring-cta" id="logoCta" href="kontakt.html" aria-label="Kontakt aufnehmen">
+                  <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
+                </a>
+              </div>
+
+              <div class="result-text" id="resultText">Dein Energie-Level liegt bei 0%</div>
+              <p class="result-cta-line">Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</p>
+            </div>
+
+            <div class="nav-row" style="margin-top:16px;">
+              <button class="btn btn-secondary" id="btnRestart" type="button">Reset</button>
+              <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+            </div>
+          </div>
+
         </div>
-
-        <!-- QUESTIONS -->
-        <form id="kompassForm" novalidate>
-
-          <!-- Q1 -->
-          <div class="qblock active" data-q="1">
-            <p class="qmeta">Frage 1 von 7</p>
-            <h3 class="qtitle">Wie erholt fühlst du dich nach dem Aufwachen?</h3>
-            <p class="qhint">Kurz und ehrlich – dein erster Eindruck zählt.</p>
-            <div class="scale">
-              <label><input type="radio" name="q1" value="0" required><span>gar nicht</span></label>
-              <label><input type="radio" name="q1" value="1"><span>selten</span></label>
-              <label><input type="radio" name="q1" value="2"><span>mittel</span></label>
-              <label><input type="radio" name="q1" value="3"><span>gut</span></label>
-              <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
-            </div>
-          </div>
-
-          <!-- Q2 -->
-          <div class="qblock" data-q="2">
-            <p class="qmeta">Frage 2 von 7</p>
-            <h3 class="qtitle">Wie regelmäßig trinkst du über den Tag verteilt?</h3>
-            <p class="qhint">Konstanz schlägt „abends alles nachholen“.</p>
-            <div class="scale">
-              <label><input type="radio" name="q2" value="0" required><span>selten</span></label>
-              <label><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
-              <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
-              <label><input type="radio" name="q2" value="3"><span>gut</span></label>
-              <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
-            </div>
-          </div>
-
-          <!-- Q3 -->
-          <div class="qblock" data-q="3">
-            <p class="qmeta">Frage 3 von 7</p>
-            <h3 class="qtitle">Wie selten sind Softdrinks / süße Säfte bei dir?</h3>
-            <p class="qhint">Hier zählt die Häufigkeit – nicht die Ausrede.</p>
-            <div class="scale">
-              <label><input type="radio" name="q3" value="0" required><span>oft</span></label>
-              <label><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
-              <label><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
-              <label><input type="radio" name="q3" value="3"><span>selten</span></label>
-              <label><input type="radio" name="q3" value="4"><span>fast nie</span></label>
-            </div>
-          </div>
-
-          <!-- Q4 -->
-          <div class="qblock" data-q="4">
-            <p class="qmeta">Frage 4 von 7</p>
-            <h3 class="qtitle">Wie selten ist Fastfood bei dir?</h3>
-            <p class="qhint">Regelmäßigkeit frisst Energie. Seltenheit gibt Energie zurück.</p>
-            <div class="scale">
-              <label><input type="radio" name="q4" value="0" required><span>oft</span></label>
-              <label><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
-              <label><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
-              <label><input type="radio" name="q4" value="3"><span>selten</span></label>
-              <label><input type="radio" name="q4" value="4"><span>fast nie</span></label>
-            </div>
-          </div>
-
-          <!-- Q5 -->
-          <div class="qblock" data-q="5">
-            <p class="qmeta">Frage 5 von 7</p>
-            <h3 class="qtitle">Wie regelmäßig bewegst du dich?</h3>
-            <p class="qhint">Spaziergänge, Schritte, Training – Hauptsache Rhythmus.</p>
-            <div class="scale">
-              <label><input type="radio" name="q5" value="0" required><span>kaum</span></label>
-              <label><input type="radio" name="q5" value="1"><span>selten</span></label>
-              <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
-              <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
-              <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
-            </div>
-          </div>
-
-          <!-- Q6 -->
-          <div class="qblock" data-q="6">
-            <p class="qmeta">Frage 6 von 7</p>
-            <h3 class="qtitle">Wie stark steht dein System unter Druck?</h3>
-            <p class="qhint">Dein Eindruck – nicht die perfekte Definition.</p>
-            <div class="scale">
-              <label><input type="radio" name="q6" value="0" required><span>hoch</span></label>
-              <label><input type="radio" name="q6" value="1"><span>mittel</span></label>
-              <label><input type="radio" name="q6" value="2"><span>okay</span></label>
-              <label><input type="radio" name="q6" value="3"><span>niedrig</span></label>
-              <label><input type="radio" name="q6" value="4"><span>sehr niedrig</span></label>
-            </div>
-          </div>
-
-          <!-- Q7 -->
-          <div class="qblock" data-q="7">
-            <p class="qmeta">Frage 7 von 7</p>
-            <h3 class="qtitle">Wie klar und fokussiert fühlst du dich tagsüber?</h3>
-            <p class="qhint">Kopf klar – oder wie ein Browser mit 58 Tabs?</p>
-            <div class="scale">
-              <label><input type="radio" name="q7" value="0" required><span>neblig</span></label>
-              <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
-              <label><input type="radio" name="q7" value="2"><span>okay</span></label>
-              <label><input type="radio" name="q7" value="3"><span>klar</span></label>
-              <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
-            </div>
-          </div>
-
-          <div class="navrow">
-            <button class="btn btn-secondary" type="button" id="backBtn" disabled>Zurück</button>
-            <button class="btn btn-primary" type="button" id="nextBtn" disabled>Weiter</button>
-          </div>
-        </form>
-
       </div>
     </section>
+
   </main>
 
   <footer>
@@ -380,18 +333,106 @@
 
   <script>
     (function(){
-      const form = document.getElementById("kompassForm");
-      const blocks = Array.from(document.querySelectorAll(".ekompass .qblock"));
-      const nextBtn = document.getElementById("nextBtn");
-      const backBtn = document.getElementById("backBtn");
+      // ===== DATA =====
+      const questions = [
+        {
+          title: "Wie konstant ist dein Schlaf?",
+          hint: "Kurz und ehrlich – dein erster Eindruck zählt.",
+          options: [
+            {label:"chaotisch", value:0},
+            {label:"unruhig", value:1},
+            {label:"okay", value:2},
+            {label:"gut", value:3},
+            {label:"sehr gut", value:4}
+          ]
+        },
+        {
+          title: "Wie regelmäßig trinkst du über den Tag verteilt?",
+          hint: "Nicht perfekt – nur ehrlich.",
+          options: [
+            {label:"selten", value:0},
+            {label:"zu wenig", value:1},
+            {label:"wechselnd", value:2},
+            {label:"gut", value:3},
+            {label:"konstant", value:4}
+          ]
+        },
+        {
+          title: "Wie selten sind Softdrinks / süße Säfte bei dir?",
+          hint: "Je seltener, desto besser – ganz simpel.",
+          options: [
+            {label:"oft", value:0},
+            {label:"mehrmals/Woche", value:1},
+            {label:"gelegentlich", value:2},
+            {label:"selten", value:3},
+            {label:"fast nie", value:4}
+          ]
+        },
+        {
+          title: "Wie selten ist Fastfood bei dir?",
+          hint: "Hier zählt die Regel, nicht die Ausnahme.",
+          options: [
+            {label:"oft", value:0},
+            {label:"mehrmals/Woche", value:1},
+            {label:"gelegentlich", value:2},
+            {label:"selten", value:3},
+            {label:"fast nie", value:4}
+          ]
+        },
+        {
+          title: "Wie regelmäßig bewegst du dich?",
+          hint: "Spaziergänge, Schritte, Training – dein Rhythmus zählt.",
+          options: [
+            {label:"kaum", value:0},
+            {label:"selten", value:1},
+            {label:"wechselnd", value:2},
+            {label:"regelmäßig", value:3},
+            {label:"konstant", value:4}
+          ]
+        },
+        {
+          title: "Wie gut kommst du aktuell mit Belastung klar?",
+          hint: "Druck frisst Energie. Stabilität gibt Energie.",
+          options: [
+            {label:"überlastet", value:0},
+            {label:"angespannt", value:1},
+            {label:"okay", value:2},
+            {label:"stabil", value:3},
+            {label:"sehr stabil", value:4}
+          ]
+        },
+        {
+          title: "Wie klar und fokussiert fühlst du dich tagsüber?",
+          hint: "Kopf klar – oder wie ein Browser mit 58 Tabs?",
+          options: [
+            {label:"neblig", value:0},
+            {label:"schwankend", value:1},
+            {label:"okay", value:2},
+            {label:"klar", value:3},
+            {label:"sehr klar", value:4}
+          ]
+        }
+      ];
 
-      const resultBox = document.getElementById("resultBox");
-      const resultText = document.getElementById("resultText");
+      // ===== ELEMENTS =====
+      const qView = document.getElementById("qView");
+      const rView = document.getElementById("rView");
+      const qMeta = document.getElementById("qMeta");
+      const qTitle = document.getElementById("qTitle");
+      const qHint = document.getElementById("qHint");
+      const qChoices = document.getElementById("qChoices");
+      const btnBack = document.getElementById("btnBack");
+      const btnNext = document.getElementById("btnNext");
+      const btnRestart = document.getElementById("btnRestart");
+
       const ringBar = document.getElementById("ringBar");
+      const resultText = document.getElementById("resultText");
 
-      let idx = 0;
+      // ===== STATE =====
+      let step = 0;
+      const answers = new Array(questions.length).fill(null);
 
-      // Ring geometry
+      // ===== RING =====
       const r = 46;
       const circumference = 2 * Math.PI * r;
       ringBar.style.strokeDasharray = `0 ${circumference}`;
@@ -402,87 +443,121 @@
         ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
       }
 
-      function show(i){
-        blocks.forEach((b, n)=> b.classList.toggle("active", n === i));
-        backBtn.disabled = (i === 0);
+      // ===== RENDER =====
+      function renderStep(){
+        const q = questions[step];
 
-        // Next-Button Text: bis Frage 6 "Weiter", bei Frage 7 "Auswerten"
-        nextBtn.textContent = (i === blocks.length - 1) ? "Auswerten" : "Weiter";
+        qMeta.textContent = `Frage ${step+1} von ${questions.length}`;
+        qTitle.textContent = q.title;
+        qHint.textContent = q.hint;
 
-        // Button aktiv nur wenn aktuelle Frage beantwortet
-        updateNextEnabled();
-      }
+        qChoices.innerHTML = "";
+        qChoices.classList.toggle("five", q.options.length === 5);
 
-      function currentAnswered(){
-        const name = "q" + (idx + 1);
-        return !!form.querySelector(`input[name="${name}"]:checked`);
-      }
+        q.options.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "choice";
+          btn.textContent = opt.label;
 
-      function updateNextEnabled(){
-        nextBtn.disabled = !currentAnswered();
-      }
+          if (answers[step] === opt.value) btn.classList.add("is-selected");
 
-      // Wenn eine Option gewählt wird, Button aktivieren und optional auto-weiter (sanft)
-      form.addEventListener("change", (e)=>{
-        if (e.target && e.target.matches('input[type="radio"]')){
-          updateNextEnabled();
+          btn.addEventListener("click", () => {
+            answers[step] = opt.value;
 
-          // Sanfter Auto-Flow: nach Auswahl automatisch 450ms später weiter (außer letzte Frage)
-          if (idx < blocks.length - 1){
-            setTimeout(()=>{
-              if (currentAnswered() && idx < blocks.length - 1){
-                idx++;
-                show(idx);
-                window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+            // Auswahl optisch setzen
+            [...qChoices.querySelectorAll(".choice")].forEach(x => x.classList.remove("is-selected"));
+            btn.classList.add("is-selected");
+
+            // Auto-Weiter (sanft)
+            setTimeout(() => {
+              if (step < questions.length - 1){
+                step++;
+                renderStep();
+                scrollCardTop();
+              } else {
+                showResult();
               }
-            }, 450);
-          }
+            }, 120);
+          });
+
+          qChoices.appendChild(btn);
+        });
+
+        // Back deaktivieren auf Schritt 0
+        btnBack.disabled = (step === 0);
+        btnBack.style.opacity = btnBack.disabled ? ".55" : "1";
+      }
+
+      function scrollCardTop(){
+        try{
+          document.querySelector("#ekompass .card-compass").scrollIntoView({behavior:"smooth", block:"start"});
+        }catch(_){}
+      }
+
+      function canProceed(){
+        return answers[step] !== null;
+      }
+
+      btnNext.addEventListener("click", () => {
+        if (!canProceed()) return; // nix ausgewählt -> nix passiert
+        if (step < questions.length - 1){
+          step++;
+          renderStep();
+          scrollCardTop();
+        } else {
+          showResult();
         }
       });
 
-      backBtn.addEventListener("click", ()=>{
-        if (idx > 0){
-          idx--;
-          show(idx);
-          window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+      btnBack.addEventListener("click", () => {
+        if (step > 0){
+          step--;
+          renderStep();
+          scrollCardTop();
         }
       });
 
-      nextBtn.addEventListener("click", ()=>{
-        if (!currentAnswered()) return;
-
-        if (idx < blocks.length - 1){
-          idx++;
-          show(idx);
-          window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+      function showResult(){
+        // Sicherheit: alle beantwortet?
+        const filled = answers.every(v => v !== null);
+        if (!filled){
+          // spring zur ersten offenen Frage
+          step = answers.findIndex(v => v === null);
+          renderStep();
+          scrollCardTop();
           return;
         }
 
-        // AUSWERTEN
-        // 7 Fragen à 0..4 => max 28
-        let sum = 0;
-        for (let i=1;i<=7;i++){
-          const v = form.querySelector(`input[name="q${i}"]:checked`);
-          if (!v) return;
-          sum += Number(v.value);
-        }
-        const percent = Math.round((sum / 28) * 100);
-
-        // Fragen ausblenden, Ergebnis zeigen
-        blocks.forEach(b => b.classList.remove("active"));
-        document.querySelector(".navrow").style.display = "none";
+        const sum = answers.reduce((a,b) => a + b, 0);
+        const max = questions.length * 4;
+        const percent = Math.round((sum / max) * 100);
 
         setRing(percent);
         resultText.textContent = `Dein Energie-Level liegt bei ${percent}%`;
-        resultBox.style.display = "block";
 
-        // Fokus/Scroll aufs Ergebnis
-        resultBox.scrollIntoView({behavior:"smooth", block:"start"});
-      });
+        qView.classList.add("hidden");
+        rView.classList.remove("hidden");
+        scrollCardTop();
+      }
 
-      // Initial
+      function resetAll(){
+        step = 0;
+        for (let i=0;i<answers.length;i++) answers[i] = null;
+        setRing(0);
+        resultText.textContent = "Dein Energie-Level liegt bei 0%";
+        rView.classList.add("hidden");
+        qView.classList.remove("hidden");
+        renderStep();
+        scrollCardTop();
+      }
+
+      btnRestart.addEventListener("click", resetAll);
+
+      // ===== INIT =====
       setRing(0);
-      show(0);
+      renderStep();
+
     })();
   </script>
 
