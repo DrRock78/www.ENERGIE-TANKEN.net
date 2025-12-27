@@ -1,381 +1,289 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Energie-Kompass: 7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala. " />
+<title>Energie-Level messen – ENERGIE-TANKEN.net</title>
+<meta name="description" content="Energie-Level messen – klar, ruhig, fokussiert. Eine Einschätzung deines aktuellen Energie-Zustands.">
 
-  <link rel="stylesheet" href="style.css?v=20251227-2" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#060607;
+  --gold:#c9ab58;
+  --gold2:#b8923d;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Montserrat,system-ui,sans-serif;
+  background:linear-gradient(180deg,#060607,#0b0b0d);
+  color:#fff;
+}
+
+main{
+  max-width:1100px;
+  margin:0 auto;
+  padding:40px 16px 80px;
+  text-align:center;
+}
+
+/* HERO */
+.hero h1{
+  color:var(--gold);
+  font-size:clamp(30px,6vw,56px);
+  font-weight:800;
+  letter-spacing:.06em;
+  margin-bottom:14px;
+}
+
+.hero p{
+  color:rgba(255,255,255,.7);
+  max-width:760px;
+  margin:0 auto 40px;
+  line-height:1.6;
+}
+
+/* QUESTIONS */
+.question{
+  display:none;
+  max-width:760px;
+  margin:0 auto;
+}
+
+.question.active{display:block}
+
+.qtitle{
+  font-size:26px;
+  font-weight:700;
+  color:var(--gold);
+  margin-bottom:14px;
+}
+
+.scale{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+
+.scale button{
+  background:transparent;
+  border:1px solid rgba(201,171,88,.35);
+  color:#fff;
+  padding:14px 10px;
+  border-radius:999px;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.scale button:hover{
+  background:rgba(201,171,88,.12);
+}
+
+/* RESULT */
+#result{
+  display:none;
+  margin-top:60px;
+}
+
+.ring{
+  width:280px;
+  height:280px;
+  margin:0 auto 30px;
+  position:relative;
+}
+
+svg{transform:rotate(-90deg)}
+
+circle{
+  fill:none;
+  stroke-width:14;
+}
+
+.track{stroke:rgba(255,255,255,.12)}
+.bar{stroke:url(#goldGrad);stroke-linecap:round}
+
+.logo-cta{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+
+.logo-cta img{
+  width:140px;
+  filter:drop-shadow(0 0 18px rgba(201,171,88,.25));
+}
+
+.result-text{
+  font-size:34px;
+  font-weight:800;
+  color:var(--gold);
+  margin-bottom:12px;
+}
+
+.result-sub{
+  color:rgba(255,255,255,.7);
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAV (identisch) -->
-  <nav class="topnav">
-    <div class="topnav-inner">
-      <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-      <div class="topnav-links">
-        <a href="index.html">Home</a>
-        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-        <a href="anwendungen.html">Anwendungen</a>
-        <a href="shop.html">Shop</a>
-        <a href="wissenswertes.html">Wissenswertes</a>
-        <a href="medien.html">Medien</a>
-        <a href="kontakt.html">Kontakt</a>
-        <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
-      </div>
+<main>
+
+<section class="hero">
+  <h1>GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+  <p>Beantworte ein paar kurze Fragen.  
+  Du bekommst eine ruhige Einschätzung deines aktuellen Energie-Zustands.</p>
+</section>
+
+<!-- QUESTIONS -->
+<div id="questions">
+
+  <div class="question active" data-q="1">
+    <div class="qtitle">Wie erholt fühlst du dich nach dem Aufwachen?</div>
+    <div class="scale">
+      <button data-v="0">gar nicht</button>
+      <button data-v="1">selten</button>
+      <button data-v="2">mittel</button>
+      <button data-v="3">gut</button>
+      <button data-v="4">sehr gut</button>
     </div>
-  </nav>
+  </div>
 
-  <!-- HERO (identisch wie Startseite) -->
-  <section class="hero-top">
-    <div class="hero-logo">
-      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
+  <div class="question" data-q="2">
+    <div class="qtitle">Wie konstant ist dein Schlafrhythmus?</div>
+    <div class="scale">
+      <button data-v="0">chaotisch</button>
+      <button data-v="1">unruhig</button>
+      <button data-v="2">wechselnd</button>
+      <button data-v="3">regelmäßig</button>
+      <button data-v="4">stabil</button>
     </div>
+  </div>
 
-    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-
-    <p class="hero-quote">
-      „Wenn du die Geheimnisse des Universums verstehen willst,
-      denke in Begriffen von Energie, Frequenz und Schwingung.“
-      – Nikola Tesla
-    </p>
-
-    <div class="hero-visual">
-      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
+  <div class="question" data-q="3">
+    <div class="qtitle">Wie regelmäßig trinkst du Wasser?</div>
+    <div class="scale">
+      <button data-v="0">kaum</button>
+      <button data-v="1">zu wenig</button>
+      <button data-v="2">unregelmäßig</button>
+      <button data-v="3">gut</button>
+      <button data-v="4">konstant</button>
     </div>
+  </div>
 
-    <a class="btn btn-primary" href="#kompass">Energie-Level messen</a>
-  </section>
+  <div class="question" data-q="4">
+    <div class="qtitle">Wie selten trinkst du Softdrinks oder Säfte?</div>
+    <div class="scale">
+      <button data-v="0">oft</button>
+      <button data-v="1">mehrmals/Woche</button>
+      <button data-v="2">gelegentlich</button>
+      <button data-v="3">selten</button>
+      <button data-v="4">fast nie</button>
+    </div>
+  </div>
 
-  <!-- CONTENT -->
-  <main class="container" id="kompass">
+  <div class="question" data-q="5">
+    <div class="qtitle">Wie selten isst du Fastfood?</div>
+    <div class="scale">
+      <button data-v="0">oft</button>
+      <button data-v="1">mehrmals/Woche</button>
+      <button data-v="2">gelegentlich</button>
+      <button data-v="3">selten</button>
+      <button data-v="4">fast nie</button>
+    </div>
+  </div>
 
-    <section class="section">
-      <h2>Energie-Kompass</h2>
-      <p>
-        7 kurze Antworten. Danach siehst du dein Energie-Level als Prozent und Gold-Skala.
-      </p>
-    </section>
+  <div class="question" data-q="6">
+    <div class="qtitle">Wie regelmäßig bewegst du dich?</div>
+    <div class="scale">
+      <button data-v="0">kaum</button>
+      <button data-v="1">selten</button>
+      <button data-v="2">wechselnd</button>
+      <button data-v="3">regelmäßig</button>
+      <button data-v="4">konstant</button>
+    </div>
+  </div>
 
-    <section class="section">
-      <div class="compass-wrap">
-        <div class="compass-grid">
+  <div class="question" data-q="7">
+    <div class="qtitle">Wie klar fühlst du dich tagsüber?</div>
+    <div class="scale">
+      <button data-v="0">neblig</button>
+      <button data-v="1">schwankend</button>
+      <button data-v="2">okay</button>
+      <button data-v="3">klar</button>
+      <button data-v="4">sehr klar</button>
+    </div>
+  </div>
 
-          <!-- LEFT: GAUGE / RESULT -->
-          <div class="card gauge" id="gaugeCard">
-            <div class="gauge-title">Dein aktuelles Energie-Level</div>
+</div>
 
-            <div class="gauge-ring-wrap" aria-label="Energie-Skala">
-              <svg class="ring ring-glow" viewBox="0 0 120 120">
-                <defs>
-                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#c9ab58"/>
-                    <stop offset="100%" stop-color="#b8923d"/>
-                  </linearGradient>
-                </defs>
+<!-- RESULT -->
+<div id="result">
+  <div class="ring">
+    <svg viewBox="0 0 200 200">
+      <defs>
+        <linearGradient id="goldGrad">
+          <stop offset="0%" stop-color="#c9ab58"/>
+          <stop offset="100%" stop-color="#b8923d"/>
+        </linearGradient>
+      </defs>
+      <circle class="track" cx="100" cy="100" r="80"/>
+      <circle class="bar" cx="100" cy="100" r="80" id="bar"/>
+    </svg>
 
-                <circle class="track" cx="60" cy="60" r="46"></circle>
-                <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
-              </svg>
+    <a class="logo-cta" href="https://www.energie-tanken.net/kontakt">
+      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
+    </a>
+  </div>
 
-              <!-- CTA LOGO BUTTON (erscheint erst nach Auswertung) -->
-              <a class="ring-cta" id="ringCta" href="kontakt.html" aria-label="Kontakt aufnehmen" title="Kontakt aufnehmen" style="display:none;">
-                <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
-              </a>
-            </div>
+  <div class="result-text" id="scoreText"></div>
+  <div class="result-sub">
+    Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
+  </div>
+</div>
 
-            <div class="gauge-number" id="scoreNum">—%</div>
-            <div class="gauge-sub" id="scoreSub">
-              Beantworte die Frage – dann kommt die nächste.
-            </div>
+</main>
 
-            <div class="cta-line" id="ctaLine" style="display:none;">
-              Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
-            </div>
-          </div>
+<script>
+const questions=document.querySelectorAll('.question');
+let index=0,sum=0;
 
-          <!-- RIGHT: ONE QUESTION AT A TIME -->
-          <div class="card" id="formCard">
-            <form class="compass-form" id="compassForm" novalidate>
-
-              <div class="step-head">
-                <div class="step-kicker" id="stepKicker">Frage 1 von 7</div>
-              </div>
-
-              <!-- STEP 1 -->
-              <div class="qstep is-active" data-step="1">
-                <div class="qtitle">1) Schlaf</div>
-                <div class="qhint">Wie konstant ist dein Schlaf über die letzten 14 Tage?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q1" value="0" required><span>chaotisch</span></label>
-                  <label class="pill"><input type="radio" name="q1" value="1"><span>unruhig</span></label>
-                  <label class="pill"><input type="radio" name="q1" value="2"><span>okay</span></label>
-                  <label class="pill"><input type="radio" name="q1" value="3"><span>gut</span></label>
-                  <label class="pill"><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 2 -->
-              <div class="qstep" data-step="2">
-                <div class="qtitle">2) Trinken</div>
-                <div class="qhint">Wie regelmäßig trinkst du über den Tag verteilt?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q2" value="0" required><span>selten</span></label>
-                  <label class="pill"><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
-                  <label class="pill"><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
-                  <label class="pill"><input type="radio" name="q2" value="3"><span>gut</span></label>
-                  <label class="pill"><input type="radio" name="q2" value="4"><span>konstant</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 3 -->
-              <div class="qstep" data-step="3">
-                <div class="qtitle">3) Softdrinks & Säfte</div>
-                <div class="qhint">Wie selten sind Softdrinks / süße Säfte bei dir?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q3" value="0" required><span>oft</span></label>
-                  <label class="pill"><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
-                  <label class="pill"><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
-                  <label class="pill"><input type="radio" name="q3" value="3"><span>selten</span></label>
-                  <label class="pill"><input type="radio" name="q3" value="4"><span>fast nie</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 4 -->
-              <div class="qstep" data-step="4">
-                <div class="qtitle">4) Fastfood</div>
-                <div class="qhint">Wie selten ist Fastfood bei dir?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q4" value="0" required><span>oft</span></label>
-                  <label class="pill"><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
-                  <label class="pill"><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
-                  <label class="pill"><input type="radio" name="q4" value="3"><span>selten</span></label>
-                  <label class="pill"><input type="radio" name="q4" value="4"><span>fast nie</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 5 -->
-              <div class="qstep" data-step="5">
-                <div class="qtitle">5) Bewegung</div>
-                <div class="qhint">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q5" value="0" required><span>kaum</span></label>
-                  <label class="pill"><input type="radio" name="q5" value="1"><span>selten</span></label>
-                  <label class="pill"><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
-                  <label class="pill"><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
-                  <label class="pill"><input type="radio" name="q5" value="4"><span>konstant</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 6 -->
-              <div class="qstep" data-step="6">
-                <div class="qtitle">6) Stress-Last</div>
-                <div class="qhint">Wie gut kommst du aktuell mit Belastung klar?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q6" value="0" required><span>überlastet</span></label>
-                  <label class="pill"><input type="radio" name="q6" value="1"><span>angespannt</span></label>
-                  <label class="pill"><input type="radio" name="q6" value="2"><span>okay</span></label>
-                  <label class="pill"><input type="radio" name="q6" value="3"><span>stabil</span></label>
-                  <label class="pill"><input type="radio" name="q6" value="4"><span>sehr stabil</span></label>
-                </div>
-              </div>
-
-              <!-- STEP 7 -->
-              <div class="qstep" data-step="7">
-                <div class="qtitle">7) Fokus & Klarheit</div>
-                <div class="qhint">Wie klar und fokussiert fühlst du dich tagsüber?</div>
-
-                <div class="scale scale-pills">
-                  <label class="pill"><input type="radio" name="q7" value="0" required><span>neblig</span></label>
-                  <label class="pill"><input type="radio" name="q7" value="1"><span>schwankend</span></label>
-                  <label class="pill"><input type="radio" name="q7" value="2"><span>okay</span></label>
-                  <label class="pill"><input type="radio" name="q7" value="3"><span>klar</span></label>
-                  <label class="pill"><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
-                </div>
-              </div>
-
-              <div class="compass-actions">
-                <button class="btn btn-secondary" type="button" id="backBtn">Zurück</button>
-                <button class="btn btn-primary" type="button" id="nextBtn">Weiter</button>
-                <button class="btn btn-primary" type="submit" id="evalBtn" style="display:none;">Auswerten</button>
-              </div>
-
-              <div class="micro-note" id="microNote">
-                Bitte eine Option wählen.
-              </div>
-
-              <div class="compass-actions" style="margin-top:10px;">
-                <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
-              </div>
-
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    © 2025 ENERGIE-TANKEN.net
-  </footer>
-
-  <script>
-    (function(){
-      const form = document.getElementById("compassForm");
-      const steps = Array.from(document.querySelectorAll(".qstep"));
-      const stepKicker = document.getElementById("stepKicker");
-      const backBtn = document.getElementById("backBtn");
-      const nextBtn = document.getElementById("nextBtn");
-      const evalBtn = document.getElementById("evalBtn");
-      const resetBtn = document.getElementById("resetBtn");
-      const microNote = document.getElementById("microNote");
-
-      const ringBar = document.getElementById("ringBar");
-      const scoreNum = document.getElementById("scoreNum");
-      const scoreSub = document.getElementById("scoreSub");
-      const ringCta = document.getElementById("ringCta");
-      const ctaLine = document.getElementById("ctaLine");
-
-      let current = 1;
-
-      // Ring geometry
-      const r = 46;
-      const circumference = 2 * Math.PI * r;
-      ringBar.style.strokeDasharray = `0 ${circumference}`;
-
-      function setRing(percent){
-        const p = Math.max(0, Math.min(100, percent));
-        const dash = (p / 100) * circumference;
-        ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
+questions.forEach(q=>{
+  q.querySelectorAll('button').forEach(b=>{
+    b.onclick=()=>{
+      sum+=+b.dataset.v;
+      q.classList.remove('active');
+      index++;
+      if(index<questions.length){
+        questions[index].classList.add('active');
+      }else{
+        showResult();
       }
+    }
+  })
+});
 
-      function showStep(n){
-        current = n;
-        steps.forEach(s => s.classList.remove("is-active"));
-        const active = steps.find(s => Number(s.dataset.step) === n);
-        if(active) active.classList.add("is-active");
+function showResult(){
+  const percent=Math.round((sum/28)*100);
+  document.getElementById('questions').style.display='none';
+  document.getElementById('result').style.display='block';
+  document.getElementById('scoreText').textContent=
+    `Dein Energie-Level liegt bei ${percent} %`;
 
-        stepKicker.textContent = `Frage ${n} von 7`;
-
-        backBtn.disabled = (n === 1);
-
-        // Last step: show Auswerten instead of Weiter
-        if(n === 7){
-          nextBtn.style.display = "none";
-          evalBtn.style.display = "inline-flex";
-        } else {
-          nextBtn.style.display = "inline-flex";
-          evalBtn.style.display = "none";
-        }
-
-        microNote.classList.remove("show");
-        // subtle scroll for mobile
-        try{
-          active.scrollIntoView({behavior:"smooth", block:"nearest"});
-        }catch(_){}
-      }
-
-      function hasAnswer(stepNum){
-        const name = "q" + stepNum;
-        return !!form.querySelector(`input[name="${name}"]:checked`);
-      }
-
-      function requireAnswerOrWarn(stepNum){
-        if(hasAnswer(stepNum)) return true;
-        microNote.classList.add("show");
-        return false;
-      }
-
-      function calcScore(){
-        let sum = 0;
-        for(let i=1;i<=7;i++){
-          const checked = form.querySelector(`input[name="q${i}"]:checked`);
-          if(!checked) return null;
-          sum += Number(checked.value);
-        }
-        // 7 Fragen à 0..4 => max 28
-        const percent = Math.round((sum / 28) * 100);
-        return percent;
-      }
-
-      // Buttons
-      backBtn.addEventListener("click", ()=>{
-        if(current > 1) showStep(current - 1);
-      });
-
-      nextBtn.addEventListener("click", ()=>{
-        if(!requireAnswerOrWarn(current)) return;
-        showStep(current + 1);
-      });
-
-      // hide micro warning on selection
-      form.addEventListener("change", (e)=>{
-        if(e.target && e.target.matches('input[type="radio"]')){
-          microNote.classList.remove("show");
-        }
-      });
-
-      form.addEventListener("submit", (e)=>{
-        e.preventDefault();
-        if(!requireAnswerOrWarn(current)) return;
-
-        const score = calcScore();
-        if(score === null) return;
-
-        setRing(score);
-        scoreNum.textContent = score + "%";
-        scoreSub.textContent = `Dein Energie-Level liegt bei ${score}%.`;
-
-        // CTA appears only after evaluation
-        ringCta.style.display = "flex";
-        ctaLine.style.display = "block";
-
-        // After evaluation: keep it clean — hide the whole question card
-        const formCard = document.getElementById("formCard");
-        formCard.style.display = "none";
-
-        // scroll to result so CTA is visible
-        try{
-          document.getElementById("gaugeCard").scrollIntoView({behavior:"smooth", block:"start"});
-        }catch(_){}
-      });
-
-      resetBtn.addEventListener("click", ()=>{
-        form.reset();
-        setRing(0);
-        scoreNum.textContent = "—%";
-        scoreSub.textContent = "Beantworte die Frage – dann kommt die nächste.";
-        ringCta.style.display = "none";
-        ctaLine.style.display = "none";
-        microNote.classList.remove("show");
-
-        const formCard = document.getElementById("formCard");
-        formCard.style.display = "block";
-        showStep(1);
-        try{
-          document.getElementById("kompass").scrollIntoView({behavior:"smooth", block:"start"});
-        }catch(_){}
-      });
-
-      // init
-      setRing(0);
-      showStep(1);
-    })();
-  </script>
+  const r=80,c=2*Math.PI*r;
+  const bar=document.getElementById('bar');
+  bar.style.strokeDasharray=`${c*(percent/100)} ${c}`;
+}
+</script>
 
 </body>
 </html>
