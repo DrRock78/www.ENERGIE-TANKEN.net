@@ -1,24 +1,17 @@
 /* =========================================================
-   ENERGIE-TANKEN.net — Premium Gold (Final)
-   + Kontaktseite (edel): goldene Labels, schwarze Felder, goldener Button
+   ENERGIE-TANKEN.net — PREMIUM GOLD (FINAL / CLEAN)
    ========================================================= */
 
 :root{
   --bg:#060607;
   --bg2:#0b0b0d;
   --text:#d7d7d9;
-  --muted:#a7a7aa;
+  --muted:#9b9b9f;
   --gold:#c9ab58;
   --gold2:#b8923d;
   --border:rgba(255,255,255,.10);
   --shadow:rgba(0,0,0,.55);
   --max:1100px;
-
-  --field-bg: rgba(0,0,0,.55);
-  --field-border: rgba(201,171,88,.28);
-  --field-border2: rgba(201,171,88,.55);
-  --field-text: rgba(255,255,255,.88);
-  --field-placeholder: rgba(255,255,255,.28);
 }
 
 *{box-sizing:border-box}
@@ -32,362 +25,159 @@ body{
     radial-gradient(700px 420px at 20% 20%, rgba(255,255,255,.06), transparent 58%),
     linear-gradient(180deg, var(--bg), var(--bg2));
   color:var(--text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-a{color:inherit;text-decoration:none}
-a:focus{outline:2px solid rgba(201,171,88,.5); outline-offset:3px}
+/* Textauswahl & Cursor */
+::selection{background:rgba(201,171,88,.35); color:#111}
+input, textarea, select{caret-color:var(--gold)}
 
-/* ---------------------------------------------------------
-   NAV — klein, waagerecht, NICHT sticky + klickbar FIX
-   --------------------------------------------------------- */
+a{text-decoration:none;color:inherit}
+
+/* NAV */
 .topnav{
-  position:relative;
-  z-index:9999;
   background:rgba(0,0,0,.26);
   border-bottom:1px solid rgba(255,255,255,.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
-
 .topnav-inner{
   max-width:var(--max);
   margin:0 auto;
   padding:10px 14px;
   display:flex;
   align-items:center;
-  gap:12px;
 }
-
 .topnav-brand{
   font-weight:800;
   letter-spacing:.08em;
   text-transform:uppercase;
-  font-size:14px;
-  color:rgba(255,255,255,.90);
-  white-space:nowrap;
-  flex:0 0 auto;
 }
-
 .topnav-links{
   margin-left:auto;
   display:flex;
-  align-items:center;
   gap:8px;
-  flex-wrap:nowrap;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  position:relative;
-  z-index:10000;
-  pointer-events:auto;
 }
-.topnav-links::-webkit-scrollbar{display:none}
-
 .topnav-links a{
   font-size:13px;
-  font-weight:600;
-  color:rgba(255,255,255,.78);
   padding:7px 10px;
   border-radius:999px;
-  white-space:nowrap;
-  transition:background .15s ease, color .15s ease;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:auto;
+  color:rgba(255,255,255,.8);
 }
-
 .topnav-links a:hover{
   background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.92);
 }
 
-/* ---------------------------------------------------------
-   HERO — alle Overlays dürfen KEINE Klicks fressen
-   --------------------------------------------------------- */
+/* HERO */
 .hero-top{
   max-width:var(--max);
   margin:0 auto;
-  padding:22px 14px 14px;
+  padding:32px 14px;
   text-align:center;
-  position:relative;
-  z-index:1;
 }
-
-.hero-top::before,
-.hero-top::after,
-.hero-logo::before,
-.hero-logo::after,
-.hero-visual::before,
-.hero-visual::after{
-  pointer-events:none !important;
-}
-
-.hero-logo{
-  margin:6px auto 14px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-  z-index:2;
-}
-
 .hero-logo img{
-  display:block;
-  width:min(560px, 88vw);
-  height:auto;
-  background:transparent !important;
-  border:0 !important;
-  box-shadow:none !important;
-  border-radius:0 !important;
-  filter:none !important;
+  width:min(560px,88vw);
 }
-
 .hero-headline{
-  margin:16px 0 10px;
+  margin:18px 0 10px;
   font-weight:800;
   letter-spacing:.06em;
   text-transform:uppercase;
-  line-height:1.06;
   color:var(--gold);
-  font-size:clamp(30px, 6.5vw, 58px);
+  font-size:clamp(32px,6vw,58px);
 }
-
 .hero-quote{
-  margin:0 auto 18px;
   max-width:860px;
-  font-size:clamp(15px, 3.8vw, 20px);
-  color:rgba(255,255,255,.74);
-  line-height:1.75;
+  margin:0 auto 18px;
+  color:rgba(255,255,255,.75);
+  line-height:1.7;
 }
-
-.hero-visual{
-  margin:16px auto 12px;
-  display:flex;
-  justify-content:center;
-  position:relative;
-  z-index:2;
-}
-
 .hero-visual img{
-  width:min(920px, 94vw);
-  height:auto;
-  display:block;
+  width:min(920px,94vw);
   border-radius:18px;
-  box-shadow: 0 18px 60px var(--shadow);
-  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 18px 60px var(--shadow);
 }
 
-/* ---------------------------------------------------------
-   BUTTONS
-   --------------------------------------------------------- */
+/* BUTTONS */
 .btn{
   display:inline-flex;
-  align-items:center;
   justify-content:center;
-  gap:.5rem;
+  align-items:center;
   padding:14px 22px;
   border-radius:999px;
   font-weight:700;
-  font-size:15px;
-  letter-spacing:.02em;
   border:1px solid rgba(201,171,88,.45);
-  line-height:1;
-  white-space:nowrap;
-  min-height:46px;
-  margin:14px 0 0;
-  transition:transform .12s ease, background .12s ease, border-color .12s ease;
 }
-
 .btn-primary{
-  background:linear-gradient(180deg, var(--gold), var(--gold2));
+  background:linear-gradient(180deg,var(--gold),var(--gold2));
   color:#111;
-  border-color:transparent;
 }
 .btn-primary:hover{transform:translateY(-1px)}
 
-.btn-secondary{
-  background:transparent;
-  color:var(--gold);
-}
-.btn-secondary:hover{
-  background:rgba(201,171,88,.08);
-  transform:translateY(-1px);
-}
-
-/* ---------------------------------------------------------
-   CONTENT
-   --------------------------------------------------------- */
+/* CONTENT */
 .container{
   max-width:var(--max);
   margin:0 auto;
   padding:18px 14px 44px;
 }
-
 .section{
-  padding:22px 0;
+  padding:24px 0;
   border-top:1px solid rgba(255,255,255,.05);
 }
-.section:first-child{border-top:0}
-
 h2{
-  margin:0 0 10px;
-  font-size:30px;
   color:var(--gold);
-  font-weight:800;
-  line-height:1.15;
+  font-size:30px;
 }
-
 p{
-  margin:0 0 14px;
-  color:rgba(255,255,255,.76);
-  line-height:1.78;
-  font-size:16px;
   max-width:78ch;
-  margin-left:auto;
-  margin-right:auto;
+  margin:0 auto 14px;
+  line-height:1.75;
 }
 
-.section .btn{ margin-top:16px; }
-
-/* ---------------------------------------------------------
-   KONTAKT — edel (Gold + Schwarz)
-   --------------------------------------------------------- */
-.contact-page h2{
-  text-align:left;
-  max-width:var(--max);
-}
-
-.contact-page p{
-  text-align:left;
-  margin-left:0;
-  margin-right:0;
-  max-width:78ch;
-}
-
+/* =====================================
+   KONTAKTFORMULAR — GOLD / EDEL
+   ===================================== */
 .contact-form{
-  max-width:720px;
-  margin:18px auto 0;
-  padding:22px;
-  border-radius:18px;
-  background:rgba(0,0,0,.22);
-  border:1px solid rgba(255,255,255,.06);
-  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  max-width:520px;
+  margin:0 auto;
 }
-
-.field{ margin:14px 0; }
-
-label{
+.contact-form label{
   display:block;
-  margin:0 0 8px;
-  font-weight:700;
-  letter-spacing:.02em;
-  color:rgba(201,171,88,.95);
-  font-size:13px;
+  margin:18px 0 6px;
+  color:var(--gold);
+  font-weight:600;
+  letter-spacing:.05em;
   text-transform:uppercase;
-}
-
-input, textarea, select{
-  width:100%;
-  border-radius:12px;
-  border:1px solid var(--field-border);
-  background:var(--field-bg);
-  color:var(--field-text);
-  padding:12px 14px;
-  font-size:15px;
-  outline:none;
-  transition:border-color .15s ease, box-shadow .15s ease, transform .12s ease;
-}
-
-textarea{ resize:vertical; min-height:130px; }
-
-input::placeholder, textarea::placeholder{
-  color:var(--field-placeholder);
-}
-
-input:focus, textarea:focus, select:focus{
-  border-color:var(--field-border2);
-  box-shadow:0 0 0 3px rgba(201,171,88,.12);
-}
-
-select{
-  appearance:none;
-  -webkit-appearance:none;
-}
-
-.btn-submit{
-  width:100%;
-  margin-top:14px;
-  min-height:50px;
-  font-size:16px;
-}
-
-.contact-alt{
-  margin:14px 0 0;
-  color:rgba(255,255,255,.62);
   font-size:13px;
-  line-height:1.6;
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(201,171,88,.35);
+  color:var(--gold);
+  font-size:15px;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+  color:rgba(201,171,88,.45);
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 2px rgba(201,171,88,.25);
+}
+.contact-form button{
+  width:100%;
+  margin-top:22px;
 }
 
-.contact-mail{
-  color:rgba(201,171,88,.95);
-  font-weight:700;
-  text-decoration:none;
-  border-bottom:1px solid rgba(201,171,88,.35);
-}
-.contact-mail:hover{
-  border-bottom-color:rgba(201,171,88,.75);
-}
-
-/* ---------------------------------------------------------
-   FOOTER
-   --------------------------------------------------------- */
+/* FOOTER */
 footer{
   text-align:center;
-  padding:22px 16px 34px;
+  padding:24px;
   color:rgba(255,255,255,.45);
   font-size:13px;
-  border-top:1px solid rgba(255,255,255,.06);
-}
-
-/* ---------------------------------------------------------
-   MOBILE
-   --------------------------------------------------------- */
-@media (max-width:520px){
-  .topnav-inner{padding:8px 10px}
-  .topnav-brand{font-size:12.5px}
-  .topnav-links a{padding:6px 9px; font-size:12px}
-
-  .hero-top{padding:18px 12px 12px}
-  .hero-logo img{width:min(520px, 86vw)}
-
-  h2{font-size:26px}
-
-  p{
-    font-size:16px;
-    max-width:unset;
-    margin-left:0;
-    margin-right:0;
-  }
-
-  .btn{
-    padding:13px 18px;
-    font-size:14px;
-    min-height:44px;
-    max-width:92vw;
-  }
-
-  .contact-form{
-    padding:16px;
-    border-radius:16px;
-  }
-}
-
-/* DESKTOP */
-@media (min-width:980px){
-  .hero-top{padding:40px 16px 26px}
-  .hero-visual img{border-radius:22px}
-  .container{padding-top:34px}
 }
