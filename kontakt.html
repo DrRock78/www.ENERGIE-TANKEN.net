@@ -4,88 +4,250 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Kontakt – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Kontakt & persönliche Beratung – Hochfrequenz nach Nikola Tesla. ENERGIE-TANKEN.net" />
+  <title>Kontakt & Beratung – ENERGIE-TANKEN.net</title>
+  <meta name="description" content="Trag dich ein – ich melde mich persönlich bei dir. ENERGIE-TANKEN.net" />
 
-  <link rel="stylesheet" href="style.css?v=12" />
+  <!-- Cache-Buster hochsetzen, damit du sicher die neue CSS siehst -->
+  <link rel="stylesheet" href="style.css?v=11" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Kontakt-Page: nur hier ===== */
+    :root{
+      --gold:#c9ab58;
+      --gold2:#b8923d;
+    }
+
+    /* Header/Hero wie überall – damit es “eine Marke” bleibt */
+    .hero-top{ margin-bottom: 18px; }
+
+    /* Form-Section: Abstand & keine Schatten-Kollision */
+    .contact-shell{
+      padding-top: 10px;
+      padding-bottom: 30px;
+    }
+
+    .contact-card{
+      max-width: 860px;
+      margin: 0 auto;
+      border-radius: 22px;
+      background: rgba(10,10,10,.55);
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+
+    .contact-inner{
+      padding: 22px 18px 18px;
+    }
+
+    .contact-title{
+      margin: 0 0 10px 0;
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+    }
+
+    .contact-sub{
+      margin: 0 0 18px 0;
+      color: rgba(255,255,255,.75);
+    }
+
+    /* Felder */
+    .contact-form{
+      display: grid;
+      gap: 14px;
+    }
+
+    .field{
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label{
+      color: rgba(255,255,255,.72);
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select{
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(201,171,88,.22);
+      background: rgba(0,0,0,.28);
+      outline: none;
+
+      /* ✅ Eingabeschrift in Gold */
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .contact-form textarea{
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    /* ✅ Placeholder auch Gold, aber dezenter */
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder{
+      color: rgba(201,171,88,.55);
+      font-weight: 600;
+    }
+
+    /* Fokus: edel, nicht aggressiv */
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus{
+      border-color: rgba(201,171,88,.55);
+      box-shadow: 0 0 0 4px rgba(201,171,88,.10);
+    }
+
+    /* Button: Gold Premium */
+    .contact-actions{
+      margin-top: 10px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .contact-actions .btn-primary{
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-weight: 800;
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      color: #111;
+      border: none;
+      box-shadow: 0 10px 24px rgba(201,171,88,.12);
+    }
+
+    /* Alternativ-Mail */
+    .contact-alt{
+      margin-top: 14px;
+      text-align: center;
+      color: rgba(255,255,255,.62);
+    }
+    .contact-alt strong{
+      color: var(--gold);
+    }
+
+    /* Mobile spacing: damit nichts klebt */
+    @media (max-width: 520px){
+      .contact-inner{ padding: 18px 14px 16px; }
+      .contact-actions{ justify-content: stretch; }
+      .contact-actions .btn-primary{ width: 100%; }
+    }
+  </style>
 </head>
 
 <body>
 
+  <!-- NAV -->
   <nav class="topnav">
     <div class="topnav-inner">
       <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
       <div class="topnav-links">
         <a href="index.html">Home</a>
         <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-        <a href="energie-level-messen.html">Energie-Level messen</a>
+        <a href="anwendungen.html">Anwendungen</a>
+        <a href="shop.html">Shop</a>
+        <a href="wissenswertes.html">Wissenswertes</a>
+        <a href="medien.html">Medien</a>
         <a href="kontakt.html" aria-current="page">Kontakt</a>
+        <a href="energie-level-messen.html">Energie-Level messen</a>
       </div>
     </div>
   </nav>
 
+  <!-- HERO wie Startseite -->
   <section class="hero-top">
     <div class="hero-logo">
       <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
     </div>
 
-    <h1 class="hero-headline">KONTAKT & BERATUNG.</h1>
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
 
     <p class="hero-quote">
-      Trag dich ein – ich melde mich persönlich bei dir.
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen wie Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
     </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
+    </div>
+
+    <a class="btn btn-primary" href="#kontakt">Kontakt aufnehmen</a>
   </section>
 
-  <main class="container">
+  <!-- CONTENT -->
+  <main class="container contact-shell" id="kontakt">
+
     <section class="section">
-      <div class="card contact-card">
-        <form class="contact-form" action="#" method="post">
+      <div class="contact-card">
+        <div class="contact-inner">
+          <h2 class="contact-title">Kontakt & Beratung.</h2>
+          <p class="contact-sub">Trag dich ein – ich melde mich persönlich bei dir.</p>
 
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" type="text" name="name" required>
-          </div>
+          <!-- FORM -->
+          <form class="contact-form" action="#" method="post">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Dein Name" required>
+            </div>
 
-          <div class="field">
-            <label for="email">E-Mail</label>
-            <input id="email" type="email" name="email" required>
-          </div>
+            <div class="field">
+              <label for="email">E-Mail</label>
+              <input id="email" name="email" type="email" placeholder="dein.name@mail.de" required>
+            </div>
 
-          <div class="field">
-            <label for="phone">Telefon (optional)</label>
-            <input id="phone" type="tel" name="phone" inputmode="tel">
-          </div>
+            <div class="field">
+              <label for="phone">Telefon (optional)</label>
+              <input id="phone" name="phone" type="tel" placeholder="+49 …">
+            </div>
 
-          <div class="field">
-            <label for="message">Anliegen</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
+            <div class="field">
+              <label for="msg">Anliegen</label>
+              <textarea id="msg" name="message" placeholder="Worum geht es? (kurz reicht)"></textarea>
+            </div>
 
-          <div class="field">
-            <label for="interest">Interessensbereich</label>
-            <select id="interest" name="interest">
-              <option>Allgemeine Informationen</option>
-              <option>Hochfrequenz</option>
-              <option>Wasserstrukturierung</option>
-              <option>Geräte & Anwendungen</option>
-            </select>
-          </div>
+            <div class="field">
+              <label for="topic">Interessensbereich</label>
+              <select id="topic" name="topic">
+                <option>Allgemeine Informationen</option>
+                <option>Hochfrequenz-Anwendung</option>
+                <option>Wasser / Vitalisierung</option>
+                <option>Termin / Beratung</option>
+              </select>
+            </div>
 
-          <button type="submit" class="btn btn-primary" style="width:100%;">Anfrage senden</button>
+            <div class="contact-actions">
+              <button class="btn btn-primary btn-primary" type="submit">Anfrage senden</button>
+            </div>
 
-          <p class="contact-alt">
-            Alternativ per E-Mail: <strong>info@energie-tanken.net</strong>
-          </p>
+            <div class="contact-alt">
+              Alternativ per E-Mail: <strong>info@energie-tanken.net</strong>
+            </div>
+          </form>
 
-        </form>
+        </div>
       </div>
     </section>
+
   </main>
 
-  <footer>© 2025 ENERGIE-TANKEN.net</footer>
+  <footer>
+    © 2025 ENERGIE-TANKEN.net
+  </footer>
 
 </body>
 </html>
