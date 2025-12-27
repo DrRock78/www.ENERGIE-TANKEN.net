@@ -51,32 +51,52 @@
   function hideCTA() {
     if (!ringCta) return;
     ringCta.style.display = "none";
-    ringCta.replaceWith(ringCta.cloneNode(true)); // remove old listeners
+    // remove old listeners
+    ringCta.replaceWith(ringCta.cloneNode(true));
   }
 
   function showCTA() {
     const btn = document.getElementById("ringCta");
     if (!btn) return;
     btn.style.display = "flex";
-    btn.addEventListener("click", () => {
-      window.location.href = "kontakt.html";
-    }, { once: true });
+    btn.addEventListener(
+      "click",
+      () => {
+        window.location.href = "kontakt.html";
+      },
+      { once: true }
+    );
   }
 
   function bucket(percent) {
     if (percent < 30) {
-      return { badge: "niedrig", text: "Im Moment wirkt dein Akku eher leer. Wenn du Schlaf und Trinken stabilisierst, kippt das schnell ins Positive." };
+      return {
+        badge: "niedrig",
+        text: "Im Moment wirkt dein Akku eher leer. Wenn du Schlaf und Trinken stabilisierst, kippt das schnell ins Positive.",
+      };
     }
     if (percent < 55) {
-      return { badge: "stabil", text: "Du hast eine Basis. Zwei kleine Gewohnheiten konsequent – und du merkst den Unterschied in wenigen Tagen." };
+      return {
+        badge: "stabil",
+        text: "Du hast eine Basis. Zwei kleine Gewohnheiten konsequent – und du merkst den Unterschied in wenigen Tagen.",
+      };
     }
     if (percent < 75) {
-      return { badge: "gut", text: "Du bist gut unterwegs. Mit Rhythmus und Bewegung wird daraus zuverlässig Energie, die bleibt." };
+      return {
+        badge: "gut",
+        text: "Du bist gut unterwegs. Mit Rhythmus und Bewegung wird daraus zuverlässig Energie, die bleibt.",
+      };
     }
     if (percent < 90) {
-      return { badge: "sehr gut", text: "Sehr solide. Jetzt entscheidet Konstanz: Timing, Pausen, echte Regeneration." };
+      return {
+        badge: "sehr gut",
+        text: "Sehr solide. Jetzt entscheidet Konstanz: Timing, Pausen, echte Regeneration.",
+      };
     }
-    return { badge: "top", text: "Starke Reserve. Du hast ein Energie-Level, das viele nicht stabil halten – bleib bei deinem System." };
+    return {
+      badge: "top",
+      text: "Starke Reserve. Du hast ein Energie-Level, das viele nicht stabil halten – bleib bei deinem System.",
+    };
   }
 
   function readScorePercent() {
@@ -100,7 +120,7 @@
 
     blocks.forEach((b) => {
       const s = Number(b.dataset.step);
-      b.style.display = (s === step) ? "block" : "none";
+      b.style.display = s === step ? "block" : "none";
     });
 
     if (stepNow) stepNow.textContent = String(step);
@@ -118,9 +138,13 @@
     }
 
     // focus first option for accessibility
-    const firstInput = blocks.find(b => Number(b.dataset.step) === step)?.querySelector('input[type="radio"]');
+    const firstInput = blocks
+      .find((b) => Number(b.dataset.step) === step)
+      ?.querySelector('input[type="radio"]');
     if (firstInput) {
-      try { firstInput.focus({ preventScroll: true }); } catch (_) {}
+      try {
+        firstInput.focus({ preventScroll: true });
+      } catch (_) {}
     }
   }
 
@@ -137,14 +161,22 @@
 
   function resetUI() {
     setRing(0);
+
     if (scoreNum) scoreNum.textContent = "—%";
     if (scoreBadge) scoreBadge.textContent = "bereit";
+
     if (resultCopy) {
       resultCopy.style.display = "none";
       resultCopy.textContent = "";
     }
+
     hideCTA();
-    if (scoreSub) scoreSub.textContent = "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
+
+    // IMPORTANT: After reset we are not at end -> hide actionsRow again (setStep will do it),
+    // but if you want reset available after result, we re-hide here and rely on setStep(1).
+    if (scoreSub)
+      scoreSub.textContent =
+        "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
   }
 
   // Auto-advance when a radio is chosen
@@ -175,7 +207,9 @@
 
     const score = readScorePercent();
     if (score === null) {
-      if (scoreSub) scoreSub.textContent = "Bitte beantworte alle Fragen, dann bekommst du deine Skala.";
+      if (scoreSub)
+        scoreSub.textContent =
+          "Bitte beantworte alle Fragen, dann bekommst du deine Skala.";
       return;
     }
 
@@ -187,23 +221,40 @@
 
     if (resultCopy) {
       resultCopy.style.display = "block";
-      resultCopy.textContent = b.text + " Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.";
+      resultCopy.textContent =
+        b.text +
+        " Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.";
     }
 
     showCTA();
 
+    // FIX #1: Nach Auswertung soll Reset/Actions erreichbar bleiben (auch mobil)
+    // -> actionsRow + tinyNote einblenden (damit du nicht "festhängst").
+    if (actionsRow) actionsRow.style.display = "flex";
+    if (tinyNote) tinyNote.style.display = "block";
+
     // scroll to gauge
     const gaugeCard = document.querySelector(".card.gauge");
     if (gaugeCard) {
-      try { gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
+      try {
+        gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (_) {}
     }
   });
 
   if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
+    resetBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      // FIX #2: "Harter" Reset: Form, UI und Stepflow 100% zurücksetzen
       form.reset();
       resetUI();
       setStep(1);
+
+      // FIX #3: Nach Reset zuverlässig zurück zur ersten Frage scrollen (mobil!)
+      try {
+        form.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (_) {}
     });
   }
 
