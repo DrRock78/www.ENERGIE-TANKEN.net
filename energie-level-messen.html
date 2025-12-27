@@ -5,189 +5,323 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Energie-Level messen – wissenschaftlich fundierte Einschätzung deiner aktuellen Energie & Regeneration." />
+  <meta name="description" content="Energie-Kompass: kurze Fragen, klare Skala, edles Ergebnis. Finde heraus, wo du aktuell stehst – und was als Nächstes sinnvoll ist." />
 
   <link rel="stylesheet" href="style.css?v=10" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    .energy-step { display:none; max-width:720px; margin:0 auto; }
-    .energy-step.active { display:block; }
-
-    .energy-question {
-      font-size:20px;
-      font-weight:600;
-      color:var(--gold);
-      margin-bottom:18px;
-      text-align:center;
-    }
-
-    .energy-options {
-      display:grid;
-      gap:12px;
-      margin-bottom:24px;
-    }
-
-    .energy-options button {
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(201,171,88,.35);
-      color:#c9ab58;
-      padding:14px 18px;
-      border-radius:14px;
-      font-size:15px;
-      cursor:pointer;
-      transition:all .15s ease;
-    }
-
-    .energy-options button:hover {
-      background:rgba(201,171,88,.08);
-    }
-
-    .energy-result {
-      text-align:center;
-      font-size:22px;
-      font-weight:800;
-      color:var(--gold);
-      margin:24px 0 12px;
-    }
-
-    .energy-sub {
-      color:rgba(255,255,255,.75);
-      max-width:620px;
-      margin:0 auto 26px;
-      line-height:1.7;
-      text-align:center;
-    }
-  </style>
 </head>
 
 <body>
 
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-    <div class="topnav-links">
-      <a href="index.html">Home</a>
-      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-      <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
-      <a href="kontakt.html">Kontakt</a>
+  <!-- NAV (identisch) -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
+      <div class="topnav-links">
+        <a href="index.html">Home</a>
+        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+        <a href="anwendungen.html">Anwendungen</a>
+        <a href="shop.html">Shop</a>
+        <a href="wissenswertes.html">Wissenswertes</a>
+        <a href="medien.html">Medien</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<section class="hero-top">
-  <div class="hero-logo">
-    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
-  </div>
-
-  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-
-  <p class="hero-quote">
-    Energie ist kein Gefühl.  
-    Sie ist messbar, steuerbar und trainierbar.
-  </p>
-
-  <div class="hero-visual">
-    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
-  </div>
-</section>
-
-<main class="container">
-
-  <!-- STEP 1 -->
-  <div class="energy-step active">
-    <div class="energy-question">Wie erholt fühlst du dich morgens?</div>
-    <div class="energy-options">
-      <button data-score="5">Völlig erschöpft</button>
-      <button data-score="10">Müde, brauche lange</button>
-      <button data-score="15">Okay, aber nicht frisch</button>
-      <button data-score="20">Meistens erholt</button>
-      <button data-score="25">Klar & wach</button>
+  <!-- HERO (identisch wie Startseite) -->
+  <section class="hero-top">
+    <div class="hero-logo">
+      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
     </div>
-  </div>
 
-  <!-- STEP 2 -->
-  <div class="energy-step">
-    <div class="energy-question">Wie sieht deine Ernährung überwiegend aus?</div>
-    <div class="energy-options">
-      <button data-score="5">Fastfood / stark verarbeitet</button>
-      <button data-score="10">Unregelmäßig & hektisch</button>
-      <button data-score="15">Gemischt</button>
-      <button data-score="20">Bewusst & ausgewogen</button>
-      <button data-score="25">Proteinreich & hochwertig</button>
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+
+    <p class="hero-quote">
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen von Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
+    </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
     </div>
-  </div>
 
-  <!-- STEP 3 -->
-  <div class="energy-step">
-    <div class="energy-question">Was trinkst du hauptsächlich?</div>
-    <div class="energy-options">
-      <button data-score="5">Softdrinks / Säfte</button>
-      <button data-score="10">Viel Kohlensäure</button>
-      <button data-score="15">Gemischt</button>
-      <button data-score="20">Überwiegend stilles Wasser</button>
-      <button data-score="25">Klares, reines Wasser</button>
-    </div>
-  </div>
+    <a class="btn btn-primary" href="#kompass">Energie-Level messen</a>
+  </section>
 
-  <!-- STEP 4 -->
-  <div class="energy-step">
-    <div class="energy-question">Wie bewegst du dich im Alltag?</div>
-    <div class="energy-options">
-      <button data-score="5">Kaum Bewegung</button>
-      <button data-score="10">Nur Alltag</button>
-      <button data-score="15">Gelegentlich bewusst</button>
-      <button data-score="20">Regelmäßig aktiv</button>
-      <button data-score="25">Täglich Bewegung</button>
-    </div>
-  </div>
+  <!-- CONTENT -->
+  <main class="container" id="kompass">
 
-  <!-- RESULT -->
-  <div class="energy-step">
-    <div class="energy-result" id="resultText"></div>
-    <div class="energy-sub" id="resultSub"></div>
+    <section class="section">
+      <h2>Energie-Kompass</h2>
+      <p>
+        Kurze Fragen. Klare Skala. Edles Ergebnis.
+        Du bekommst am Ende eine Prozent-Anzeige und eine Gold-Kreis-Skala.
+      </p>
+    </section>
 
-    <a class="btn btn-primary" href="kontakt.html">
-      Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf
-    </a>
-  </div>
+    <section class="section">
+      <div class="compass-wrap">
+        <div class="compass-grid">
 
-</main>
+          <!-- LEFT: GAUGE -->
+          <div class="card gauge">
+            <div class="gauge-title">Dein aktuelles Energie-Level</div>
 
-<footer>
-  © 2025 ENERGIE-TANKEN.net
-</footer>
+            <svg class="ring ring-glow" viewBox="0 0 120 120" aria-label="Energie-Skala">
+              <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#c9ab58"/>
+                  <stop offset="100%" stop-color="#b8923d"/>
+                </linearGradient>
+              </defs>
 
-<script>
-let step = 0;
-let score = 0;
-const steps = document.querySelectorAll('.energy-step');
+              <circle class="track" cx="60" cy="60" r="46"></circle>
+              <circle class="bar" id="ringBar" cx="60" cy="60" r="46"></circle>
+            </svg>
 
-document.querySelectorAll('.energy-options button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    score += parseInt(btn.dataset.score);
-    steps[step].classList.remove('active');
-    step++;
-    steps[step].classList.add('active');
+            <div class="gauge-number" id="scoreNum">—%</div>
+            <div class="badge" id="scoreBadge">bereit</div>
+            <div class="gauge-sub" id="scoreSub">
+              Beantworte die Fragen – danach erscheint deine Skala.
+            </div>
 
-    if(step === steps.length - 1){
-      let percent = Math.round(score / 100 * 100);
-      let text = "Energie-Level: " + percent + "%";
-      let sub = "";
+            <div class="cta-box" id="ctaBox" style="display:none;">
+              <div class="result-text" style="margin-bottom:10px;" id="ctaText"></div>
+              <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+            </div>
+          </div>
 
-      if(percent < 40) sub = "Deine Energie ist stark gebunden. Regeneration steht im Vordergrund.";
-      else if(percent < 60) sub = "Energie vorhanden, aber instabil. Feinschliff bringt Wirkung.";
-      else if(percent < 80) sub = "Solide Basis. Energie ist abrufbar, aber nicht konstant.";
-      else sub = "Hohe Stabilität. Energie ist präsent, ruhig und belastbar.";
+          <!-- RIGHT: QUESTIONS -->
+          <div class="card">
+            <form class="compass-form" id="compassForm">
 
-      document.getElementById('resultText').innerText = text;
-      document.getElementById('resultSub').innerText = sub;
-    }
-  });
-});
-</script>
+              <!-- Skala Text: 0..4 -->
+              <!-- 0 = trifft gar nicht zu / 4 = trifft voll zu -->
+              <div class="qblock">
+                <p class="qtitle">1) Schlaf</p>
+                <p class="qhint">Wie konstant ist dein Schlaf über die letzten 14 Tage?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q1" value="0" required><span>chaotisch</span></label>
+                  <label><input type="radio" name="q1" value="1"><span>unruhig</span></label>
+                  <label><input type="radio" name="q1" value="2"><span>okay</span></label>
+                  <label><input type="radio" name="q1" value="3"><span>gut</span></label>
+                  <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">2) Trinken</p>
+                <p class="qhint">Wie regelmäßig trinkst du über den Tag verteilt?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q2" value="0" required><span>selten</span></label>
+                  <label><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
+                  <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
+                  <label><input type="radio" name="q2" value="3"><span>gut</span></label>
+                  <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">3) Softdrinks & Säfte</p>
+                <p class="qhint">Wie selten sind Softdrinks / süße Säfte bei dir?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q3" value="0" required><span>oft</span></label>
+                  <label><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
+                  <label><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
+                  <label><input type="radio" name="q3" value="3"><span>selten</span></label>
+                  <label><input type="radio" name="q3" value="4"><span>fast nie</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">4) Fastfood</p>
+                <p class="qhint">Wie selten ist Fastfood bei dir?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q4" value="0" required><span>oft</span></label>
+                  <label><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
+                  <label><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
+                  <label><input type="radio" name="q4" value="3"><span>selten</span></label>
+                  <label><input type="radio" name="q4" value="4"><span>fast nie</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">5) Bewegung</p>
+                <p class="qhint">Wie regelmäßig bewegst du dich (Spaziergänge, Schritte, Training)?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q5" value="0" required><span>kaum</span></label>
+                  <label><input type="radio" name="q5" value="1"><span>selten</span></label>
+                  <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
+                  <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
+                  <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">6) Stress-Last</p>
+                <p class="qhint">Wie gut kommst du aktuell mit Belastung klar?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q6" value="0" required><span>überlastet</span></label>
+                  <label><input type="radio" name="q6" value="1"><span>angespannt</span></label>
+                  <label><input type="radio" name="q6" value="2"><span>okay</span></label>
+                  <label><input type="radio" name="q6" value="3"><span>stabil</span></label>
+                  <label><input type="radio" name="q6" value="4"><span>sehr stabil</span></label>
+                </div>
+              </div>
+
+              <div class="qblock">
+                <p class="qtitle">7) Fokus & Klarheit</p>
+                <p class="qhint">Wie klar und fokussiert fühlst du dich tagsüber?</p>
+                <div class="scale">
+                  <label><input type="radio" name="q7" value="0" required><span>neblig</span></label>
+                  <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
+                  <label><input type="radio" name="q7" value="2"><span>okay</span></label>
+                  <label><input type="radio" name="q7" value="3"><span>klar</span></label>
+                  <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
+                </div>
+              </div>
+
+              <div class="compass-actions">
+                <button class="btn btn-primary" type="submit">Auswerten</button>
+                <button class="btn btn-secondary" type="button" id="resetBtn">Reset</button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Weiter</h2>
+      <p>
+        Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
+      </p>
+      <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2025 ENERGIE-TANKEN.net
+  </footer>
+
+  <script>
+    (function(){
+      const form = document.getElementById("compassForm");
+      const ringBar = document.getElementById("ringBar");
+      const scoreNum = document.getElementById("scoreNum");
+      const scoreBadge = document.getElementById("scoreBadge");
+      const scoreSub = document.getElementById("scoreSub");
+      const resetBtn = document.getElementById("resetBtn");
+
+      const ctaBox = document.getElementById("ctaBox");
+      const ctaText = document.getElementById("ctaText");
+
+      // Ring geometry
+      const r = 46;
+      const circumference = 2 * Math.PI * r;
+      ringBar.style.strokeDasharray = `0 ${circumference}`;
+
+      function setRing(percent){
+        const p = Math.max(0, Math.min(100, percent));
+        const dash = (p / 100) * circumference;
+        ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
+      }
+
+      function bucket(percent){
+        // Ergebnistext bewusst ruhig, nicht belehrend, nicht “verkaufy”
+        if (percent < 30){
+          return {
+            badge: "niedrig",
+            sub: "Dein System wirkt aktuell eher leer. Fokus: Schlaf, Trinken, Rhythmus.",
+            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
+          };
+        }
+        if (percent < 55){
+          return {
+            badge: "stabil",
+            sub: "Du hast Basis-Stabilität. Kleine Korrekturen machen spürbar viel aus.",
+            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
+          };
+        }
+        if (percent < 75){
+          return {
+            badge: "gut",
+            sub: "Gute Reserve. Leistung und Erholung greifen bereits sauber ineinander.",
+            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
+          };
+        }
+        if (percent < 90){
+          return {
+            badge: "sehr gut",
+            sub: "Sehr solide Energie-Basis. Jetzt zählt Feinschliff und Konstanz.",
+            cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
+          };
+        }
+        return {
+          badge: "top",
+          sub: "Starke Reserve. Du bist auf einem Level, das die meisten gar nicht erreichen.",
+          cta: "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf."
+        };
+      }
+
+      function calcScore(){
+        // 7 Fragen à 0..4 => max 28
+        const data = new FormData(form);
+        let sum = 0;
+        let count = 0;
+        for (let i=1;i<=7;i++){
+          const v = data.get("q"+i);
+          if (v === null) return null;
+          sum += Number(v);
+          count++;
+        }
+        const max = count * 4;
+        const percent = Math.round((sum / max) * 100);
+        return percent;
+      }
+
+      form.addEventListener("submit", (e)=>{
+        e.preventDefault();
+        const score = calcScore();
+        if (score === null) return;
+
+        setRing(score);
+        scoreNum.textContent = score + "%";
+
+        const b = bucket(score);
+        scoreBadge.textContent = b.badge;
+        scoreSub.textContent = b.sub;
+
+        ctaText.textContent = b.cta;
+        ctaBox.style.display = "block";
+
+        // Scroll slightly to left card on mobile
+        try{
+          document.querySelector(".card.gauge").scrollIntoView({behavior:"smooth", block:"start"});
+        }catch(_){}
+      });
+
+      resetBtn.addEventListener("click", ()=>{
+        form.reset();
+        setRing(0);
+        scoreNum.textContent = "—%";
+        scoreBadge.textContent = "bereit";
+        scoreSub.textContent = "Beantworte die Fragen – danach erscheint deine Skala.";
+        ctaBox.style.display = "none";
+      });
+
+      // Initialize ring at 0
+      setRing(0);
+    })();
+  </script>
 
 </body>
 </html>
