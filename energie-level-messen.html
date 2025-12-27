@@ -1,289 +1,490 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Energie-Level messen – ENERGIE-TANKEN.net</title>
-<meta name="description" content="Energie-Level messen – klar, ruhig, fokussiert. Eine Einschätzung deines aktuellen Energie-Zustands.">
+  <title>Energie-Level messen – ENERGIE-TANKEN.net</title>
+  <meta name="description" content="Energie-Kompass: 7 kurze Fragen. Danach siehst du dein Energie-Level als Prozent und Gold-Skala." />
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --bg:#060607;
-  --gold:#c9ab58;
-  --gold2:#b8923d;
-}
+  <!-- PAGE-ONLY CSS (scoped): überschreibt NICHT deinen Header/hero -->
+  <style>
+    .ekompass{
+      --gold:#c9ab58;
+      --gold2:#b8923d;
+    }
 
-*{box-sizing:border-box}
+    /* Frage-Card: sauberer Container, aber NUR in .ekompass */
+    .ekompass .card{
+      position:relative;
+      overflow:hidden;
+    }
 
-body{
-  margin:0;
-  font-family:Montserrat,system-ui,sans-serif;
-  background:linear-gradient(180deg,#060607,#0b0b0d);
-  color:#fff;
-}
+    .ekompass .intro{
+      margin-bottom:14px;
+    }
 
-main{
-  max-width:1100px;
-  margin:0 auto;
-  padding:40px 16px 80px;
-  text-align:center;
-}
+    .ekompass .intro p{
+      margin:0;
+      color:rgba(255,255,255,.78);
+      line-height:1.6;
+    }
 
-/* HERO */
-.hero h1{
-  color:var(--gold);
-  font-size:clamp(30px,6vw,56px);
-  font-weight:800;
-  letter-spacing:.06em;
-  margin-bottom:14px;
-}
+    /* Frageblöcke: nur einer sichtbar */
+    .ekompass .qblock{ display:none; }
+    .ekompass .qblock.active{ display:block; }
 
-.hero p{
-  color:rgba(255,255,255,.7);
-  max-width:760px;
-  margin:0 auto 40px;
-  line-height:1.6;
-}
+    .ekompass .qmeta{
+      color:rgba(255,255,255,.55);
+      font-size:13px;
+      margin:0 0 10px 0;
+    }
 
-/* QUESTIONS */
-.question{
-  display:none;
-  max-width:760px;
-  margin:0 auto;
-}
+    .ekompass .qtitle{
+      font-size:28px;
+      font-weight:800;
+      color:var(--gold);
+      margin:0 0 8px 0;
+      letter-spacing:.2px;
+    }
 
-.question.active{display:block}
+    .ekompass .qhint{
+      color:rgba(255,255,255,.75);
+      margin:0 0 18px 0;
+      line-height:1.45;
+    }
 
-.qtitle{
-  font-size:26px;
-  font-weight:700;
-  color:var(--gold);
-  margin-bottom:14px;
-}
+    /* Buttons (Antwort-Pills): schöner, symmetrisch, mobil-tauglich */
+    .ekompass .scale{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+      align-items:stretch;
+    }
 
-.scale{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
+    .ekompass .scale label{
+      flex: 1 1 calc(50% - 12px);
+      max-width: 220px;
+      border:1px solid rgba(201,171,88,.35);
+      border-radius:999px;
+      padding:14px 14px;
+      text-align:center;
+      cursor:pointer;
+      font-size:16px;
+      color:rgba(255,255,255,.88);
+      user-select:none;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+      background:rgba(0,0,0,.18);
+    }
 
-.scale button{
-  background:transparent;
-  border:1px solid rgba(201,171,88,.35);
-  color:#fff;
-  padding:14px 10px;
-  border-radius:999px;
-  font-size:15px;
-  cursor:pointer;
-}
+    /* 5 Optionen sollen sich sauber verteilen: ab ca. 520px 5 nebeneinander */
+    @media (min-width: 520px){
+      .ekompass .scale label{
+        flex: 1 1 calc(20% - 12px);
+        max-width:none;
+      }
+    }
 
-.scale button:hover{
-  background:rgba(201,171,88,.12);
-}
+    .ekompass .scale label:active{ transform:scale(.98); }
+    .ekompass .scale input{ display:none; }
 
-/* RESULT */
-#result{
-  display:none;
-  margin-top:60px;
-}
+    .ekompass .scale input:checked + span{
+      display:block;
+      color:#111;
+      font-weight:800;
+      background:linear-gradient(180deg,var(--gold),var(--gold2));
+      border-radius:999px;
+      padding:14px 14px;
+      box-shadow:0 0 0 1px rgba(0,0,0,.2) inset;
+    }
 
-.ring{
-  width:280px;
-  height:280px;
-  margin:0 auto 30px;
-  position:relative;
-}
+    /* Navigations-Buttons unten */
+    .ekompass .navrow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:22px;
+    }
+    .ekompass .navrow .btn{
+      min-width:140px;
+    }
+    .ekompass .navrow .btn[disabled]{
+      opacity:.45;
+      pointer-events:none;
+    }
 
-svg{transform:rotate(-90deg)}
+    /* Ergebnis-Box */
+    .ekompass .result{
+      display:none;
+      text-align:center;
+      padding:18px 6px 6px;
+    }
 
-circle{
-  fill:none;
-  stroke-width:14;
-}
+    .ekompass .result-ring{
+      position:relative;
+      width:280px;
+      height:280px;
+      margin:0 auto 18px;
+    }
 
-.track{stroke:rgba(255,255,255,.12)}
-.bar{stroke:url(#goldGrad);stroke-linecap:round}
+    .ekompass .result-ring svg{
+      width:280px;
+      height:280px;
+      transform:rotate(-90deg);
+    }
 
-.logo-cta{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-}
+    .ekompass .ring-track{
+      fill:none;
+      stroke:rgba(255,255,255,.12);
+      stroke-width:12;
+    }
 
-.logo-cta img{
-  width:140px;
-  filter:drop-shadow(0 0 18px rgba(201,171,88,.25));
-}
+    .ekompass .ring-bar{
+      fill:none;
+      stroke:url(#goldGrad);
+      stroke-width:12;
+      stroke-linecap:round;
+    }
 
-.result-text{
-  font-size:34px;
-  font-weight:800;
-  color:var(--gold);
-  margin-bottom:12px;
-}
+    /* Logo klickbar in der Mitte = CTA */
+    .ekompass .ring-cta{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
+    }
 
-.result-sub{
-  color:rgba(255,255,255,.7);
-}
-</style>
+    .ekompass .ring-cta img{
+      width:150px;
+      height:auto;
+      filter:drop-shadow(0 0 18px rgba(201,171,88,.20));
+      transition:transform .15s ease;
+    }
+    .ekompass .ring-cta:active img{ transform:scale(.98); }
+
+    .ekompass .result-text{
+      font-size:36px;
+      font-weight:900;
+      color:var(--gold);
+      line-height:1.1;
+      margin:8px 0 0;
+    }
+
+    .ekompass .result-cta-line{
+      margin:14px auto 0;
+      max-width:560px;
+      color:rgba(255,255,255,.78);
+      line-height:1.55;
+    }
+  </style>
 </head>
 
 <body>
 
-<main>
-
-<section class="hero">
-  <h1>GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-  <p>Beantworte ein paar kurze Fragen.  
-  Du bekommst eine ruhige Einschätzung deines aktuellen Energie-Zustands.</p>
-</section>
-
-<!-- QUESTIONS -->
-<div id="questions">
-
-  <div class="question active" data-q="1">
-    <div class="qtitle">Wie erholt fühlst du dich nach dem Aufwachen?</div>
-    <div class="scale">
-      <button data-v="0">gar nicht</button>
-      <button data-v="1">selten</button>
-      <button data-v="2">mittel</button>
-      <button data-v="3">gut</button>
-      <button data-v="4">sehr gut</button>
+  <!-- NAV (identisch) -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
+      <div class="topnav-links">
+        <a href="index.html">Home</a>
+        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+        <a href="anwendungen.html">Anwendungen</a>
+        <a href="shop.html">Shop</a>
+        <a href="wissenswertes.html">Wissenswertes</a>
+        <a href="medien.html">Medien</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="energie-level-messen.html" aria-current="page">Energie-Level messen</a>
+      </div>
     </div>
-  </div>
+  </nav>
 
-  <div class="question" data-q="2">
-    <div class="qtitle">Wie konstant ist dein Schlafrhythmus?</div>
-    <div class="scale">
-      <button data-v="0">chaotisch</button>
-      <button data-v="1">unruhig</button>
-      <button data-v="2">wechselnd</button>
-      <button data-v="3">regelmäßig</button>
-      <button data-v="4">stabil</button>
+  <!-- HERO (identisch wie Startseite) -->
+  <section class="hero-top">
+    <div class="hero-logo">
+      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
     </div>
-  </div>
 
-  <div class="question" data-q="3">
-    <div class="qtitle">Wie regelmäßig trinkst du Wasser?</div>
-    <div class="scale">
-      <button data-v="0">kaum</button>
-      <button data-v="1">zu wenig</button>
-      <button data-v="2">unregelmäßig</button>
-      <button data-v="3">gut</button>
-      <button data-v="4">konstant</button>
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+
+    <p class="hero-quote">
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen von Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
+    </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla">
     </div>
-  </div>
 
-  <div class="question" data-q="4">
-    <div class="qtitle">Wie selten trinkst du Softdrinks oder Säfte?</div>
-    <div class="scale">
-      <button data-v="0">oft</button>
-      <button data-v="1">mehrmals/Woche</button>
-      <button data-v="2">gelegentlich</button>
-      <button data-v="3">selten</button>
-      <button data-v="4">fast nie</button>
-    </div>
-  </div>
+    <a class="btn btn-primary" href="#kompass">Energie-Level messen</a>
+  </section>
 
-  <div class="question" data-q="5">
-    <div class="qtitle">Wie selten isst du Fastfood?</div>
-    <div class="scale">
-      <button data-v="0">oft</button>
-      <button data-v="1">mehrmals/Woche</button>
-      <button data-v="2">gelegentlich</button>
-      <button data-v="3">selten</button>
-      <button data-v="4">fast nie</button>
-    </div>
-  </div>
+  <!-- CONTENT -->
+  <main class="container ekompass" id="kompass">
 
-  <div class="question" data-q="6">
-    <div class="qtitle">Wie regelmäßig bewegst du dich?</div>
-    <div class="scale">
-      <button data-v="0">kaum</button>
-      <button data-v="1">selten</button>
-      <button data-v="2">wechselnd</button>
-      <button data-v="3">regelmäßig</button>
-      <button data-v="4">konstant</button>
-    </div>
-  </div>
+    <section class="section intro">
+      <h2>Energie-Kompass</h2>
+      <p>Beantworte ein paar kurze Fragen. Du bekommst am Ende dein Energie-Level als Prozent und Gold-Skala.</p>
+    </section>
 
-  <div class="question" data-q="7">
-    <div class="qtitle">Wie klar fühlst du dich tagsüber?</div>
-    <div class="scale">
-      <button data-v="0">neblig</button>
-      <button data-v="1">schwankend</button>
-      <button data-v="2">okay</button>
-      <button data-v="3">klar</button>
-      <button data-v="4">sehr klar</button>
-    </div>
-  </div>
+    <section class="section">
+      <div class="card">
 
-</div>
+        <!-- RESULT (erscheint erst am Ende) -->
+        <div class="result" id="resultBox" aria-live="polite">
+          <div class="result-ring" aria-label="Energie-Level Skala">
+            <svg viewBox="0 0 120 120" role="img">
+              <defs>
+                <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#c9ab58"/>
+                  <stop offset="100%" stop-color="#b8923d"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="60" cy="60" r="46"></circle>
+              <circle class="ring-bar" id="ringBar" cx="60" cy="60" r="46"></circle>
+            </svg>
 
-<!-- RESULT -->
-<div id="result">
-  <div class="ring">
-    <svg viewBox="0 0 200 200">
-      <defs>
-        <linearGradient id="goldGrad">
-          <stop offset="0%" stop-color="#c9ab58"/>
-          <stop offset="100%" stop-color="#b8923d"/>
-        </linearGradient>
-      </defs>
-      <circle class="track" cx="100" cy="100" r="80"/>
-      <circle class="bar" cx="100" cy="100" r="80" id="bar"/>
-    </svg>
+            <!-- Klick aufs Logo = CTA -->
+            <a class="ring-cta" href="kontakt.html" aria-label="Kontakt aufnehmen">
+              <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN – Kontakt">
+            </a>
+          </div>
 
-    <a class="logo-cta" href="https://www.energie-tanken.net/kontakt">
-      <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN">
-    </a>
-  </div>
+          <div class="result-text" id="resultText">Dein Energie-Level liegt bei —%</div>
+          <div class="result-cta-line">Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</div>
+        </div>
 
-  <div class="result-text" id="scoreText"></div>
-  <div class="result-sub">
-    Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.
-  </div>
-</div>
+        <!-- QUESTIONS -->
+        <form id="kompassForm" novalidate>
 
-</main>
+          <!-- Q1 -->
+          <div class="qblock active" data-q="1">
+            <p class="qmeta">Frage 1 von 7</p>
+            <h3 class="qtitle">Wie erholt fühlst du dich nach dem Aufwachen?</h3>
+            <p class="qhint">Kurz und ehrlich – dein erster Eindruck zählt.</p>
+            <div class="scale">
+              <label><input type="radio" name="q1" value="0" required><span>gar nicht</span></label>
+              <label><input type="radio" name="q1" value="1"><span>selten</span></label>
+              <label><input type="radio" name="q1" value="2"><span>mittel</span></label>
+              <label><input type="radio" name="q1" value="3"><span>gut</span></label>
+              <label><input type="radio" name="q1" value="4"><span>sehr gut</span></label>
+            </div>
+          </div>
 
-<script>
-const questions=document.querySelectorAll('.question');
-let index=0,sum=0;
+          <!-- Q2 -->
+          <div class="qblock" data-q="2">
+            <p class="qmeta">Frage 2 von 7</p>
+            <h3 class="qtitle">Wie regelmäßig trinkst du über den Tag verteilt?</h3>
+            <p class="qhint">Konstanz schlägt „abends alles nachholen“.</p>
+            <div class="scale">
+              <label><input type="radio" name="q2" value="0" required><span>selten</span></label>
+              <label><input type="radio" name="q2" value="1"><span>zu wenig</span></label>
+              <label><input type="radio" name="q2" value="2"><span>wechselnd</span></label>
+              <label><input type="radio" name="q2" value="3"><span>gut</span></label>
+              <label><input type="radio" name="q2" value="4"><span>konstant</span></label>
+            </div>
+          </div>
 
-questions.forEach(q=>{
-  q.querySelectorAll('button').forEach(b=>{
-    b.onclick=()=>{
-      sum+=+b.dataset.v;
-      q.classList.remove('active');
-      index++;
-      if(index<questions.length){
-        questions[index].classList.add('active');
-      }else{
-        showResult();
+          <!-- Q3 -->
+          <div class="qblock" data-q="3">
+            <p class="qmeta">Frage 3 von 7</p>
+            <h3 class="qtitle">Wie selten sind Softdrinks / süße Säfte bei dir?</h3>
+            <p class="qhint">Hier zählt die Häufigkeit – nicht die Ausrede.</p>
+            <div class="scale">
+              <label><input type="radio" name="q3" value="0" required><span>oft</span></label>
+              <label><input type="radio" name="q3" value="1"><span>mehrmals/Woche</span></label>
+              <label><input type="radio" name="q3" value="2"><span>gelegentlich</span></label>
+              <label><input type="radio" name="q3" value="3"><span>selten</span></label>
+              <label><input type="radio" name="q3" value="4"><span>fast nie</span></label>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="qblock" data-q="4">
+            <p class="qmeta">Frage 4 von 7</p>
+            <h3 class="qtitle">Wie selten ist Fastfood bei dir?</h3>
+            <p class="qhint">Regelmäßigkeit frisst Energie. Seltenheit gibt Energie zurück.</p>
+            <div class="scale">
+              <label><input type="radio" name="q4" value="0" required><span>oft</span></label>
+              <label><input type="radio" name="q4" value="1"><span>mehrmals/Woche</span></label>
+              <label><input type="radio" name="q4" value="2"><span>gelegentlich</span></label>
+              <label><input type="radio" name="q4" value="3"><span>selten</span></label>
+              <label><input type="radio" name="q4" value="4"><span>fast nie</span></label>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="qblock" data-q="5">
+            <p class="qmeta">Frage 5 von 7</p>
+            <h3 class="qtitle">Wie regelmäßig bewegst du dich?</h3>
+            <p class="qhint">Spaziergänge, Schritte, Training – Hauptsache Rhythmus.</p>
+            <div class="scale">
+              <label><input type="radio" name="q5" value="0" required><span>kaum</span></label>
+              <label><input type="radio" name="q5" value="1"><span>selten</span></label>
+              <label><input type="radio" name="q5" value="2"><span>wechselnd</span></label>
+              <label><input type="radio" name="q5" value="3"><span>regelmäßig</span></label>
+              <label><input type="radio" name="q5" value="4"><span>konstant</span></label>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="qblock" data-q="6">
+            <p class="qmeta">Frage 6 von 7</p>
+            <h3 class="qtitle">Wie stark steht dein System unter Druck?</h3>
+            <p class="qhint">Dein Eindruck – nicht die perfekte Definition.</p>
+            <div class="scale">
+              <label><input type="radio" name="q6" value="0" required><span>hoch</span></label>
+              <label><input type="radio" name="q6" value="1"><span>mittel</span></label>
+              <label><input type="radio" name="q6" value="2"><span>okay</span></label>
+              <label><input type="radio" name="q6" value="3"><span>niedrig</span></label>
+              <label><input type="radio" name="q6" value="4"><span>sehr niedrig</span></label>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="qblock" data-q="7">
+            <p class="qmeta">Frage 7 von 7</p>
+            <h3 class="qtitle">Wie klar und fokussiert fühlst du dich tagsüber?</h3>
+            <p class="qhint">Kopf klar – oder wie ein Browser mit 58 Tabs?</p>
+            <div class="scale">
+              <label><input type="radio" name="q7" value="0" required><span>neblig</span></label>
+              <label><input type="radio" name="q7" value="1"><span>schwankend</span></label>
+              <label><input type="radio" name="q7" value="2"><span>okay</span></label>
+              <label><input type="radio" name="q7" value="3"><span>klar</span></label>
+              <label><input type="radio" name="q7" value="4"><span>sehr klar</span></label>
+            </div>
+          </div>
+
+          <div class="navrow">
+            <button class="btn btn-secondary" type="button" id="backBtn" disabled>Zurück</button>
+            <button class="btn btn-primary" type="button" id="nextBtn" disabled>Weiter</button>
+          </div>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 ENERGIE-TANKEN.net
+  </footer>
+
+  <script>
+    (function(){
+      const form = document.getElementById("kompassForm");
+      const blocks = Array.from(document.querySelectorAll(".ekompass .qblock"));
+      const nextBtn = document.getElementById("nextBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      const resultBox = document.getElementById("resultBox");
+      const resultText = document.getElementById("resultText");
+      const ringBar = document.getElementById("ringBar");
+
+      let idx = 0;
+
+      // Ring geometry
+      const r = 46;
+      const circumference = 2 * Math.PI * r;
+      ringBar.style.strokeDasharray = `0 ${circumference}`;
+
+      function setRing(percent){
+        const p = Math.max(0, Math.min(100, percent));
+        const dash = (p / 100) * circumference;
+        ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
       }
-    }
-  })
-});
 
-function showResult(){
-  const percent=Math.round((sum/28)*100);
-  document.getElementById('questions').style.display='none';
-  document.getElementById('result').style.display='block';
-  document.getElementById('scoreText').textContent=
-    `Dein Energie-Level liegt bei ${percent} %`;
+      function show(i){
+        blocks.forEach((b, n)=> b.classList.toggle("active", n === i));
+        backBtn.disabled = (i === 0);
 
-  const r=80,c=2*Math.PI*r;
-  const bar=document.getElementById('bar');
-  bar.style.strokeDasharray=`${c*(percent/100)} ${c}`;
-}
-</script>
+        // Next-Button Text: bis Frage 6 "Weiter", bei Frage 7 "Auswerten"
+        nextBtn.textContent = (i === blocks.length - 1) ? "Auswerten" : "Weiter";
+
+        // Button aktiv nur wenn aktuelle Frage beantwortet
+        updateNextEnabled();
+      }
+
+      function currentAnswered(){
+        const name = "q" + (idx + 1);
+        return !!form.querySelector(`input[name="${name}"]:checked`);
+      }
+
+      function updateNextEnabled(){
+        nextBtn.disabled = !currentAnswered();
+      }
+
+      // Wenn eine Option gewählt wird, Button aktivieren und optional auto-weiter (sanft)
+      form.addEventListener("change", (e)=>{
+        if (e.target && e.target.matches('input[type="radio"]')){
+          updateNextEnabled();
+
+          // Sanfter Auto-Flow: nach Auswahl automatisch 450ms später weiter (außer letzte Frage)
+          if (idx < blocks.length - 1){
+            setTimeout(()=>{
+              if (currentAnswered() && idx < blocks.length - 1){
+                idx++;
+                show(idx);
+                window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+              }
+            }, 450);
+          }
+        }
+      });
+
+      backBtn.addEventListener("click", ()=>{
+        if (idx > 0){
+          idx--;
+          show(idx);
+          window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+        }
+      });
+
+      nextBtn.addEventListener("click", ()=>{
+        if (!currentAnswered()) return;
+
+        if (idx < blocks.length - 1){
+          idx++;
+          show(idx);
+          window.scrollTo({top: document.getElementById("kompass").offsetTop - 10, behavior:"smooth"});
+          return;
+        }
+
+        // AUSWERTEN
+        // 7 Fragen à 0..4 => max 28
+        let sum = 0;
+        for (let i=1;i<=7;i++){
+          const v = form.querySelector(`input[name="q${i}"]:checked`);
+          if (!v) return;
+          sum += Number(v.value);
+        }
+        const percent = Math.round((sum / 28) * 100);
+
+        // Fragen ausblenden, Ergebnis zeigen
+        blocks.forEach(b => b.classList.remove("active"));
+        document.querySelector(".navrow").style.display = "none";
+
+        setRing(percent);
+        resultText.textContent = `Dein Energie-Level liegt bei ${percent}%`;
+        resultBox.style.display = "block";
+
+        // Fokus/Scroll aufs Ergebnis
+        resultBox.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+
+      // Initial
+      setRing(0);
+      show(0);
+    })();
+  </script>
 
 </body>
 </html>
