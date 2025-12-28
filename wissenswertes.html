@@ -1,51 +1,371 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Wissenswertes – Energie-Tanken</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Wissenswertes – ENERGIE-TANKEN.net</title>
+  <meta name="description" content="Wissenswertes zu Energie, Frequenz, Wasser, Resonanz und Praxis. Klar strukturiert, verständlich, ohne Buzzword-Nebel. ENERGIE-TANKEN.net" />
+
+  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Page-only polish (kein style.css anfassen) -->
+  <style>
+    :root{
+      --gold:#c9ab58;
+      --gold2:#b8923d;
+      --line:rgba(255,255,255,.10);
+      --muted:rgba(255,255,255,.68);
+      --text:rgba(255,255,255,.88);
+    }
+
+    main.container{ padding-top: 44px !important; }
+    .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+    .page-head{
+      border: 1px solid var(--line);
+      background: radial-gradient(1000px 520px at 50% -20%, rgba(201,171,88,.12), transparent 60%),
+                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25));
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.55);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .kicker{
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: .2px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    h1{
+      margin: 10px 0 8px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1.05;
+      color: var(--gold);
+      font-size: clamp(30px, 6.2vw, 52px);
+    }
+
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+      max-width: 80ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .cardx{
+      grid-column: span 6;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.26));
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 16px 55px rgba(0,0,0,.45);
+      overflow: hidden;
+    }
+    .wide{ grid-column: span 12; }
+
+    .cardx h2{
+      margin: 0 0 8px;
+      font-size: 20px;
+      color: var(--text);
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .cardx p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .list li{ margin: 6px 0; }
+
+    .tagrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .tag{
+      border: 1px solid rgba(201,171,88,.30);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.82);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .25px;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    details{
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
+      padding: 12px 14px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      color: rgba(255,255,255,.86);
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+
+    .cta{
+      border: 1px solid rgba(201,171,88,.35);
+      background: linear-gradient(180deg, rgba(201,171,88,.16), rgba(0,0,0,.20));
+      border-radius: 22px;
+      padding: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .cta h3{
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 900;
+      color: rgba(255,255,255,.88);
+    }
+    .cta p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 15px;
+      max-width: 75ch;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(201,171,88,.55);
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      color: #0b0b0b;
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-decoration: none;
+      min-height: 48px;
+      white-space: nowrap;
+      box-shadow: 0 16px 40px rgba(201,171,88,.12);
+    }
+
+    .fineprint{
+      margin-top: 14px;
+      color: rgba(255,255,255,.52);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 860px){
+      .cardx{ grid-column: span 12; }
+      .cta{ flex-direction: column; align-items:flex-start; }
+      .btn{ width: 100%; }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="logo" style="color: var(--mint); font-size: 1.3rem; font-weight: 700;">
-    ENERGIE-TANKEN.net
-  </div>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="hochfrequenz.html">Hochfrequenz</a>
-    <a href="anwendungen.html">Anwendungen</a>
-    <a href="shop.html">Shop</a>
-    <a href="wissenswertes.html">Wissenswertes</a>
-    <a href="medien.html">Medien</a>
-    <a href="kontakt.html">Kontakt</a>
+<!-- ================= NAV ================= -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
+    <div class="topnav-links">
+      <a href="index.html">Home</a>
+      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+      <a href="anwendungen.html">Anwendungen</a>
+      <a href="shop.html">Shop</a>
+      <a href="wissenswertes.html" aria-current="page">Wissenswertes</a>
+      <a href="medien.html">Medien</a>
+      <a href="energie-level-messen.html">Energie-Level messen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
   </div>
 </nav>
 
-<div class="container">
-  <div class="section">
-    <h2>Wissenswertes rund um Wasser & Frequenz</h2>
-    <p>
-      Diese Seite bündelt Wissen, Modelle und Forschung rund um Wasser, Frequenz
-      und Zellenergie. Sie ersetzt keine medizinische Beratung, sondern dient
-      als Informations- und Inspirationsquelle.
-    </p>
+<!-- ================= HERO (IDENTISCH) ================= -->
+<section class="hero-top">
+  <div class="hero-logo">
+    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
   </div>
 
-  <div class="section">
-    <h2>Wasser als Informations- und Transportsystem</h2>
-    <p>
-      Der menschliche Körper besteht zu einem hohen Anteil aus Wasser. Blut, Lymphe,
-      Gehirnflüssigkeit und Zellumgebung sind wasserbasierte Systeme. Wasser transportiert
-      Nährstoffe, leitet Signale weiter und unterstützt die Regulation von Temperatur,
-      pH-Wert und Stoffwechselprozessen.
-    </p>
-    <p>
-      In der Forschung wird diskutiert, inwieweit sich Wasserstrukturen durch äußere Einflüsse
-      wie Temperatur, Druck, Mineralien oder elektromagnetische Felder verändern können.
-      Hier knüpfen viele Hypothesen zur „Strukturierung“ oder „Clusterbildung“ an.
-    </p>
-  </div>
+  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
 
-  <div class="section">
-    <h2>Zellspannung & Energiehaushalt</h
+  <p class="hero-quote">
+    „Wenn du die Geheimnisse des Universums verstehen willst,
+    denke in Begriffen von Energie, Frequenz und Schwingung.“
+    – Nikola Tesla
+  </p>
+
+  <div class="hero-visual">
+    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
+  </div>
+</section>
+
+<main class="container">
+  <div class="wrap">
+
+    <section class="page-head">
+      <div class="kicker">
+        <span>Grundlagen • Klartext • Orientierung</span>
+        <span>ENERGIE-TANKEN.net</span>
+      </div>
+
+      <h1>Wissenswertes</h1>
+      <p class="lead">
+        Hier trennen wir Nebel von Nutzen: Begriffe, Zusammenhänge, Denkmodelle – verständlich,
+        sauber strukturiert und ohne Dogma. Du sollst nicht „glauben“. Du sollst <strong>verstehen</strong>.
+      </p>
+    </section>
+
+    <section class="grid">
+
+      <article class="cardx">
+        <h2>Energie • Frequenz • Schwingung</h2>
+        <p>
+          Diese drei Wörter werden oft als Buzzwords missbraucht. Wir nutzen sie als Denkrahmen:
+          Was beeinflusst deinen Zustand – messbar oder spürbar – und wie steuerst du es im Alltag?
+        </p>
+        <ul class="list">
+          <li><strong>Energie</strong>: dein verfügbarer „Output“ (Klarheit, Kraft, Fokus).</li>
+          <li><strong>Frequenz</strong>: Rhythmus/Impuls (Schlaf, Stress, Licht, Ernährung).</li>
+          <li><strong>Schwingung</strong>: Reaktion des Systems (Nervensystem, Stimmung, Regeneration).</li>
+        </ul>
+        <div class="tagrow">
+          <span class="tag">Systemdenken</span>
+          <span class="tag">Alltag</span>
+          <span class="tag">Konstanz</span>
+        </div>
+      </article>
+
+      <article class="cardx">
+        <h2>Wasser als „Infrastruktur“</h2>
+        <p>
+          Wasser ist nicht nur „Getränk“. Es ist Transport, Lösung, Regulation.
+          Deshalb ist Wasserqualität ein Fundament – nicht Dekoration.
+        </p>
+        <ul class="list">
+          <li>Trinkbarkeit: leicht, angenehm, regelmäßig.</li>
+          <li>Routine: gleiche Uhrzeiten schlagen seltene „Perfektion“.</li>
+          <li>Feedback: Durst, Fokus, Energie – Beobachtung statt Rätselraten.</li>
+        </ul>
+        <div class="tagrow">
+          <span class="tag">Hydration</span>
+          <span class="tag">Routine</span>
+          <span class="tag">Feedback</span>
+        </div>
+      </article>
+
+      <article class="cardx wide">
+        <h2>Glossar – damit wir dieselbe Sprache sprechen</h2>
+
+        <details>
+          <summary>Resonanz</summary>
+          <p>
+            Wenn ein Impuls (z. B. Rhythmus, Stress, Schlaf) im System eine verstärkte Antwort erzeugt.
+            Praktisch: Du reagierst nicht nur „auf Ereignisse“, sondern auf Muster.
+          </p>
+        </details>
+
+        <details>
+          <summary>Regeneration</summary>
+          <p>
+            Nicht „Pause“, sondern Wiederaufbau. Schlaf ist der Chef – aber auch Ernährung, Bewegung und mentale Entlastung.
+          </p>
+        </details>
+
+        <details>
+          <summary>Konstanz</summary>
+          <p>
+            Der unterschätzte Hebel. Kleine Handlungen, wiederholt, erzeugen den großen Unterschied – wie Zinseszins.
+          </p>
+        </details>
+
+        <details>
+          <summary>Selbstverantwortung</summary>
+          <p>
+            Du delegierst nicht dein Leben. Du nutzt Expertise – aber du bleibst der Entscheider.
+          </p>
+        </details>
+      </article>
+
+      <article class="cardx">
+        <h2>Nikola Tesla – warum er hier auftaucht</h2>
+        <p>
+          Tesla steht bei uns nicht für „Auto“. Sondern für eine Denkweise:
+          neugierig, radikal präzise, und kompromisslos im Fragenstellen.
+        </p>
+        <ul class="list">
+          <li>Prinzip: erst verstehen, dann bauen.</li>
+          <li>Prinzip: Wirkung zeigt sich in Experimenten – nicht in Meinungen.</li>
+          <li>Prinzip: Technik als Werkzeug, nicht als Religion.</li>
+        </ul>
+      </article>
+
+      <article class="cardx">
+        <h2>Was wir nicht tun</h2>
+        <p>
+          Wir versprechen keine Wunder. Wir verkaufen keine Illusionen.
+          Wir bauen Klarheit – und Systeme, die im Alltag funktionieren.
+        </p>
+        <ul class="list">
+          <li>Keine Diagnosen.</li>
+          <li>Keine Heilversprechen.</li>
+          <li>Keine „One-Shot“-Lösungen ohne Kontext.</li>
+        </ul>
+      </article>
+
+      <article class="cardx wide">
+        <div class="cta">
+          <div>
+            <h3>Du willst Struktur statt Theorie?</h3>
+            <p>
+              Dann nutze den Energie-Kompass als Startpunkt. Danach können wir – wenn du willst –
+              sauber in Maßnahmen, Prioritäten und Kontakt übergehen.
+            </p>
+          </div>
+          <a class="btn" href="energie-level-messen.html">Energie-Kompass starten</a>
+        </div>
+
+        <p class="fineprint">
+          Hinweis: Inhalte dienen der Information und ersetzen keine medizinische Beratung oder Diagnose.
+        </p>
+      </article>
+
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  © 2025 ENERGIE-TANKEN.net
+</footer>
+
+</body>
+</html>
