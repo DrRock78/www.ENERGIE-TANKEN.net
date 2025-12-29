@@ -1,11 +1,10 @@
 /* =========================================================
-   ENERGIE-TANKEN.net — Energie-Kompass (FINAL)
-   - 1 Frage sichtbar, Step-Flow sauber
-   - Weiter nur wenn beantwortet
-   - Auswerten nur am Ende
+   ENERGIE-TANKEN.net — Energie-Kompass (FINAL REPAIR)
+   - Step Flow 1..7
+   - Keine „Badge/Bla“-Texte mehr
    - Ergebnis: "Dein Energie-Level liegt bei X%"
-   - CTA Logo zentriert im Ring -> kontakt.html
-   - Reset immer möglich, Kompass neu startbar
+   - CTA erst nach Auswertung: Logo im Ring + Kontakt-Button
+   - Reset funktioniert immer (auch nach Auswertung)
    ========================================================= */
 
 (function () {
@@ -14,26 +13,29 @@
   const form = document.getElementById("compassForm");
   if (!form) return;
 
+  // ===== Refs (HTML IDs müssen existieren) =====
+  const ringBar = document.getElementById("ringBar");
+  const scoreNum = document.getElementById("scoreNum");
+  const scoreBadge = document.getElementById("scoreBadge");
+  const scoreSub = document.getElementById("scoreSub");
+  const resultCopy = document.getElementById("resultCopy");
+
   const stepNow = document.getElementById("stepNow");
+
   const backBtn = document.getElementById("backBtn");
   const nextBtn = document.getElementById("nextBtn");
   const evalBtn = document.getElementById("evalBtn");
   const resetBtn = document.getElementById("resetBtn");
+  const tinyNote = document.getElementById("tinyNote");
+  const contactBtn = document.getElementById("contactBtn");
 
-  const ringBar = document.getElementById("ringBar");
-  const ringCta = document.getElementById("ringCta");
-
-  const scoreSub = document.getElementById("scoreSub");
-  const scoreLine = document.getElementById("scoreLine");
-  const resultCopy = document.getElementById("resultCopy");
-
-  const blocks = Array.from(form.querySelectorAll(".ek-qblock[data-step]"))
+  const blocks = Array.from(form.querySelectorAll(".qblock[data-step]"))
     .sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
 
-  const QUESTIONS = blocks.length;  // 7
-  const MAX_PER_Q = 4;             // 0..4
+  const QUESTIONS = blocks.length || 7;
+  const MAX_PER_Q = 4;
 
-  // Ring geometry
+  // ===== Ring geometry =====
   const r = 46;
   const circumference = 2 * Math.PI * r;
 
@@ -50,45 +52,62 @@
     ringBar.style.strokeDasharray = `${dash} ${circumference - dash}`;
   }
 
-  function showBlock(step) {
-    blocks.forEach(b => {
-      const s = Number(b.dataset.step);
-      b.classList.toggle("is-active", s === step);
-    });
+  // ===== CTA handling (OHNE clone/replace!) =====
+  function getRingCta() {
+    return document.getElementById("ringCta");
   }
 
+  function hideCTA() {
+    const cta = getRingCta();
+    if (cta) cta.style.display = "none";
+    if (contactBtn) contactBtn.style.display = "none";
+  }
+
+  function showCTA() {
+    const cta = getRingCta();
+    if (cta) cta.style.display = "flex";
+    if (contactBtn) contactBtn.style.display = "inline-flex";
+  }
+
+  // ===== Step control =====
   function currentStep() {
-    const n = Number(stepNow?.textContent || "1");
-    return Number.isFinite(n) ? n : 1;
+    return Number(stepNow?.textContent || "1");
   }
 
-  function setStep(step) {
-    const s = Math.max(1, Math.min(QUESTIONS, step));
-    if (stepNow) stepNow.textContent = String(s);
+  function setStep(n) {
+    const step = Math.max(1, Math.min(QUESTIONS, n));
 
-    showBlock(s);
+    blocks.forEach((b) => {
+      const s = Number(b.dataset.step);
+      b.style.display = (s === step) ? "block" : "none";
+    });
 
-    // Buttons state
-    if (backBtn) backBtn.disabled = s === 1;
+    if (stepNow) stepNow.textContent = String(step);
 
-    const atEnd = s === QUESTIONS;
+    const atEnd = step === QUESTIONS;
+
+    if (backBtn) backBtn.disabled = step === 1;
     if (nextBtn) nextBtn.style.display = atEnd ? "none" : "inline-flex";
     if (evalBtn) evalBtn.style.display = atEnd ? "inline-flex" : "none";
+    if (tinyNote) tinyNote.style.display = "block";
 
+    // Ruhige Guidance
     if (scoreSub) {
       scoreSub.textContent = atEnd
-        ? "Letzte Frage. Danach auswerten."
-        : "Beantworte die Frage – dann weiter.";
+        ? "Alles beantwortet. Jetzt auswerten."
+        : "Beantworte die Frage – dann geht’s weiter.";
     }
 
-    // focus first input for the step
-    const block = blocks.find(b => Number(b.dataset.step) === s);
-    const first = block ? block.querySelector('input[type="radio"]') : null;
-    if (first) {
-      try { first.focus({ preventScroll: true }); } catch (_) {}
+    // Fokus auf erste Option
+    const firstInput = blocks
+      .find(b => Number(b.dataset.step) === step)
+      ?.querySelector('input[type="radio"]');
+
+    if (firstInput) {
+      try { firstInput.focus({ preventScroll: true }); } catch (_) {}
     }
 
-    // keep it clean on mobile
+    // Scroll zur Form (mobil)
     try { form.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
   }
 
@@ -98,44 +117,10 @@
     return !!block.querySelector('input[type="radio"]:checked');
   }
 
-  function readScorePercent() {
-    const data = new FormData(form);
-    let sum = 0;
-
-    for (let i = 1; i <= QUESTIONS; i++) {
-      const v = data.get("q" + i);
-      if (v === null) return null;
-      const n = Number(v);
-      if (!Number.isFinite(n)) return null;
-      sum += n;
-    }
-
-    const max = QUESTIONS * MAX_PER_Q;
-    return Math.round((sum / max) * 100);
-  }
-
-  function hideCTA() {
-    if (!ringCta) return;
-    ringCta.style.display = "none";
-  }
-
-  function showCTA() {
-    if (!ringCta) return;
-    ringCta.style.display = "flex";
-  }
-
-  function resetUI() {
-    setRing(0);
-    hideCTA();
-    if (scoreLine) scoreLine.textContent = "Dein Energie-Level liegt bei —%";
-    if (resultCopy) resultCopy.style.display = "none";
-    if (scoreSub) scoreSub.textContent = "Starte mit Frage 1.";
-  }
-
   function nextStep() {
     const s = currentStep();
     if (!stepAnswered(s)) {
-      if (scoreSub) scoreSub.textContent = "Bitte wähle eine Antwort, dann weiter.";
+      if (scoreSub) scoreSub.textContent = "Bitte wähle eine Antwort, dann geht’s weiter.";
       return;
     }
     setStep(Math.min(QUESTIONS, s + 1));
@@ -146,7 +131,47 @@
     setStep(Math.max(1, s - 1));
   }
 
-  // Auto-advance on selection (optional smoothness)
+  // ===== Score =====
+  function readScorePercent() {
+    const data = new FormData(form);
+    let sum = 0;
+
+    for (let i = 1; i <= QUESTIONS; i++) {
+      const v = data.get("q" + i);
+      if (v === null || v === "") return null;
+      const n = Number(v);
+      if (!Number.isFinite(n)) return null;
+      sum += n;
+    }
+
+    const max = QUESTIONS * MAX_PER_Q;
+    return Math.round((sum / max) * 100);
+  }
+
+  // ===== UI Reset =====
+  function resetUI() {
+    setRing(0);
+
+    // Du wolltest: keine Labels wie stabil/top etc.
+    if (scoreBadge) scoreBadge.textContent = "Energie-Tanken";
+
+    if (scoreNum) scoreNum.textContent = "—%";
+
+    if (resultCopy) {
+      resultCopy.style.display = "none";
+      resultCopy.textContent = "";
+    }
+
+    hideCTA();
+
+    if (scoreSub) scoreSub.textContent = "Starte mit Frage 1 – danach geht’s Schritt für Schritt weiter.";
+
+    // Buttons zurücksetzen
+    if (nextBtn) nextBtn.style.display = "inline-flex";
+    if (evalBtn) evalBtn.style.display = "none";
+  }
+
+  // ===== Auto-advance on radio selection =====
   form.addEventListener("change", (e) => {
     const t = e.target;
     if (!(t instanceof HTMLInputElement)) return;
@@ -168,17 +193,24 @@
     }
   });
 
-  // Buttons
+  // ===== Buttons =====
   if (nextBtn) nextBtn.addEventListener("click", nextStep);
   if (backBtn) backBtn.addEventListener("click", prevStep);
 
-  // Submit / Auswertung
+  // Kontakt Button
+  if (contactBtn) {
+    contactBtn.addEventListener("click", () => {
+      window.location.href = "kontakt.html";
+    });
+  }
+
+  // ===== Auswertung =====
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Ensure everything answered
+    // check all answered -> wenn nicht, spring zur ersten offenen
     for (let i = 1; i <= QUESTIONS; i++) {
-      if (!stepAnswered(i)) {
+      if (!form.querySelector(`input[name="q${i}"]:checked`)) {
         setStep(i);
         if (scoreSub) scoreSub.textContent = "Bitte beantworte diese Frage, dann auswerten.";
         return;
@@ -187,24 +219,32 @@
 
     const score = readScorePercent();
     if (score === null) {
-      if (scoreSub) scoreSub.textContent = "Bitte beantworte alle Fragen, dann auswerten.";
+      if (scoreSub) scoreSub.textContent = "Bitte beantworte alle Fragen, dann bekommst du deine Skala.";
       return;
     }
 
     setRing(score);
+
+    // Dein Wunsch: NUR dieser Satz
+    if (scoreNum) scoreNum.textContent = `Dein Energie-Level liegt bei ${score}%`;
+
+    if (scoreBadge) scoreBadge.textContent = "Energie-Tanken";
+
+    if (resultCopy) {
+      resultCopy.style.display = "block";
+      resultCopy.textContent = "Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.";
+    }
+
     showCTA();
 
-    if (scoreLine) scoreLine.textContent = `Dein Energie-Level liegt bei ${score}%`;
-    if (resultCopy) resultCopy.style.display = "block";
-
-    // scroll to result card (ring)
-    const ringWrap = document.querySelector(".ek-gauge-card");
-    if (ringWrap) {
-      try { ringWrap.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
+    // scroll zur Skala
+    const gaugeCard = document.querySelector(".card.gauge");
+    if (gaugeCard) {
+      try { gaugeCard.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) {}
     }
   });
 
-  // Reset
+  // ===== Reset =====
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       form.reset();
@@ -213,8 +253,12 @@
     });
   }
 
-  // Init
+  // ===== Init =====
   initRing();
   resetUI();
+
+  // Safety: falls CSS/HTML irgendwas anzeigt -> hart auf Step 1 setzen
+  blocks.forEach((b) => (b.style.display = "none"));
   setStep(1);
+
 })();
