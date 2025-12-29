@@ -5,367 +5,345 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Wissenswertes – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Wissenswertes zu Energie, Frequenz, Wasser, Resonanz und Praxis. Klar strukturiert, verständlich, ohne Buzzword-Nebel. ENERGIE-TANKEN.net" />
+  <meta name="description" content="Wissenswertes: Gesundheit in die Hand nehmen. Zellspannung, Milieu, Energie, Warburg-Effekt – klar, provokativ, verständlich. ENERGIE-TANKEN.net" />
 
-  <link rel="stylesheet" href="style.css?v=11" />
+  <link rel="stylesheet" href="style.css?v=12" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Page-only polish (kein style.css anfassen) -->
+  <!-- Page-local: nur Typo/Lesbarkeit, ohne dein globales Design zu zerstören -->
   <style>
-    :root{
-      --gold:#c9ab58;
-      --gold2:#b8923d;
-      --line:rgba(255,255,255,.10);
-      --muted:rgba(255,255,255,.68);
-      --text:rgba(255,255,255,.88);
-    }
-
-    main.container{ padding-top: 44px !important; }
-    .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-
-    .page-head{
-      border: 1px solid var(--line);
-      background: radial-gradient(1000px 520px at 50% -20%, rgba(201,171,88,.12), transparent 60%),
-                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25));
-      border-radius: 22px;
-      padding: 18px 18px 16px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.55);
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .kicker{
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing: .2px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    h1{
-      margin: 10px 0 8px;
-      font-weight: 900;
-      letter-spacing: .2px;
-      line-height: 1.05;
-      color: var(--gold);
-      font-size: clamp(30px, 6.2vw, 52px);
-    }
-
-    .lead{
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.5;
-      max-width: 80ch;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .cardx{
-      grid-column: span 6;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.26));
-      border-radius: 22px;
-      padding: 16px;
-      box-shadow: 0 16px 55px rgba(0,0,0,.45);
-      overflow: hidden;
-    }
-    .wide{ grid-column: span 12; }
-
-    .cardx h2{
-      margin: 0 0 8px;
-      font-size: 20px;
-      color: var(--text);
-      font-weight: 900;
-      letter-spacing: .2px;
-    }
-
-    .cardx p{
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 1.55;
+    .wys-hero-note{
+      margin: 10px auto 0;
+      max-width: 72ch;
+      color: rgba(255,255,255,.68);
+      line-height: 1.7;
       font-size: 16px;
     }
 
-    .list{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
+    .manifest{
+      max-width: 92ch;
+      margin: 0 auto;
+      padding: 0;
     }
-    .list li{ margin: 6px 0; }
 
-    .tagrow{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
-    .tag{
-      border: 1px solid rgba(201,171,88,.30);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.82);
-      padding: 10px 12px;
-      border-radius: 999px;
+    .manifest .lead{
+      margin: 0 auto 18px;
+      max-width: 74ch;
+      color: rgba(255,255,255,.78);
+      line-height: 1.85;
+      font-size: 16.5px;
+    }
+
+    .manifest h2{
+      margin-top: 26px;
+    }
+
+    .manifest h3{
+      margin: 26px 0 10px;
+      color: rgba(201,171,88,.92);
       font-weight: 800;
-      font-size: 12px;
-      letter-spacing: .25px;
-      line-height: 1;
-      text-transform: uppercase;
+      letter-spacing: .02em;
+      font-size: 22px;
+      line-height: 1.2;
+      text-transform: none;
     }
 
-    details{
-      border: 1px solid var(--line);
+    .manifest .pull{
+      border: 1px solid rgba(201,171,88,.18);
+      background: rgba(0,0,0,.22);
       border-radius: 18px;
-      background: rgba(0,0,0,.18);
-      padding: 12px 14px;
+      padding: 16px 16px;
+      margin: 18px auto;
+      max-width: 78ch;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
     }
-    details + details{ margin-top: 10px; }
-    summary{
-      cursor:pointer;
-      font-weight: 900;
-      color: rgba(255,255,255,.86);
-      list-style: none;
-    }
-    summary::-webkit-details-marker{ display:none; }
-
-    .cta{
-      border: 1px solid rgba(201,171,88,.35);
-      background: linear-gradient(180deg, rgba(201,171,88,.16), rgba(0,0,0,.20));
-      border-radius: 22px;
-      padding: 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .cta h3{
-      margin: 0 0 6px;
-      font-size: 18px;
-      font-weight: 900;
-      color: rgba(255,255,255,.88);
-    }
-    .cta p{
+    .manifest .pull p{
       margin: 0;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 15px;
-      max-width: 75ch;
+      color: rgba(255,255,255,.82);
+      line-height: 1.8;
+      font-size: 16.5px;
     }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(201,171,88,.55);
-      background: linear-gradient(180deg, var(--gold), var(--gold2));
-      color: #0b0b0b;
-      font-weight: 900;
-      letter-spacing: .2px;
-      text-decoration: none;
-      min-height: 48px;
+
+    .manifest .bullets{
+      max-width: 72ch;
+      margin: 8px auto 16px;
+      padding-left: 18px;
+      color: rgba(255,255,255,.76);
+      line-height: 1.9;
+      font-size: 16px;
+    }
+    .manifest .bullets li{
+      margin: 6px 0;
+    }
+
+    .kv{
+      max-width: 78ch;
+      margin: 10px auto 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .kv .row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .kv .row:first-child{ border-top:0; }
+    .kv .k{
+      color: rgba(255,255,255,.80);
+      font-weight: 700;
+    }
+    .kv .v{
+      color: rgba(201,171,88,.92);
+      font-weight: 800;
       white-space: nowrap;
-      box-shadow: 0 16px 40px rgba(201,171,88,.12);
+    }
+
+    .cta-panel{
+      border: 1px solid rgba(201,171,88,.22);
+      background: radial-gradient(900px 500px at 50% -30px, rgba(201,171,88,.13), transparent 58%),
+                  rgba(0,0,0,.22);
+      border-radius: 22px;
+      padding: 18px 16px;
+      margin: 22px auto 0;
+      max-width: 78ch;
+      text-align:center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    .cta-panel p{
+      margin: 0 0 12px;
+      color: rgba(255,255,255,.78);
+      line-height: 1.75;
+      font-size: 16px;
+      max-width: unset;
     }
 
     .fineprint{
-      margin-top: 14px;
+      margin: 18px auto 0;
+      max-width: 78ch;
       color: rgba(255,255,255,.52);
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.75;
+      text-align: center;
     }
 
-    @media (max-width: 860px){
-      .cardx{ grid-column: span 12; }
-      .cta{ flex-direction: column; align-items:flex-start; }
-      .btn{ width: 100%; }
+    @media (max-width:520px){
+      .manifest .lead{ font-size: 16px; }
+      .manifest .pull p{ font-size: 16px; }
+      .kv .v{ white-space: normal; text-align:right; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ================= NAV ================= -->
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-    <div class="topnav-links">
-      <a href="index.html">Home</a>
-      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-      <a href="anwendungen.html">Anwendungen</a>
-      <a href="shop.html">Shop</a>
-      <a href="wissenswertes.html" aria-current="page">Wissenswertes</a>
-      <a href="medien.html">Medien</a>
-      <a href="energie-level-messen.html">Energie-Level messen</a>
-      <a href="kontakt.html">Kontakt</a>
-    </div>
-  </div>
-</nav>
+  <!-- NAV (identisch wie Index & Hochfrequenz) -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="index.html" aria-label="Startseite">ENERGIE-TANKEN</a>
 
-<!-- ================= HERO (IDENTISCH) ================= -->
-<section class="hero-top">
-  <div class="hero-logo">
-    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
-  </div>
-
-  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-
-  <p class="hero-quote">
-    „Wenn du die Geheimnisse des Universums verstehen willst,
-    denke in Begriffen von Energie, Frequenz und Schwingung.“
-    – Nikola Tesla
-  </p>
-
-  <div class="hero-visual">
-    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
-  </div>
-</section>
-
-<main class="container">
-  <div class="wrap">
-
-    <section class="page-head">
-      <div class="kicker">
-        <span>Grundlagen • Klartext • Orientierung</span>
-        <span>ENERGIE-TANKEN.net</span>
+      <div class="topnav-links" aria-label="Hauptnavigation">
+        <a href="index.html">Home</a>
+        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+        <a href="anwendungen.html">Anwendungen</a>
+        <a href="shop.html">Shop</a>
+        <a href="wissenswertes.html" aria-current="page">Wissenswertes</a>
+        <a href="medien.html">Medien</a>
+        <a href="kontakt.html">Kontakt</a>
       </div>
+    </div>
+  </nav>
 
-      <h1>Wissenswertes</h1>
-      <p class="lead">
-        Hier trennen wir Nebel von Nutzen: Begriffe, Zusammenhänge, Denkmodelle – verständlich,
-        sauber strukturiert und ohne Dogma. Du sollst nicht „glauben“. Du sollst <strong>verstehen</strong>.
-      </p>
-    </section>
+  <!-- HERO (identisch wie Startseite) -->
+  <section class="hero-top">
+    <div class="hero-logo">
+      <img src="logo-energie-tanken-gold.png" alt="www.ENERGIE-TANKEN.net – Hochfrequenz nach Nikola Tesla">
+    </div>
 
-    <section class="grid">
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
 
-      <article class="cardx">
-        <h2>Energie • Frequenz • Schwingung</h2>
-        <p>
-          Diese drei Wörter werden oft als Buzzwords missbraucht. Wir nutzen sie als Denkrahmen:
-          Was beeinflusst deinen Zustand – messbar oder spürbar – und wie steuerst du es im Alltag?
+    <p class="hero-quote">
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen wie Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
+    </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla – ENERGIE-TANKEN.net Signature">
+    </div>
+
+    <p class="wys-hero-note">
+      Wissenswertes ist kein Wikipedia-Text. Es ist eine Einladung, wieder selber zu denken.
+      Klar. Provokativ. Und immer mit einer zentralen Frage: <strong style="color:#c9ab58">Was braucht deine Zelle, um Ordnung zu halten?</strong>
+    </p>
+
+    <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="container">
+
+    <section class="section">
+      <div class="manifest">
+
+        <h2>Gesundheit in die Hand nehmen. Oder weiter hoffen, dass jemand anderes sie repariert.</h2>
+
+        <p class="lead">
+          Es gibt Wahrheiten, die unbequem sind. Nicht, weil sie falsch wären – sondern weil sie Verantwortung verlangen.
+          Und Verantwortung ist das Letzte, was ein System mag, das auf Abhängigkeit gebaut ist.
         </p>
-        <ul class="list">
-          <li><strong>Energie</strong>: dein verfügbarer „Output“ (Klarheit, Kraft, Fokus).</li>
-          <li><strong>Frequenz</strong>: Rhythmus/Impuls (Schlaf, Stress, Licht, Ernährung).</li>
-          <li><strong>Schwingung</strong>: Reaktion des Systems (Nervensystem, Stimmung, Regeneration).</li>
-        </ul>
-        <div class="tagrow">
-          <span class="tag">Systemdenken</span>
-          <span class="tag">Alltag</span>
-          <span class="tag">Konstanz</span>
+
+        <h3>Die Zelle lügt nicht</h3>
+        <p class="lead">
+          Bevor wir über Therapien sprechen, über Geräte, Frequenzen oder Nahrungsergänzung, müssen wir über eine einzige Zahl reden:
+          <strong style="color:#c9ab58">–70 Millivolt.</strong>
+        </p>
+
+        <div class="pull">
+          <p>
+            So hoch ist die elektrische Spannung einer gesunden, voll funktionsfähigen Zelle. Nicht metaphorisch. Messbar.
+            Sinkt diese Spannung, fällt Ordnung – und der Körper arbeitet im Notbetrieb.
+          </p>
         </div>
-      </article>
 
-      <article class="cardx">
-        <h2>Wasser als „Infrastruktur“</h2>
-        <p>
-          Wasser ist nicht nur „Getränk“. Es ist Transport, Lösung, Regulation.
-          Deshalb ist Wasserqualität ein Fundament – nicht Dekoration.
-        </p>
-        <ul class="list">
-          <li>Trinkbarkeit: leicht, angenehm, regelmäßig.</li>
-          <li>Routine: gleiche Uhrzeiten schlagen seltene „Perfektion“.</li>
-          <li>Feedback: Durst, Fokus, Energie – Beobachtung statt Rätselraten.</li>
-        </ul>
-        <div class="tagrow">
-          <span class="tag">Hydration</span>
-          <span class="tag">Routine</span>
-          <span class="tag">Feedback</span>
-        </div>
-      </article>
-
-      <article class="cardx wide">
-        <h2>Glossar – damit wir dieselbe Sprache sprechen</h2>
-
-        <details>
-          <summary>Resonanz</summary>
-          <p>
-            Wenn ein Impuls (z. B. Rhythmus, Stress, Schlaf) im System eine verstärkte Antwort erzeugt.
-            Praktisch: Du reagierst nicht nur „auf Ereignisse“, sondern auf Muster.
-          </p>
-        </details>
-
-        <details>
-          <summary>Regeneration</summary>
-          <p>
-            Nicht „Pause“, sondern Wiederaufbau. Schlaf ist der Chef – aber auch Ernährung, Bewegung und mentale Entlastung.
-          </p>
-        </details>
-
-        <details>
-          <summary>Konstanz</summary>
-          <p>
-            Der unterschätzte Hebel. Kleine Handlungen, wiederholt, erzeugen den großen Unterschied – wie Zinseszins.
-          </p>
-        </details>
-
-        <details>
-          <summary>Selbstverantwortung</summary>
-          <p>
-            Du delegierst nicht dein Leben. Du nutzt Expertise – aber du bleibst der Entscheider.
-          </p>
-        </details>
-      </article>
-
-      <article class="cardx">
-        <h2>Nikola Tesla – warum er hier auftaucht</h2>
-        <p>
-          Tesla steht bei uns nicht für „Auto“. Sondern für eine Denkweise:
-          neugierig, radikal präzise, und kompromisslos im Fragenstellen.
-        </p>
-        <ul class="list">
-          <li>Prinzip: erst verstehen, dann bauen.</li>
-          <li>Prinzip: Wirkung zeigt sich in Experimenten – nicht in Meinungen.</li>
-          <li>Prinzip: Technik als Werkzeug, nicht als Religion.</li>
-        </ul>
-      </article>
-
-      <article class="cardx">
-        <h2>Was wir nicht tun</h2>
-        <p>
-          Wir versprechen keine Wunder. Wir verkaufen keine Illusionen.
-          Wir bauen Klarheit – und Systeme, die im Alltag funktionieren.
-        </p>
-        <ul class="list">
-          <li>Keine Diagnosen.</li>
-          <li>Keine Heilversprechen.</li>
-          <li>Keine „One-Shot“-Lösungen ohne Kontext.</li>
-        </ul>
-      </article>
-
-      <article class="cardx wide">
-        <div class="cta">
-          <div>
-            <h3>Du willst Struktur statt Theorie?</h3>
-            <p>
-              Dann nutze den Energie-Kompass als Startpunkt. Danach können wir – wenn du willst –
-              sauber in Maßnahmen, Prioritäten und Kontakt übergehen.
-            </p>
+        <div class="kv" aria-label="Zellspannung und typische Zustände">
+          <div class="row">
+            <div class="k">Gesunde Zelle</div>
+            <div class="v">ca. −70 mV</div>
           </div>
-          <a class="btn" href="energie-level-messen.html">Energie-Kompass starten</a>
+          <div class="row">
+            <div class="k">Schmerz / Stress / Regulationsverlust</div>
+            <div class="v">ca. −50 mV</div>
+          </div>
+          <div class="row">
+            <div class="k">Entzündung / Reparaturstörung</div>
+            <div class="v">ca. −30 mV</div>
+          </div>
+          <div class="row">
+            <div class="k">Entdifferenzierung / Kontrollverlust</div>
+            <div class="v">ca. −15 mV</div>
+          </div>
+          <div class="row">
+            <div class="k">Zelltod</div>
+            <div class="v">0 mV</div>
+          </div>
+        </div>
+
+        <p class="lead">
+          Die Zelle <strong style="color:#c9ab58">muss kommunizieren</strong>.
+          Sie ist ein elektrisches System, eingebettet in ein wasserreiches, informationsleitendes Milieu –
+          <strong style="color:#c9ab58">mit oder ohne Zustimmung der Bundesnetzagentur.</strong>
+        </p>
+
+        <h3>Was Otto Heinrich Warburg wirklich gezeigt hat</h3>
+        <p class="lead">
+          Warburg bekam keinen Nobelpreis für ein Wellness-Zitat. Sondern für eine Beobachtung, die bis heute unbequem ist:
+          Wenn die mitochondriale Atmung einer Zelle gestört ist, schaltet sie auf Gärung um – selbst bei vorhandenem Sauerstoff.
+        </p>
+
+        <ul class="bullets">
+          <li>weniger ATP</li>
+          <li>mehr Säure im lokalen Zellmilieu</li>
+          <li>Verlust elektrischer Ordnung</li>
+          <li>Notbetrieb statt Hochleistung</li>
+        </ul>
+
+        <p class="lead">
+          Warburg sagte nicht: „Gene sind egal.“ Er sagte: <strong style="color:#c9ab58">Der Stoffwechsel ist primär.</strong>
+          Und genau das erschütterte das Weltbild: Krankheit als reine „Chemie“ oder reine „Genetik“ – ohne den Blick auf Energie.
+        </p>
+
+        <h3>Die Frage, die man nicht hören will</h3>
+        <p class="lead">
+          Wenn Krankheit mit Energieverlust beginnt, wenn Ordnung elektrisch ist, wenn Wasser Information trägt und Resonanz ein physikalisches Gesetz ist –
+          warum reden wir dann fast ausschließlich über Moleküle, aber kaum über Bioenergie?
+        </p>
+
+        <ul class="bullets">
+          <li>Herzschläge sind elektrisch.</li>
+          <li>Nerven sind elektrisch.</li>
+          <li>Zellteilung wird elektrisch beeinflusst.</li>
+          <li>Heilung reagiert auf elektrische Felder.</li>
+        </ul>
+
+        <p class="lead">
+          Das ist kein Zufall. Das ist Denkträgheit – gepaart mit wirtschaftlicher Bequemlichkeit.
+        </p>
+
+        <h3>Basisch? Sauer? Die falsche Debatte.</h3>
+        <p class="lead">
+          Der Blut-pH ist ein Ablenkungsmanöver. Er muss stabil sein – sonst wärst du tot.
+          Die entscheidende Frage ist nicht „Was zeigt dein Blutwert?“
+          Sondern: <strong style="color:#c9ab58">In welchem Milieu lebt deine Zelle?</strong>
+        </p>
+
+        <ul class="bullets">
+          <li>Wie viel Energie steht ihr zur Verfügung?</li>
+          <li>Wie stabil ist ihre Membranspannung?</li>
+          <li>Wie leistungsfähig sind ihre Mitochondrien?</li>
+          <li>Wie strukturiert ist das Wasser, das sie umgibt?</li>
+        </ul>
+
+        <h3>Der Ferrari-Vergleich (weil er weh tut)</h3>
+        <p class="lead">
+          In einen Ferrari kippst du kein Altöl, keine Cola, kein billiges Gemisch.
+          Weil du weißt: Der Motor reagiert auf Qualität.
+          Dein Körper ist kein Fiat Punto. Er ist ein hochkomplexes elektromagnetisches System.
+          Und doch behandeln ihn viele schlechter als ihre Kaffeemaschine.
+        </p>
+
+        <h3>Hochfrequenz? Keine Magie. Physik.</h3>
+        <p class="lead">
+          Niemand behauptet: „Eine Frequenz heilt alles.“ Das wäre unseriös.
+          Die ehrliche Frage lautet:
+          Kann gezielte energetische Stimulation in einem wasserreichen biologischen System Prozesse beeinflussen – dort, wo Ordnung verloren ging?
+        </p>
+
+        <div class="pull">
+          <p>
+            Diese Frage ist wissenschaftlich legitim. Sie ist unbequem. Und sie wird weiter untersucht werden –
+            mit oder ohne Zustimmung der Dogmenwächter.
+          </p>
+        </div>
+
+        <h3>Die eigentliche Provokation</h3>
+        <p class="lead">
+          Nicht Hochfrequenz ist das Problem. Nicht Warburg. Nicht Resonanz.
+          Die Provokation ist diese:
+          <strong style="color:#c9ab58">Wenn Gesundheit Energie ist, dann bist du verantwortlich.</strong>
+          Womit du dich versorgst. Mit Nahrung. Mit Wasser. Mit Information. Mit Rhythmus. Mit Bewusstsein.
+        </p>
+
+        <h3>Gesundheit in die Hand nehmen</h3>
+        <p class="lead">
+          Niemand verlangt blinden Glauben. Aber eigenständiges Denken ist kein Verbrechen.
+          Wer selbst denkt, stellt andere Fragen – und kommt oft zu Antworten, die man ihm nie beigebracht hat.
+          Gesundheit ist kein Geschenk. Sie ist ein Zustand, den man pflegt – oder verliert.
+          Die Entscheidung liegt nicht im System. Sie liegt bei dir.
+        </p>
+
+        <div class="cta-panel">
+          <p><strong style="color:#c9ab58">Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</strong></p>
+          <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
         </div>
 
         <p class="fineprint">
-          Hinweis: Inhalte dienen der Information und ersetzen keine medizinische Beratung oder Diagnose.
+          Hinweis: Diese Seite ist ein Impuls zum eigenständigen Denken. Sie ersetzt keine medizinische Diagnose oder Behandlung.
         </p>
-      </article>
 
+      </div>
     </section>
 
-  </div>
-</main>
+  </main>
 
-<footer>
-  © 2025 ENERGIE-TANKEN.net
-</footer>
+  <footer>
+    © 2025 ENERGIE-TANKEN.net
+  </footer>
 
 </body>
 </html>
