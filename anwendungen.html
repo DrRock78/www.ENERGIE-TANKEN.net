@@ -4,363 +4,345 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Anwendungen – ENERGIE-TANKEN.net</title>
-  <meta name="description" content="Anwendungen von Hochfrequenz, Wasserqualität und Frequenz-Routinen: klar, alltagstauglich, stilvoll. ENERGIE-TANKEN.net" />
+  <title>Anwendungen – Mensch, Tier, Pflanzen | ENERGIE-TANKEN.net</title>
+  <meta name="description" content="Anwendungen: Wasser für Mensch & Tier, Pflanzen & Nahrungskette – plus direkte Anwendung am Körper. Klar erklärt, mit Aha-Effekt. ENERGIE-TANKEN.net" />
+
+  <link rel="canonical" href="https://www.energie-tanken.net/anwendungen.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ENERGIE-TANKEN.net" />
+  <meta property="og:title" content="Anwendungen – Mensch, Tier, Pflanzen | ENERGIE-TANKEN.net" />
+  <meta property="og:description" content="Wasser für Mensch & Tier, Pflanzen & Nahrungskette – plus direkte Anwendung am Körper. Klar erklärt, mit Aha-Effekt." />
+  <meta property="og:url" content="https://www.energie-tanken.net/anwendungen.html" />
+  <meta property="og:image" content="https://www.energie-tanken.net/og-energie-tanken.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anwendungen – Mensch, Tier, Pflanzen | ENERGIE-TANKEN.net" />
+  <meta name="twitter:description" content="Wasser für Mensch & Tier, Pflanzen & Nahrungskette – plus direkte Anwendung am Körper. Klar erklärt." />
+  <meta name="twitter:image" content="https://www.energie-tanken.net/og-energie-tanken.jpg" />
 
   <link rel="stylesheet" href="style.css?v=11" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Page-only polish (kein style.css anfassen) -->
+  <!-- Page-only Styles: greifen NICHT in Header/Hero ein -->
   <style>
     :root{
       --gold:#c9ab58;
       --gold2:#b8923d;
       --line:rgba(255,255,255,.10);
       --muted:rgba(255,255,255,.68);
-      --text:rgba(255,255,255,.88);
       --panel:rgba(0,0,0,.22);
       --panel2:rgba(255,255,255,.03);
+      --shadow:rgba(0,0,0,.55);
+      --max:1100px;
     }
 
-    main.container{ padding-top: 44px !important; }
-    .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-
-    .page-head{
-      border: 1px solid var(--line);
-      background: radial-gradient(1000px 520px at 50% -20%, rgba(201,171,88,.12), transparent 60%),
-                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.25));
-      border-radius: 22px;
-      padding: 18px 18px 16px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.55);
-      overflow: hidden;
-      margin-bottom: 16px;
+    .page-wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:0 14px;
     }
 
-    .kicker{
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing: .2px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
+    .lead-card{
+      border:1px solid var(--line);
+      background:
+        radial-gradient(900px 460px at 50% -60px, rgba(201,171,88,.12), transparent 62%),
+        linear-gradient(180deg, var(--panel2), var(--panel));
+      border-radius:22px;
+      box-shadow:0 18px 60px var(--shadow);
+      padding:18px;
+      margin-top:10px;
     }
 
-    h1{
-      margin: 10px 0 8px;
-      font-weight: 900;
-      letter-spacing: .2px;
-      line-height: 1.05;
-      color: var(--gold);
-      font-size: clamp(30px, 6.2vw, 52px);
+    .lead-title{
+      margin:0 0 10px;
+      font-weight:900;
+      color:var(--gold);
+      letter-spacing:.2px;
+      font-size:clamp(22px, 5.4vw, 34px);
+      line-height:1.1;
+      text-transform:uppercase;
     }
 
-    .lead{
-      margin: 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.5;
-      max-width: 70ch;
+    .lead-text{
+      margin:0;
+      color:var(--muted);
+      font-size:16.5px;
+      line-height:1.65;
+      max-width:76ch;
     }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 14px;
+      grid-template-columns:repeat(12, 1fr);
+      gap:14px;
+      margin-top:16px;
     }
 
     .cardx{
-      grid-column: span 6;
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.26));
-      border-radius: 22px;
-      padding: 16px;
-      box-shadow: 0 16px 55px rgba(0,0,0,.45);
-      overflow: hidden;
+      grid-column:span 12;
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.20);
+      border-radius:22px;
+      padding:18px;
+      box-shadow:0 14px 44px rgba(0,0,0,.45);
+      overflow:hidden;
     }
 
     .cardx h2{
-      margin: 0 0 8px;
-      font-size: 20px;
-      color: var(--text);
-      font-weight: 900;
-      letter-spacing: .2px;
+      margin:0 0 10px;
+      font-size:26px;
+      color:var(--gold);
+      font-weight:900;
+      line-height:1.15;
+      text-transform:uppercase;
+      letter-spacing:.2px;
     }
 
     .cardx p{
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 16px;
+      margin:0 0 12px;
+      color:rgba(255,255,255,.75);
+      line-height:1.75;
+      font-size:16px;
+      max-width:78ch;
     }
 
-    .pillrow{
+    .bullets{
+      margin:10px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.74);
+      line-height:1.75;
+      font-size:16px;
+    }
+    .bullets li{ margin:6px 0; }
+
+    .tagrow{
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
-      margin-top: 10px;
+      gap:10px;
+      margin-top:12px;
     }
 
-    .pill{
-      border: 1px solid rgba(201,171,88,.30);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.82);
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: .2px;
-      line-height: 1;
+    .tag{
+      border:1px solid rgba(201,171,88,.28);
+      color:rgba(255,255,255,.78);
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(0,0,0,.18);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.1px;
+      white-space:nowrap;
     }
 
-    .wide{ grid-column: span 12; }
-
-    .cta{
-      border: 1px solid rgba(201,171,88,.35);
-      background: linear-gradient(180deg, rgba(201,171,88,.16), rgba(0,0,0,.20));
-      border-radius: 22px;
-      padding: 16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin-top: 14px;
+    .cta-panel{
+      text-align:center;
+      padding:18px;
+      border-radius:22px;
+      border:1px solid rgba(201,171,88,.22);
+      background:
+        radial-gradient(900px 420px at 50% -120px, rgba(201,171,88,.14), transparent 60%),
+        rgba(0,0,0,.20);
+      box-shadow:0 18px 60px rgba(0,0,0,.55);
     }
 
-    .cta h3{
-      margin: 0 0 6px;
-      font-size: 18px;
-      font-weight: 900;
-      color: var(--text);
+    .cta-panel h3{
+      margin:0 0 8px;
+      color:var(--gold);
+      font-weight:900;
+      font-size:22px;
+      text-transform:uppercase;
+      letter-spacing:.2px;
     }
 
-    .cta p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 15px;
-      max-width: 75ch;
+    .cta-panel p{
+      margin:0 auto 12px;
+      color:rgba(255,255,255,.74);
+      line-height:1.6;
+      max-width:70ch;
+      font-size:16px;
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(201,171,88,.55);
-      background: linear-gradient(180deg, var(--gold), var(--gold2));
-      color: #0b0b0b;
-      font-weight: 900;
-      letter-spacing: .2px;
-      text-decoration: none;
-      min-height: 48px;
-      white-space: nowrap;
-      box-shadow: 0 16px 40px rgba(201,171,88,.12);
-    }
-
-    details{
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(0,0,0,.18);
-      padding: 12px 14px;
-    }
-    details + details{ margin-top: 10px; }
-    summary{
-      cursor:pointer;
-      font-weight: 900;
-      color: rgba(255,255,255,.86);
-      list-style: none;
-    }
-    summary::-webkit-details-marker{ display:none; }
-    details p{ margin: 10px 0 0; color: var(--muted); line-height: 1.5; }
-
-    .fineprint{
-      margin-top: 14px;
-      color: rgba(255,255,255,.52);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    @media (max-width: 860px){
-      .cardx{ grid-column: span 12; }
-      .cta{ flex-direction: column; align-items: flex-start; }
-      .btn{ width: 100%; }
+    /* Responsive columns */
+    @media (min-width:900px){
+      .cardx.col-6{ grid-column:span 6; }
+      .cardx.col-7{ grid-column:span 7; }
+      .cardx.col-5{ grid-column:span 5; }
     }
   </style>
 </head>
 
 <body>
 
-<!-- ================= NAV ================= -->
-<nav class="topnav">
-  <div class="topnav-inner">
-    <a class="topnav-brand" href="index.html">ENERGIE-TANKEN</a>
-    <div class="topnav-links">
-      <a href="index.html">Home</a>
-      <a href="hochfrequenz-2026.html">Hochfrequenz</a>
-      <a href="anwendungen.html" aria-current="page">Anwendungen</a>
-      <a href="shop.html">Shop</a>
-      <a href="wissenswertes.html">Wissenswertes</a>
-      <a href="medien.html">Medien</a>
-      <a href="energie-level-messen.html">Energie-Level messen</a>
-      <a href="kontakt.html">Kontakt</a>
-    </div>
-  </div>
-</nav>
+  <!-- NAV (identisch wie Index & Hochfrequenz) -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="index.html" aria-label="Startseite">ENERGIE-TANKEN</a>
 
-<!-- ================= HERO (IDENTISCH) ================= -->
-<section class="hero-top">
-  <div class="hero-logo">
-    <img src="logo-energie-tanken-gold.png" alt="ENERGIE-TANKEN.net">
-  </div>
-
-  <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
-
-  <p class="hero-quote">
-    „Wenn du die Geheimnisse des Universums verstehen willst,
-    denke in Begriffen von Energie, Frequenz und Schwingung.“
-    – Nikola Tesla
-  </p>
-
-  <div class="hero-visual">
-    <img src="hero-tesla-signature.png" alt="Nikola Tesla">
-  </div>
-</section>
-
-<main class="container">
-  <div class="wrap">
-
-    <section class="page-head">
-      <div class="kicker">
-        <span>Praxis • Anwendung • Alltag</span>
-        <span>ENERGIE-TANKEN.net</span>
+      <div class="topnav-links" aria-label="Hauptnavigation">
+        <a href="index.html">Home</a>
+        <a href="hochfrequenz-2026.html">Hochfrequenz</a>
+        <a href="anwendungen.html" aria-current="page">Anwendungen</a>
+        <a href="shop.html">Shop</a>
+        <a href="wissenswertes.html">Wissenswertes</a>
+        <a href="medien.html">Medien</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="energie-level-messen.html">Energie-Level messen</a>
       </div>
+    </div>
+  </nav>
 
-      <h1>Anwendungen</h1>
-      <p class="lead">
-        Nicht „Magie“. Sondern ein <strong>System</strong>: Routinen, Wasserqualität, Rhythmus – und klare Entscheidungen.
-        Hier findest du Anwendungsfelder, die du sofort in dein Leben integrieren kannst.
-      </p>
-    </section>
+  <!-- HERO (identisch wie Index & Hochfrequenz) -->
+  <section class="hero-top">
+    <div class="hero-logo">
+      <img src="logo-energie-tanken-gold.png" alt="www.ENERGIE-TANKEN.net – Hochfrequenz nach Nikola Tesla">
+    </div>
 
-    <section class="grid">
-      <article class="cardx">
-        <h2>1) Wasser als Träger: Alltag & Leistungsfähigkeit</h2>
-        <p>
-          Wenn dein Körper zu großen Teilen aus Wasser besteht, ist Wasserqualität kein „Nice-to-have“,
-          sondern Infrastruktur. Ziel: leichter trinken, besser vertragen, konsequenter bleiben.
+    <h1 class="hero-headline">GESUNDHEIT IN DIE HAND NEHMEN.</h1>
+
+    <p class="hero-quote">
+      „Wenn du die Geheimnisse des Universums verstehen willst,
+      denke in Begriffen wie Energie, Frequenz und Schwingung.“
+      – Nikola Tesla
+    </p>
+
+    <div class="hero-visual">
+      <img src="hero-tesla-signature.png" alt="Nikola Tesla – ENERGIE-TANKEN.net Signature">
+    </div>
+
+    <a class="btn btn-primary" href="#anwendungen">Anwendungen ansehen</a>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="container" id="anwendungen">
+    <div class="page-wrap">
+
+      <section class="lead-card">
+        <h2 class="lead-title">Anwendungen – Mensch, Tier, Pflanzen</h2>
+        <p class="lead-text">
+          Hier geht’s nicht um „Magie“. Hier geht’s um <strong>Praxis</strong>:
+          Was du mit hochwertigem Wasser und Hochfrequenz im Alltag konkret machst –
+          beim Trinken, beim Kochen, bei Pflanzen, bei Tieren, und bei dir selbst.
+          Wer versteht, wie ein System versorgt wird, baut Energie statt Symptome.
         </p>
-        <div class="pillrow">
-          <span class="pill">Hydration-Routine</span>
-          <span class="pill">Trink-Trigger</span>
-          <span class="pill">Konstanz statt Perfektion</span>
+        <div class="tagrow" aria-label="Kurzüberblick">
+          <span class="tag">Trinken</span>
+          <span class="tag">Kochen</span>
+          <span class="tag">Pflanzen & Gemüse</span>
+          <span class="tag">Tiergesundheit</span>
+          <span class="tag">Anwendung am Körper</span>
         </div>
-      </article>
+      </section>
 
-      <article class="cardx">
-        <h2>2) Rhythmus: Schlaf, Licht, Timing</h2>
-        <p>
-          Energie ist selten ein „Problem von heute“. Meist ist es ein <strong>Timing-Problem</strong>.
-          Wer Rhythmus stabilisiert, reduziert Reibung – und gewinnt Reserve.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Schlaf-Fenster</span>
-          <span class="pill">Morgenlicht</span>
-          <span class="pill">Abend-Runterfahren</span>
-        </div>
-      </article>
+      <section class="grid">
 
-      <article class="cardx">
-        <h2>3) Stress & Belastung: Reserve aufbauen</h2>
-        <p>
-          Belastung ist nicht der Feind – aber fehlende Reserve ist es.
-          Ziel: dein Nervensystem bekommt wieder „Luft“.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Mikropausen</span>
-          <span class="pill">Atmung</span>
-          <span class="pill">Regeneration</span>
-        </div>
-      </article>
+        <!-- 1) Mensch -->
+        <article class="cardx col-6">
+          <h2>Mensch – Wasser als Basis</h2>
+          <p>
+            Der Körper ist wasserreich. Und Wasser ist nicht nur „Menge“, sondern auch
+            <strong>Qualität</strong>. Wenn du Energie willst, musst du zuerst die Basis sauber machen:
+            Hydration, Rhythmus, Mineralien – und keine Dauerbelastung durch Zucker & Softdrinks.
+          </p>
+          <ul class="bullets">
+            <li><strong>Trinken:</strong> Regelmäßig, über den Tag verteilt – statt „abends alles nachholen“.</li>
+            <li><strong>Replace-Strategie:</strong> Wasser statt Softdrinks. Nicht Moral – Output.</li>
+            <li><strong>Kochen:</strong> Wasser ist Träger: für Tee, Suppen, Reis, Hülsenfrüchte, Saucen.</li>
+            <li><strong>Alltag:</strong> Der Unterschied ist oft nicht „mehr machen“, sondern „besser versorgen“.</li>
+          </ul>
+        </article>
 
-      <article class="cardx">
-        <h2>4) Bewegung: Minimal effektiv</h2>
-        <p>
-          Du brauchst kein Hardcore-Programm. Du brauchst ein Setup, das du durchziehst.
-          Bewegungsenergie ist wie Zinseszins – klein gestartet, groß gelandet.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Spaziergänge</span>
-          <span class="pill">Schritte</span>
-          <span class="pill">2× pro Woche</span>
-        </div>
-      </article>
+        <!-- 2) Tier -->
+        <article class="cardx col-6">
+          <h2>Tier – Wasser & Futterkette</h2>
+          <p>
+            Tiere reagieren oft direkter auf Veränderungen. Warum? Weil sie selten „gegen“
+            ihren Körper leben – und weil ihr System einfacher „ehrlich“ zurückmeldet.
+            Sauberes Wasser und eine bessere Futterkette sind für Tiere nicht Lifestyle,
+            sondern Grundversorgung.
+          </p>
+          <ul class="bullets">
+            <li><strong>Trinkwasser:</strong> konstant verfügbar – frischer Wechsel statt „steht seit gestern“.</li>
+            <li><strong>Futter:</strong> Qualität + Verträglichkeit schlägt „viel hilft viel“.</li>
+            <li><strong>Beobachtung:</strong> Fell, Energie, Verdauung, Ruhe – das sind echte Indikatoren.</li>
+          </ul>
+        </article>
 
-      <article class="cardx wide">
-        <h2>5) Energie-Kompass: Messen → Verstehen → Handeln</h2>
-        <p>
-          Der Energie-Kompass ist dein Radar. Nicht, um dich zu bewerten – sondern um Muster zu erkennen:
-          <strong>Schlaf</strong>, <strong>Trinken</strong>, <strong>Ernährung</strong>, <strong>Bewegung</strong>, <strong>Belastung</strong>.
-          Wer misst, wird präziser. Wer präziser wird, gewinnt Kontrolle.
-        </p>
-        <div class="pillrow">
-          <span class="pill">Selbst-Check</span>
-          <span class="pill">Wiederholbar</span>
-          <span class="pill">Einfach & klar</span>
-        </div>
-
-        <div class="cta">
-          <div>
-            <h3>Willst du daraus ein echtes Erlebnis machen?</h3>
-            <p>
-              Dann gehen wir den nächsten Schritt: Kompass → Auswertung → konkrete Empfehlung → Kontakt-CTA,
-              ohne Chaos, ohne Brüche, ohne „0% obwohl beantwortet“.
-            </p>
+        <!-- 3) Pflanzen/Gemüse -->
+        <article class="cardx col-7">
+          <h2>Pflanzen, Gemüse & Früchte – Nährstoffaufnahme</h2>
+          <p>
+            Pflanzen bestehen zu einem großen Teil aus Wasser. Das heißt:
+            Wasserqualität wirkt entlang der Kette – vom Gießen bis auf den Teller.
+            Wer Lebensmittel als „Träger“ versteht, denkt automatisch in Systemen.
+          </p>
+          <ul class="bullets">
+            <li><strong>Gießen:</strong> Regelmäßig und passend – weniger „Schock-Gießen“.</li>
+            <li><strong>Gemüse & Kräuter:</strong> Das, was sie aufnehmen, landet später im Organismus.</li>
+            <li><strong>Futterpflanzen:</strong> Was du dem Tier gibst, beginnt oft bei dem, was du gießt.</li>
+            <li><strong>Logik:</strong> Bessere Basis → stabilere Qualität → besserer Output.</li>
+          </ul>
+          <div class="tagrow">
+            <span class="tag">Nahrungskette</span>
+            <span class="tag">Pflanzenwasser</span>
+            <span class="tag">Systemdenken</span>
           </div>
-          <a class="btn" href="energie-level-messen.html">Zum Energie-Kompass</a>
-        </div>
-      </article>
+        </article>
 
-      <article class="cardx wide">
-        <h2>FAQ – kurz & ehrlich</h2>
-
-        <details>
-          <summary>Ist das medizinische Behandlung?</summary>
+        <!-- 4) Körper-Anwendung -->
+        <article class="cardx col-5">
+          <h2>Am Körper – Anwendung</h2>
           <p>
-            Nein. Das ist Orientierung und Selbstmanagement. Bei Beschwerden oder Erkrankungen: immer ärztlich abklären.
+            Hier geht es um das direkte Erlebnis: Menschen wollen nicht nur lesen,
+            sie wollen <strong>spüren</strong>. Deshalb unterscheiden wir klar:
+            <strong>Versorgung</strong> (Wasser/Ernährung/Rhythmus) und <strong>Anwendung</strong> (Impuls).
           </p>
-        </details>
+          <ul class="bullets">
+            <li><strong>Impuls statt Dauer:</strong> kurz, gezielt, sauber.</li>
+            <li><strong>Feedback:</strong> Wärme, Ruhe, Körpergefühl, Fokus – die Rückmeldung zählt.</li>
+            <li><strong>Realistisch:</strong> Kein „heil alles“. Sondern: System unterstützen, wenn Ordnung fehlt.</li>
+          </ul>
+        </article>
 
-        <details>
-          <summary>Warum so viel Fokus auf Routine?</summary>
+        <!-- 5) Praxis-Setup -->
+        <article class="cardx">
+          <h2>Praxis-Setup – so denken wir hier</h2>
           <p>
-            Weil Ergebnisse nicht durch Motivation entstehen, sondern durch Systeme. Motivation ist Wetter. Systeme sind Klima.
+            Du bekommst bei ENERGIE-TANKEN keine Religion, sondern ein Prinzip:
+            <strong>Input → Prozess → Output.</strong>
+            Wer die Eingänge (Wasser, Ernährung, Rhythmus) stabilisiert,
+            macht den Körper wieder zu dem, was er sein will: ein funktionierendes System.
           </p>
-        </details>
+          <ul class="bullets">
+            <li><strong>Erst Basis, dann Feinschliff:</strong> Wasser & Rhythmus vor „Sondermaßnahmen“.</li>
+            <li><strong>Alltagstauglich:</strong> das System muss in dein Leben passen – sonst hält es nicht.</li>
+            <li><strong>Messbar denken:</strong> Schlaf, Energie, Verdauung, Fokus – nicht „Glauben“.</li>
+            <li><strong>Erlebnis:</strong> Wenn du Hochfrequenzenergie selbst spüren möchtest, nimm Kontakt auf.</li>
+          </ul>
+        </article>
 
-        <details>
-          <summary>Was ist der nächste Schritt, wenn ich Interesse habe?</summary>
+        <!-- CTA -->
+        <article class="cardx cta-panel">
+          <h3>Hochfrequenzenergie selbst spüren?</h3>
           <p>
-            Kontakt aufnehmen. Dann klären wir Ziel, Ausgangslage, Erwartung – und was realistisch machbar ist.
+            Wenn du das nicht nur lesen, sondern am eigenen Körper erleben willst:
+            <strong>Kontakt aufnehmen</strong> – und wir klären, was sinnvoll ist (Mensch, Tier oder Setup).
           </p>
-        </details>
+          <a class="btn btn-primary" href="kontakt.html">Kontakt aufnehmen</a>
+        </article>
 
-        <p class="fineprint">
-          Hinweis: Inhalte dienen der Information und ersetzen keine medizinische Beratung oder Diagnose.
-        </p>
-      </article>
-    </section>
+      </section>
 
-  </div>
-</main>
+    </div>
+  </main>
 
-<footer>
-  © 2025 ENERGIE-TANKEN.net
-</footer>
+  <footer>
+    © 2025 ENERGIE-TANKEN.net
+  </footer>
 
 </body>
 </html>
